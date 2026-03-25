@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Portfolio Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            transition: all 0.3s;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 25px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header i {
+            font-size: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-header h3 {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 12px 25px;
+            margin: 5px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #aaa;
+        }
+
+        .menu-item:hover,
+        .menu-item.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .menu-item i {
+            width: 24px;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logout-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.3);
+            color: white;
+        }
+
+        /* Cards */
+        .section-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #ddd;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-sm {
+            padding: 5px 12px;
+            font-size: 12px;
+        }
+
+        /* Items List */
+        .items-list {
+            margin-top: 20px;
+        }
+
+        .item-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-info h4 {
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+
+        .item-info p {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Navigation Tabs Editor */
+        .nav-tab-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: #1a1a2e;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                left: -280px;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-crown"></i>
+            <h3>Admin Dashboard</h3>
+            <p style="font-size: 12px; color: #aaa;">Welcome, Admin</p>
+        </div>
+        <div class="sidebar-menu">
+            <div class="menu-item active" onclick="showSection('hero')">
+                <i class="fas fa-home"></i>
+                <span>Hero Section</span>
+            </div>
+            <div class="menu-item" onclick="showSection('about')">
+                <i class="fas fa-user"></i>
+                <span>About Cards</span>
+            </div>
+            <div class="menu-item" onclick="showSection('languages')">
+                <i class="fas fa-code"></i>
+                <span>Languages & Skills</span>
+            </div>
+            <div class="menu-item" onclick="showSection('projects')">
+                <i class="fas fa-project-diagram"></i>
+                <span>Projects</span>
+            </div>
+            <div class="menu-item" onclick="showSection('education')">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Education</span>
+            </div>
+            <div class="menu-item" onclick="showSection('contact')">
+                <i class="fas fa-envelope"></i>
+                <span>Contact Info</span>
+            </div>
+            <div class="menu-item" onclick="showSection('navigation')">
+                <i class="fas fa-bars"></i>
+                <span>Navigation Menu</span>
+            </div>
+            <div class="menu-item" onclick="showSection('pages')">
+                <i class="fas fa-file"></i>
+                <span>Custom Pages</span>
+            </div>
+            <div class="menu-item" onclick="showSection('settings')">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="top-bar">
+            <button class="btn-secondary" id="menuToggle" style="background: none; border: none; font-size: 24px;">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="index.html" class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+
+        <!-- Hero Section -->
+        <div id="hero-section" class="section-card">
+            <div class="section-title">
+                <h2>Hero Section</h2>
+                <button class="btn-primary" onclick="saveHero()">Save Changes</button>
+            </div>
+            <div class="form-group">
+                <label>Profile Image URL</label>
+                <input type="text" id="hero-image" class="form-control" placeholder="Image URL">
+                <small>Upload image and paste URL here</small>
+            </div>
+            <div class="form-group">
+                <label>Title (Hi, I'm [Name])</label>
+                <input type="text" id="hero-title" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Typing Text (Web & C++ Dev)</label>
+                <input type="text" id="hero-typing" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>CV Download Link</label>
+                <input type="text" id="hero-cv" class="form-control" placeholder="Path to CV file">
+            </div>
+            <div class="form-group">
+                <label>Show as Button or Nav Tab?</label>
+                <select id="hero-button-type" class="form-control">
+                    <option value="button">Button in Hero Section</option>
+                    <option value="nav">Navigation Tab</option>
+                    <option value="both">Both</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- About Cards Section -->
+        <div id="about-section" class="section-card" style="display: none;">
+            <div class="section-title">
+                <h2>About Cards</h2>
+                <button class="btn-primary" onclick="addAboutCard()">Add New Card</button>
+            </div>
+            <div id="about-cards-list" class="items-list"></div>
+        </div>
+
+        <!-- Languages Section -->
+        <div id="languages-section" class="section-card" style="display: none;">
+            <div class="section-title">
+                <h2>Languages & Skills</h2>
+                <button class="btn-primary" onclick="addLanguage()">Add Language</button>
+            </div>
+            <div id="languages-list" class="items-list"></div>
+            <button class="btn-primary" onclick="saveLanguages()" style="margin-top: 20px;">Save All Changes</button>
+        </div>
+
+        <!-- Projects Section -->
+        <div id="projects-section" class="section-card" style="display: none;">
+            <div class="section-title">
+                <h2>Projects Management</h2>
+                <button class="btn-primary" onclick="addProject()">Add New Project</button>
+            </div>
+            <div class="form-group">
+                <label>Projects to show on Homepage (Max 3)</label>
+                <input type="number" id="homepage-project-count" class="form-control" value="3" min="1" max="10">
+            </div>
+            <div id="projects-list" class="items-list"></div>
+        </div>
+
+        <!-- Education Section -->
+        <div id="education-section" class="section-card" style="display: none;">
+            <div class="section-title">
+                <h2>Education</h2>
+                <button class="btn-primary" onclick="addEducation()">Add Education</button>
+            </div>
+            <div id="education-list" class="items-list"></div>
+        </div>
+
+        <!-- Contact Section -->
+        <div id="contact-section" class="section-card" style="display: none;">
+            <div class="section-title">
+                <h2>Contact Information</h2>
+                <button class="btn-primary" onclick="saveContact()">Save Changes</button>
+            </div>
+            <div class="form-group">
+                <label>Contact Email</label>
+                <input type="email" id="contact-email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Contact Phone (Optional)</label>
+                <input type="text" id="contact-phone" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Contact Address (Optional)</label>
+                <textarea id="contact-address" class="form-control" rows="2"></textarea>
+            </div>
+        </div>
+
+        <!-- Navigation Section -->
+        <div id="navigation-section" class="section-card" style="display: none;">
+            <div class="section-title">
+                <h2>Navigation Menu</h2>
+                <button class="btn-primary" onclick="addNavTab()">Add New Tab</button>
+            </div>
+            <div id="nav-tabs-list" class="items-list"></div>
+            <button class="btn-primary" onclick="saveNavigation()" style="margin-top: 20px;">Save Navigation</button>
+        </div>
+
+        <!-- Custom Pages Section -->
+        <div id="pages-section" class="section-card" style="display: none;">
+            <div class="section-title">
+                <h2>Custom Pages</h2>
+                <button class="btn-primary" onclick="addCustomPage()">Create New Page</button>
+            </div>
+            <div id="custom-pages-list" class="items-list"></div>
+        </div>
+
+        <!-- Settings Section -->
+        <div id="settings-section" class="section-card" style="display: none;">
+            <div class="section-title">
+                <h2>Settings</h2>
+            </div>
+            <div class="form-group">
+                <label>Site Title</label>
+                <input type="text" id="site-title" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Footer Text</label>
+                <input type="text" id="footer-text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Admin Password (Change)</label>
+                <input type="password" id="admin-password" class="form-control" placeholder="New password">
+            </div>
+            <button class="btn-primary" onclick="saveSettings()">Save Settings</button>
+            <hr>
+            <button class="btn-danger" onclick="exportData()">Export All Data</button>
+            <button class="btn-secondary" onclick="importData()">Import Data</button>
+            <button class="btn-danger" onclick="resetToDefault()" style="margin-left: 10px;">Reset to Default</button>
+        </div>
+    </div>
+
+    <!-- Modal for Adding/Editing -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Add Item</h3>
+                <button onclick="closeModal()"
+                    style="background: none; border: none; color: white; font-size: 24px;">&times;</button>
+            </div>
+            <div id="modal-body"></div>
+            <button class="btn-primary" onclick="saveModalItem()">Save</button>
+        </div>
+    </div>
+
+    <script>
+        // Default Data Structure
+        let portfolioData = {
+            hero: {
+                image: "assets/images/profile.png",
+                title: "Tanzeela",
+                typingText: "Web & C++ Dev",
+                cvLink: "assests/Resume.pdf",
+                buttonType: "both"
+            },
+            aboutCards: [
+                {
+                    icon: "fa-user",
+                    title: "Who I Am",
+                    content: "Hi, I'm Tanzeela Fatima, a passionate developer turning ideas into real digital products."
+                },
+                {
+                    icon: "fa-code",
+                    title: "What I Build",
+                    content: "I build modern websites, backend systems, and Android UIs."
+                },
+                {
+                    icon: "fa-bullseye",
+                    title: "My Mission",
+                    content: "To grow as a full-stack developer and work on meaningful projects."
+                }
+            ],
+            languages: [
+                { name: "HTML", percent: 90 },
+                { name: "CSS", percent: 80 },
+                { name: "JavaScript", percent: 75 },
+                { name: "AngularJS", percent: 60 },
+                { name: "jQuery", percent: 70 },
+                { name: "PHP", percent: 50 },
+                { name: "SQL", percent: 70 },
+                { name: "MySQL", percent: 70 },
+                { name: "C#", percent: 40 },
+                { name: "Kotlin", percent: 30 },
+                { name: "WordPress", percent: 30 },
+                { name: "C++", percent: 93 }
+            ],
+            projects: [],
+            education: [
+                {
+                    degree: "Bachelor in Information Technology",
+                    institute: "University of Kotli, AJK",
+                    year: "2022 – Present"
+                },
+                {
+                    degree: "Intermediate in Computer Science",
+                    institute: "Fatima Jinnah College, Kotli",
+                    year: "2020 – 2022"
+                }
+            ],
+            contact: {
+                email: "codequeen765@gmail.com",
+                phone: "",
+                address: ""
+            },
+            navigation: [
+                { name: "Home", link: "#", type: "home" },
+                { name: "About", link: "#about", type: "section" },
+                { name: "Language", link: "#Languages", type: "section" },
+                { name: "Projects", link: "HTML/Projects.html", type: "page" },
+                { name: "Education", link: "#education", type: "section" },
+                { name: "Contact", link: "#contact", type: "section" }
+            ],
+            customPages: [],
+            settings: {
+                siteTitle: "Tanzeela Fatima",
+                footerText: "© 2025 Tanzeela Fatima. All Rights Reserved."
+            }
+        };
+
+        let currentModalType = null;
+        let currentEditIndex = null;
+
+        // Load data from localStorage
+        function loadData() {
+            const saved = localStorage.getItem('portfolioData');
+            if (saved) {
+                portfolioData = JSON.parse(saved);
+            }
+            renderAllSections();
+        }
+
+        // Save data to localStorage
+        function saveData() {
+            localStorage.setItem('portfolioData', JSON.stringify(portfolioData));
+            alert('Changes saved successfully!');
+        }
+
+        // Render all sections
+        function renderAllSections() {
+            renderHeroForm();
+            renderAboutCards();
+            renderLanguages();
+            renderProjects();
+            renderEducation();
+            renderContactForm();
+            renderNavigation();
+            renderCustomPages();
+            renderSettings();
+        }
+
+        // Hero Section
+        function renderHeroForm() {
+            document.getElementById('hero-image').value = portfolioData.hero.image;
+            document.getElementById('hero-title').value = portfolioData.hero.title;
+            document.getElementById('hero-typing').value = portfolioData.hero.typingText;
+            document.getElementById('hero-cv').value = portfolioData.hero.cvLink;
+            document.getElementById('hero-button-type').value = portfolioData.hero.buttonType;
+        }
+
+        function saveHero() {
+            portfolioData.hero = {
+                image: document.getElementById('hero-image').value,
+                title: document.getElementById('hero-title').value,
+                typingText: document.getElementById('hero-typing').value,
+                cvLink: document.getElementById('hero-cv').value,
+                buttonType: document.getElementById('hero-button-type').value
+            };
+            saveData();
+            alert('Hero section updated!');
+        }
+
+        // About Cards
+        function renderAboutCards() {
+            const container = document.getElementById('about-cards-list');
+            container.innerHTML = portfolioData.aboutCards.map((card, index) => `
+                <div class="item-card">
+                    <div class="item-info">
+                        <h4><i class="fas ${card.icon}"></i> ${card.title}</h4>
+                        <p>${card.content.substring(0, 100)}...</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn-secondary btn-sm" onclick="editAboutCard(${index})">Edit</button>
+                        <button class="btn-danger btn-sm" onclick="deleteAboutCard(${index})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addAboutCard() {
+            currentModalType = 'about';
+            currentEditIndex = null;
+            document.getElementById('modal-title').textContent = 'Add About Card';
+            document.getElementById('modal-body').innerHTML = `
+                <div class="form-group">
+                    <label>Icon Class (fa-user, fa-code, etc.)</label>
+                    <input type="text" id="card-icon" class="form-control" placeholder="fa-user">
+                </div>
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="card-title" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Content</label>
+                    <textarea id="card-content" class="form-control" rows="4"></textarea>
+                </div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function editAboutCard(index) {
+            currentModalType = 'about';
+            currentEditIndex = index;
+            const card = portfolioData.aboutCards[index];
+            document.getElementById('modal-title').textContent = 'Edit About Card';
+            document.getElementById('modal-body').innerHTML = `
+                <div class="form-group">
+                    <label>Icon Class</label>
+                    <input type="text" id="card-icon" class="form-control" value="${card.icon}">
+                </div>
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="card-title" class="form-control" value="${card.title}">
+                </div>
+                <div class="form-group">
+                    <label>Content</label>
+                    <textarea id="card-content" class="form-control" rows="4">${card.content}</textarea>
+                </div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function deleteAboutCard(index) {
+            if (confirm('Delete this card?')) {
+                portfolioData.aboutCards.splice(index, 1);
+                saveData();
+                renderAboutCards();
+            }
+        }
+
+        // Languages
+        function renderLanguages() {
+            const container = document.getElementById('languages-list');
+            container.innerHTML = portfolioData.languages.map((lang, index) => `
+                <div class="item-card">
+                    <div class="item-info">
+                        <h4>${lang.name}</h4>
+                        <p>Percentage: ${lang.percent}%</p>
+                    </div>
+                    <div class="item-actions">
+                        <input type="range" min="0" max="100" value="${lang.percent}" onchange="updateLanguagePercent(${index}, this.value)" style="width: 150px;">
+                        <button class="btn-danger btn-sm" onclick="deleteLanguage(${index})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addLanguage() {
+            const name = prompt('Enter language name:');
+            if (name) {
+                const percent = prompt('Enter percentage (0-100):', '50');
+                if (percent !== null) {
+                    portfolioData.languages.push({ name: name, percent: parseInt(percent) });
+                    saveData();
+                    renderLanguages();
+                }
+            }
+        }
+
+        function updateLanguagePercent(index, value) {
+            portfolioData.languages[index].percent = parseInt(value);
+            saveData();
+        }
+
+        function deleteLanguage(index) {
+            if (confirm('Delete this language?')) {
+                portfolioData.languages.splice(index, 1);
+                saveData();
+                renderLanguages();
+            }
+        }
+
+        function saveLanguages() {
+            saveData();
+            alert('Languages saved!');
+        }
+
+        // Projects
+        function renderProjects() {
+            const container = document.getElementById('projects-list');
+            if (portfolioData.projects.length === 0) {
+                container.innerHTML = '<p>No projects yet. Click "Add New Project" to get started.</p>';
+                return;
+            }
+            container.innerHTML = portfolioData.projects.map((project, index) => `
+                <div class="item-card">
+                    <div class="item-info">
+                        <h4>${project.title}</h4>
+                        <p>${project.description.substring(0, 100)}...</p>
+                        <small>Technologies: ${project.technologies}</small>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn-secondary btn-sm" onclick="editProject(${index})">Edit</button>
+                        <button class="btn-danger btn-sm" onclick="deleteProject(${index})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addProject() {
+            currentModalType = 'project';
+            currentEditIndex = null;
+            document.getElementById('modal-title').textContent = 'Add Project';
+            document.getElementById('modal-body').innerHTML = `
+                <div class="form-group">
+                    <label>Project Title</label>
+                    <input type="text" id="project-title" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="project-desc" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Technologies (comma separated)</label>
+                    <input type="text" id="project-tech" class="form-control" placeholder="React, Node.js, MongoDB">
+                </div>
+                <div class="form-group">
+                    <label>Thumbnail URL</label>
+                    <input type="text" id="project-image" class="form-control" placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="form-group">
+                    <label>Project Link (optional)</label>
+                    <input type="text" id="project-link" class="form-control" placeholder="https://example.com">
+                </div>
+                <div class="form-group">
+                    <label>Category (for filtering)</label>
+                    <input type="text" id="project-category" class="form-control" placeholder="web, mobile, backend">
+                </div>
+                <div class="form-group">
+                    <label>Date (YYYY-MM-DD)</label>
+                    <input type="date" id="project-date" class="form-control">
+                </div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function editProject(index) {
+            currentModalType = 'project';
+            currentEditIndex = index;
+            const project = portfolioData.projects[index];
+            document.getElementById('modal-title').textContent = 'Edit Project';
+            document.getElementById('modal-body').innerHTML = `
+                <div class="form-group">
+                    <label>Project Title</label>
+                    <input type="text" id="project-title" class="form-control" value="${project.title}">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="project-desc" class="form-control" rows="3">${project.description}</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Technologies</label>
+                    <input type="text" id="project-tech" class="form-control" value="${project.technologies}">
+                </div>
+                <div class="form-group">
+                    <label>Thumbnail URL</label>
+                    <input type="text" id="project-image" class="form-control" value="${project.image || ''}">
+                </div>
+                <div class="form-group">
+                    <label>Project Link</label>
+                    <input type="text" id="project-link" class="form-control" value="${project.link || ''}">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text" id="project-category" class="form-control" value="${project.category || ''}">
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="project-date" class="form-control" value="${project.date || ''}">
+                </div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function deleteProject(index) {
+            if (confirm('Delete this project?')) {
+                portfolioData.projects.splice(index, 1);
+                saveData();
+                renderProjects();
+            }
+        }
+
+        // Education
+        function renderEducation() {
+            const container = document.getElementById('education-list');
+            container.innerHTML = portfolioData.education.map((edu, index) => `
+                <div class="item-card">
+                    <div class="item-info">
+                        <h4>${edu.degree}</h4>
+                        <p>${edu.institute}</p>
+                        <small>${edu.year}</small>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn-secondary btn-sm" onclick="editEducation(${index})">Edit</button>
+                        <button class="btn-danger btn-sm" onclick="deleteEducation(${index})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addEducation() {
+            currentModalType = 'education';
+            currentEditIndex = null;
+            document.getElementById('modal-title').textContent = 'Add Education';
+            document.getElementById('modal-body').innerHTML = `
+                <div class="form-group">
+                    <label>Degree/Certificate</label>
+                    <input type="text" id="edu-degree" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Institute</label>
+                    <input type="text" id="edu-institute" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Year</label>
+                    <input type="text" id="edu-year" class="form-control" placeholder="2022 - 2025">
+                </div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function editEducation(index) {
+            currentModalType = 'education';
+            currentEditIndex = index;
+            const edu = portfolioData.education[index];
+            document.getElementById('modal-title').textContent = 'Edit Education';
+            document.getElementById('modal-body').innerHTML = `
+                <div class="form-group">
+                    <label>Degree</label>
+                    <input type="text" id="edu-degree" class="form-control" value="${edu.degree}">
+                </div>
+                <div class="form-group">
+                    <label>Institute</label>
+                    <input type="text" id="edu-institute" class="form-control" value="${edu.institute}">
+                </div>
+                <div class="form-group">
+                    <label>Year</label>
+                    <input type="text" id="edu-year" class="form-control" value="${edu.year}">
+                </div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function deleteEducation(index) {
+            if (confirm('Delete this education entry?')) {
+                portfolioData.education.splice(index, 1);
+                saveData();
+                renderEducation();
+            }
+        }
+
+        // Contact
+        function renderContactForm() {
+            document.getElementById('contact-email').value = portfolioData.contact.email;
+            document.getElementById('contact-phone').value = portfolioData.contact.phone || '';
+            document.getElementById('contact-address').value = portfolioData.contact.address || '';
+        }
+
+        function saveContact() {
+            portfolioData.contact = {
+                email: document.getElementById('contact-email').value,
+                phone: document.getElementById('contact-phone').value,
+                address: document.getElementById('contact-address').value
+            };
+            saveData();
+        }
+
+        // Navigation
+        function renderNavigation() {
+            const container = document.getElementById('nav-tabs-list');
+            container.innerHTML = portfolioData.navigation.map((nav, index) => `
+                <div class="nav-tab-item">
+                    <div>
+                        <strong>${nav.name}</strong><br>
+                        <small>Link: ${nav.link} | Type: ${nav.type}</small>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn-secondary btn-sm" onclick="editNavTab(${index})">Edit</button>
+                        <button class="btn-danger btn-sm" onclick="deleteNavTab(${index})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addNavTab() {
+            currentModalType = 'nav';
+            currentEditIndex = null;
+            document.getElementById('modal-title').textContent = 'Add Navigation Tab';
+            document.getElementById('modal-body').innerHTML = `
+                <div class="form-group">
+                    <label>Tab Name</label>
+                    <input type="text" id="nav-name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Link (e.g., #about, /projects.html)</label>
+                    <input type="text" id="nav-link" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Type</label>
+                    <select id="nav-type" class="form-control">
+                        <option value="home">Home</option>
+                        <option value="section">Section</option>
+                        <option value="page">Page</option>
+                    </select>
+                </div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function editNavTab(index) {
+            currentModalType = 'nav';
+            currentEditIndex = index;
+            const nav = portfolioData.navigation[index];
+            document.getElementById('modal-title').textContent = 'Edit Navigation Tab';
+            document.getElementById('modal-body').innerHTML = `
+                <div class="form-group">
+                    <label>Tab Name</label>
+                    <input type="text" id="nav-name" class="form-control" value="${nav.name}">
+                </div>
+                <div class="form-group">
+                    <label>Link</label>
+                    <input type="text" id="nav-link" class="form-control" value="${nav.link}">
+                </div>
+                <div class="form-group">
+                    <label>Type</label>
+                    <select id="nav-type" class="form-control">
+                        <option value="home" ${nav.type === 'home' ? 'selected' : ''}>Home</option>
+                        <option value="section" ${nav.type === 'section' ? 'selected' : ''}>Section</option>
+                        <option value="page" ${nav.type === 'page' ? 'selected' : ''}>Page</option>
+                    </select>
+                </div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function deleteNavTab(index) {
+            if (confirm('Delete this navigation tab?')) {
+                portfolioData.navigation.splice(index, 1);
+                saveData();
+                renderNavigation();
+            }
+        }
+
+        function saveNavigation() {
+            saveData();
+            alert('Navigation saved!');
+        }
+
+        // Custom Pages
+        function renderCustomPages() {
+            const container = document.getElementById('custom-pages-list');
+            if (portfolioData.customPages.length === 0) {
+                container.innerHTML = '<p>No custom pages yet. Create your first page!</p>';
+                return;
+            }
+            container.innerHTML = portfolioData.customPages.map((page, index) => `
+                <div class="item-card">
+                    <div class="item-info">
+                        <h4>${page.title}</h4>
+                        <p>URL: ${page.url}</p>
+                        <small>Created: ${page.createdAt}</small>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn-secondary btn-sm" onclick="viewPage('${page.url}')">View</button>
+                        <button class="btn-danger btn-sm" onclick="deletePage(${index})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function addCustomPage() {
+            currentModalType = 'page';
+            currentEditIndex = null;
+            document.getElementById('modal-title').textContent = 'Create Custom Page';
+            document.getElementById('modal-body').innerHTML = `
+                <div class="form-group">
+                    <label>Page Title</label>
+                    <input type="text" id="page-title" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Page URL (e.g., about-me.html)</label>
+                    <input type="text" id="page-url" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Page Content (HTML allowed)</label>
+                    <textarea id="page-content" class="form-control" rows="10"></textarea>
+                </div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        // Settings
+        function renderSettings() {
+            document.getElementById('site-title').value = portfolioData.settings.siteTitle;
+            document.getElementById('footer-text').value = portfolioData.settings.footerText;
+        }
+
+        function saveSettings() {
+            portfolioData.settings.siteTitle = document.getElementById('site-title').value;
+            portfolioData.settings.footerText = document.getElementById('footer-text').value;
+
+            const newPassword = document.getElementById('admin-password').value;
+            if (newPassword) {
+                localStorage.setItem('adminPassword', btoa(newPassword));
+                alert('Password changed! Remember to logout and login with new password.');
+            }
+
+            saveData();
+            alert('Settings saved!');
+        }
+
+        // Save modal item
+        function saveModalItem() {
+            if (currentModalType === 'about') {
+                const newCard = {
+                    icon: document.getElementById('card-icon').value,
+                    title: document.getElementById('card-title').value,
+                    content: document.getElementById('card-content').value
+                };
+                if (currentEditIndex !== null) {
+                    portfolioData.aboutCards[currentEditIndex] = newCard;
+                } else {
+                    portfolioData.aboutCards.push(newCard);
+                }
+                saveData();
+                renderAboutCards();
+            } else if (currentModalType === 'project') {
+                const newProject = {
+                    title: document.getElementById('project-title').value,
+                    description: document.getElementById('project-desc').value,
+                    technologies: document.getElementById('project-tech').value,
+                    image: document.getElementById('project-image').value,
+                    link: document.getElementById('project-link').value,
+                    category: document.getElementById('project-category').value,
+                    date: document.getElementById('project-date').value
+                };
+                if (currentEditIndex !== null) {
+                    portfolioData.projects[currentEditIndex] = newProject;
+                } else {
+                    portfolioData.projects.push(newProject);
+                }
+                saveData();
+                renderProjects();
+            } else if (currentModalType === 'education') {
+                const newEdu = {
+                    degree: document.getElementById('edu-degree').value,
+                    institute: document.getElementById('edu-institute').value,
+                    year: document.getElementById('edu-year').value
+                };
+                if (currentEditIndex !== null) {
+                    portfolioData.education[currentEditIndex] = newEdu;
+                } else {
+                    portfolioData.education.push(newEdu);
+                }
+                saveData();
+                renderEducation();
+            } else if (currentModalType === 'nav') {
+                const newNav = {
+                    name: document.getElementById('nav-name').value,
+                    link: document.getElementById('nav-link').value,
+                    type: document.getElementById('nav-type').value
+                };
+                if (currentEditIndex !== null) {
+                    portfolioData.navigation[currentEditIndex] = newNav;
+                } else {
+                    portfolioData.navigation.push(newNav);
+                }
+                saveData();
+                renderNavigation();
+            } else if (currentModalType === 'page') {
+                const newPage = {
+                    title: document.getElementById('page-title').value,
+                    url: document.getElementById('page-url').value,
+                    content: document.getElementById('page-content').value,
+                    createdAt: new Date().toISOString()
+                };
+                portfolioData.customPages.push(newPage);
+                saveData();
+                renderCustomPages();
+                createPageFile(newPage);
+            }
+            closeModal();
+        }
+
+        function createPageFile(page) {
+            const html = `<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>${page.title} - Portfolio</title>
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+                <link rel="stylesheet" href="assets/css/style.css">
+            </head>
+            <body>
+                <div class="container py-5">
+                    <h1>${page.title}</h1>
+                    <div>${page.content}</div>
+                    <a href="index.html" class="btn btn-primary mt-4">Back to Home</a>
+                </div>
+            </body>
+            </html>`;
+
+            // Save to localStorage for now (in production, create actual file)
+            localStorage.setItem(`page_${page.url}`, html);
+            alert(`Page created! Access at ${page.url}`);
+        }
+
+        function deletePage(index) {
+            if (confirm('Delete this page?')) {
+                portfolioData.customPages.splice(index, 1);
+                saveData();
+                renderCustomPages();
+            }
+        }
+
+        function viewPage(url) {
+            const pageContent = localStorage.getItem(`page_${url}`);
+            if (pageContent) {
+                const newWindow = window.open();
+                newWindow.document.write(pageContent);
+            } else {
+                alert('Page not found');
+            }
+        }
+
+        // Export/Import
+        function exportData() {
+            const dataStr = JSON.stringify(portfolioData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'portfolio-backup.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'application/json';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const data = JSON.parse(event.target.result);
+                        portfolioData = data;
+                        saveData();
+                        renderAllSections();
+                        alert('Data imported successfully!');
+                    } catch (error) {
+                        alert('Invalid file format');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        function resetToDefault() {
+            if (confirm('This will reset all data to default. Are you sure?')) {
+                location.reload();
+            }
+        }
+
+        // UI Functions
+        function showSection(section) {
+            document.querySelectorAll('.section-card').forEach(card => card.style.display = 'none');
+            document.getElementById(`${section}-section`).style.display = 'block';
+
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            event.target.closest('.menu-item').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function logout() {
+            if (confirm('Logout from admin panel?')) {
+                sessionStorage.removeItem('adminSession');
+                localStorage.removeItem('rememberSession');
+                window.location.href = 'admin-login.html';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+
+            // Check session
+            const session = sessionStorage.getItem('adminSession');
+            if (!session) {
+                window.location.href = 'admin-login.html';
+            }
+
+            // Mobile menu toggle
+            document.getElementById('menuToggle').addEventListener('click', () => {
+                document.getElementById('sidebar').classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
