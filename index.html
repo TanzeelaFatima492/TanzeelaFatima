@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="src/css/style.css">
 </head>
 
 <body>
@@ -30,7 +30,6 @@
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#education">Education</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li><a href="admin/admin-login.html" style="color: var(--soft-teal);">Admin</a></li>
                 </ul>
             </nav>
             <button class="sticky-nav-toggle"><i class="fas fa-bars"></i></button>
@@ -54,8 +53,10 @@
                     <button id="cvButton" class="btn-custom">Download CV <i class="fa-solid fa-download"></i></button>
                 </div>
                 <div class="col-md-6 text-center">
-                    <div class="image-container"><img id="profileImage" src="assets/images/profile.png" alt="Profile"
-                            class="profile-img"></div>
+                    <div class="image-container">
+                        <img id="profileImage" src="src/images/profile.png" alt="Profile" class="profile-img"
+                            onerror="this.src='https://via.placeholder.com/300'">
+                    </div>
                 </div>
             </div>
         </div>
@@ -65,17 +66,20 @@
         <h2>About Me</h2>
         <div id="aboutCardsContainer" class="card-container"></div>
     </section>
+
     <section id="languages" class="Languages-section">
         <div class="Languages-wrap">
             <h1 class="gradient-text">My Languages & Skills</h1>
             <div id="languagesGrid" class="Languages-grid"></div>
         </div>
     </section>
+
     <section id="projects" class="section">
         <h2 class="section-title">Featured Projects</h2>
         <div id="projectsGrid" class="project-grid"></div>
         <div id="exploreMoreBtn" class="text-center mt-4"></div>
     </section>
+
     <section id="education" class="education-section">
         <div class="education-wrap">
             <h1>Education</h1>
@@ -96,7 +100,9 @@
                     <input type="email" id="contactEmailInput" placeholder="EMAIL" required>
                     <input type="text" id="contactPhone" placeholder="PHONE">
                     <textarea id="contactMessage" rows="4" placeholder="MESSAGE" required></textarea>
-                    <div class="form-buttons"><button type="reset">CANCEL</button><button type="submit">SEND</button>
+                    <div class="form-buttons">
+                        <button type="reset">CANCEL</button>
+                        <button type="submit">SEND</button>
                     </div>
                 </form>
             </div>
@@ -115,9 +121,9 @@
         </div>
     </footer>
 
-    <script src="src/js/script.js"></script>
-    <script src="src/js/background.js"></script>
     <script src="src/js/api-service.js"></script>
+    <script src="src/js/main.js"></script>
+    <script src="src/js/background.js"></script>
 </body>
 
 </html>

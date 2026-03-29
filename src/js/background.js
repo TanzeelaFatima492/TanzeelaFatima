@@ -1,5 +1,10 @@
-const bg = document.getElementById("animated-bg");
-if (bg) {
+// Animated Background
+console.log('✅ Background.js loaded');
+
+function createAnimatedBackground() {
+    const bg = document.getElementById("animated-bg");
+    if (!bg) return;
+    
     for (let i = 0; i < 15; i++) {
         let c = document.createElement("div");
         let size = Math.random() * 120 + 40;
@@ -12,8 +17,19 @@ if (bg) {
         bg.appendChild(c);
     }
 }
-window.addEventListener('scroll', () => {
-    const nav = document.querySelector('.sticky-nav');
-    if (nav && window.scrollY > 50) nav.classList.add('scrolled');
-    else if (nav) nav.classList.remove('scrolled');
-});
+
+// Sticky nav scroll effect
+function initStickyNav() {
+    window.addEventListener('scroll', () => {
+        const nav = document.querySelector('.sticky-nav');
+        if (nav && window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else if (nav) {
+            nav.classList.remove('scrolled');
+        }
+    });
+}
+
+// Initialize
+createAnimatedBackground();
+initStickyNav();

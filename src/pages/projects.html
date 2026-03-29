@@ -30,6 +30,7 @@
             color: white;
             border-radius: 25px;
             cursor: pointer;
+            transition: all 0.3s;
         }
 
         .filter-btn.active,
@@ -59,8 +60,10 @@
 <body>
     <header class="sticky-nav">
         <div class="sticky-nav-container">
-            <div class="sticky-nav-logo"><i class="fa-regular fa-id-badge"></i><span
-                    class="gradient-text-animated">Tanzeela Fatima</span></div>
+            <div class="sticky-nav-logo">
+                <i class="fa-regular fa-id-badge"></i>
+                <span class="gradient-text-animated">Tanzeela Fatima</span>
+            </div>
             <nav class="sticky-nav-menu">
                 <ul>
                     <li><a href="../../index.html">Home</a></li>
@@ -72,51 +75,102 @@
             <button class="sticky-nav-toggle"><i class="fas fa-bars"></i></button>
         </div>
     </header>
+
     <div class="projects-header">
         <h1>All Projects</h1>
         <p>Explore my complete portfolio of work</p>
     </div>
+
     <div class="filter-bar" id="filterBar"></div>
     <div class="projects-grid" id="allProjectsGrid">
         <div class="text-center">Loading projects...</div>
     </div>
+
     <footer class="footer">
-        <div class="footer-socials"><a href="https://www.linkedin.com/in/tanzeela-fatima-47861b2b7/" target="_blank"><i
-                    class="fab fa-linkedin-in"></i></a><a href="https://github.com/TanzeelaFatima492" target="_blank"><i
-                    class="fab fa-github"></i></a><a href="mailto:codequeen765@gmail.com"><i
-                    class="fas fa-envelope"></i></a></div>
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/in/tanzeela-fatima-47861b2b7/" target="_blank"><i
+                    class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/TanzeelaFatima492" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="mailto:codequeen765@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
         <div class="footer-bottom">
             <p>© 2025 Tanzeela Fatima. All Rights Reserved.</p>
         </div>
     </footer>
+
     <script src="../js/api-service.js"></script>
     <script>
-        let allProjects = [], categories = new Set();
+        let allProjects = [];
+        let categories = new Set();
+
         async function loadProjects() {
-            const data = await window.portfolioAPI.getData();
-            allProjects = data.projects || [];
-            allProjects.forEach(p => { if (p.tags) { p.tags.split(',').forEach(t => categories.add(t.trim())); } });
-            renderFilters(); renderProjects(allProjects);
+            try {
+                const data = await window.portfolioAPI.getData();
+                allProjects = data.projects || [];
+
+                allProjects.forEach(p => {
+                    if (p.tags) {
+                        p.tags.split(',').forEach(t => categories.add(t.trim()));
+                    }
+                });
+
+                renderFilters();
+                renderProjects(allProjects);
+            } catch (error) {
+                console.error('Error loading projects:', error);
+                document.getElementById('allProjectsGrid').innerHTML = '<p class="text-center">Error loading projects. Please refresh.</p>';
+            }
         }
+
         function renderFilters() {
             const filterBar = document.getElementById('filterBar');
             let filterHtml = '<button class="filter-btn active" onclick="filterProjects(\'all\')">All</button>';
-            categories.forEach(cat => { filterHtml += `<button class="filter-btn" onclick="filterProjects('${cat}')">${cat}</button>`; });
+            categories.forEach(cat => {
+                filterHtml += `<button class="filter-btn" onclick="filterProjects('${cat}')">${cat}</button>`;
+            });
             filterBar.innerHTML = filterHtml;
         }
+
         window.filterProjects = function (category) {
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             if (event && event.target) event.target.classList.add('active');
+
             const filtered = category === 'all' ? allProjects : allProjects.filter(p => p.tags && p.tags.includes(category));
             renderProjects(filtered);
         };
+
         function renderProjects(projects) {
             const container = document.getElementById('allProjectsGrid');
-            if (!projects || projects.length === 0) { container.innerHTML = '<p class="text-center">No projects found.</p>'; return; }
-            container.innerHTML = projects.map(p => `<div class="project-card">${p.image ? `<div class="project-image"><img src="${p.image}" alt="${p.title}" style="width:100%;height:200px;object-fit:cover;"></div>` : ''}<div class="project-content"><h3 class="project-title">${p.title}</h3><p class="project-desc">${p.description}</p><div class="project-tags">${p.tags ? p.tags.split(',').map(t => `<span>${t.trim()}</span>`).join('') : ''}</div>${p.demoLink ? `<a href="${p.demoLink}" target="_blank" class="project-link">View Project →</a>` : ''}</div></div>`).join('');
+            if (!projects || projects.length === 0) {
+                container.innerHTML = '<p class="text-center">No projects found.</p>';
+                return;
+            }
+
+            container.innerHTML = projects.map(p => `
+                <div class="project-card">
+                    ${p.image ? `<div class="project-image"><img src="${p.image}" alt="${p.title}" style="width:100%;height:200px;object-fit:cover;"></div>` : ''}
+                    <div class="project-content">
+                        <h3 class="project-title">${p.title}</h3>
+                        <p class="project-desc">${p.description}</p>
+                        <div class="project-tags">
+                            ${p.tags ? p.tags.split(',').map(t => `<span>${t.trim()}</span>`).join('') : ''}
+                        </div>
+                        ${p.demoLink ? `<a href="${p.demoLink}" target="_blank" class="project-link">View Project →</a>` : ''}
+                    </div>
+                </div>
+            `).join('');
         }
+
+        // Mobile menu toggle
+        const toggleBtn = document.querySelector('.sticky-nav-toggle');
+        const navMenu = document.querySelector('.sticky-nav-menu');
+        if (toggleBtn && navMenu) {
+            toggleBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('mobile-active');
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', loadProjects);
-        document.querySelector('.sticky-nav-toggle')?.addEventListener('click', () => { document.querySelector('.sticky-nav-menu').classList.toggle('mobile-active'); });
     </script>
 </body>
 

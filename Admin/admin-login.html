@@ -12,8 +12,6 @@
             --soft-teal: #9FC9C7;
             --light-blue: #8EB1D3;
             --dark-navy: #0D1B2A;
-            --code-teal: #2EC4B6;
-            --accent-red: #E63946;
         }
 
         * {
@@ -67,18 +65,10 @@
             background: linear-gradient(135deg, var(--soft-teal), var(--light-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
         }
 
         .login-header h2 {
-            font-size: 28px;
             color: var(--dark-navy);
-            margin-bottom: 8px;
-        }
-
-        .login-header p {
-            color: #666;
-            font-size: 14px;
         }
 
         .input-group {
@@ -92,7 +82,6 @@
             top: 50%;
             transform: translateY(-50%);
             color: #999;
-            font-size: 18px;
         }
 
         .input-group input {
@@ -101,22 +90,11 @@
             border: 2px solid #e1e1e1;
             border-radius: 12px;
             font-size: 16px;
-            transition: all 0.3s;
         }
 
         .input-group input:focus {
             outline: none;
             border-color: var(--soft-teal);
-            box-shadow: 0 0 0 3px rgba(159, 201, 199, 0.1);
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #999;
         }
 
         .login-btn {
@@ -126,15 +104,8 @@
             color: var(--dark-navy);
             border: none;
             border-radius: 12px;
-            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(159, 201, 199, 0.3);
         }
 
         .error-message {
@@ -155,14 +126,6 @@
         .back-link a {
             color: var(--soft-teal);
             text-decoration: none;
-            font-size: 14px;
-        }
-
-        .security-badge {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 12px;
-            color: #999;
         }
     </style>
 </head>
@@ -175,56 +138,34 @@
                 <h2>Admin Login</h2>
                 <p>Enter your credentials to continue</p>
             </div>
-            <div id="errorMsg" class="error-message">
-                <i class="fas fa-exclamation-triangle"></i> Invalid email or password!
-            </div>
+            <div id="errorMsg" class="error-message"><i class="fas fa-exclamation-triangle"></i> Invalid email or
+                password!</div>
             <form id="loginForm">
                 <div class="input-group">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" id="email" placeholder="admin@portfolio.com" required>
+                    <input type="email" id="email" placeholder="admin@portfolio.com" value="admin@portfolio.com"
+                        required>
                 </div>
                 <div class="input-group">
                     <i class="fas fa-lock"></i>
                     <input type="password" id="password" placeholder="Enter password" required>
-                    <span class="password-toggle" onclick="togglePassword()">
-                        <i class="fas fa-eye-slash"></i>
-                    </span>
                 </div>
-                <button type="submit" class="login-btn">
-                    <i class="fas fa-sign-in-alt"></i> Login
-                </button>
+                <button type="submit" class="login-btn"><i class="fas fa-sign-in-alt"></i> Login</button>
             </form>
-            <div class="back-link">
-                <a href="../index.html"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
-            </div>
-            <div class="security-badge">
-                <i class="fas fa-lock"></i> Secure Login | Default: admin@portfolio.com / admin123
-            </div>
+            <div class="back-link"><a href="../index.html"><i class="fas fa-arrow-left"></i> Back to Portfolio</a></div>
         </div>
     </div>
     <script>
         const ADMIN_EMAIL = "admin@portfolio.com";
         const ADMIN_PASSWORD = "admin123";
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const icon = document.querySelector('.password-toggle i');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            } else {
-                passwordInput.type = 'password';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            }
-        }
+
         document.getElementById('loginForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+
             if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
                 sessionStorage.setItem('adminLoggedIn', 'true');
-                sessionStorage.setItem('adminLoginTime', Date.now());
                 window.location.href = 'admin-dashboard.html';
             } else {
                 const errorMsg = document.getElementById('errorMsg');
@@ -232,6 +173,7 @@
                 setTimeout(() => { errorMsg.style.display = 'none'; }, 3000);
             }
         });
+
         if (sessionStorage.getItem('adminLoggedIn') === 'true') {
             window.location.href = 'admin-dashboard.html';
         }
