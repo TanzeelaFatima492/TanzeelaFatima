@@ -1,4 +1,3 @@
-// Animated Background
 const bg = document.getElementById("animated-bg");
 if (bg) {
     for (let i = 0; i < 15; i++) {
@@ -13,8 +12,6 @@ if (bg) {
         bg.appendChild(c);
     }
 }
-
-// Sticky nav scroll effect
 window.addEventListener('scroll', () => {
     const nav = document.querySelector('.sticky-nav');
     if (nav && window.scrollY > 50) nav.classList.add('scrolled');
