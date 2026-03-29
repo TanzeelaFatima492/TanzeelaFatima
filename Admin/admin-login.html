@@ -4,10 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - Portfolio Manager</title>
+    <title>Admin Login - Tanzeela Fatima</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
+        :root {
+            --soft-teal: #9FC9C7;
+            --light-blue: #8EB1D3;
+            --dark-navy: #0D1B2A;
+            --code-teal: #2EC4B6;
+            --accent-red: #E63946;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -16,11 +24,11 @@
 
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--soft-teal) 0%, var(--light-blue) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .login-container {
@@ -56,7 +64,7 @@
 
         .login-header i {
             font-size: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--soft-teal), var(--light-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 15px;
@@ -64,7 +72,7 @@
 
         .login-header h2 {
             font-size: 28px;
-            color: #333;
+            color: var(--dark-navy);
             margin-bottom: 8px;
         }
 
@@ -98,8 +106,8 @@
 
         .input-group input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: var(--soft-teal);
+            box-shadow: 0 0 0 3px rgba(159, 201, 199, 0.1);
         }
 
         .password-toggle {
@@ -114,8 +122,8 @@
         .login-btn {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--soft-teal), var(--light-blue));
+            color: var(--dark-navy);
             border: none;
             border-radius: 12px;
             font-size: 16px;
@@ -126,7 +134,7 @@
 
         .login-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 10px 20px rgba(159, 201, 199, 0.3);
         }
 
         .error-message {
@@ -145,7 +153,7 @@
         }
 
         .back-link a {
-            color: #667eea;
+            color: var(--soft-teal);
             text-decoration: none;
             font-size: 14px;
         }
@@ -167,17 +175,14 @@
                 <h2>Admin Login</h2>
                 <p>Enter your credentials to continue</p>
             </div>
-
             <div id="errorMsg" class="error-message">
                 <i class="fas fa-exclamation-triangle"></i> Invalid email or password!
             </div>
-
             <form id="loginForm">
                 <div class="input-group">
                     <i class="fas fa-envelope"></i>
                     <input type="email" id="email" placeholder="admin@portfolio.com" required>
                 </div>
-
                 <div class="input-group">
                     <i class="fas fa-lock"></i>
                     <input type="password" id="password" placeholder="Enter password" required>
@@ -185,27 +190,21 @@
                         <i class="fas fa-eye-slash"></i>
                     </span>
                 </div>
-
                 <button type="submit" class="login-btn">
                     <i class="fas fa-sign-in-alt"></i> Login
                 </button>
             </form>
-
             <div class="back-link">
-                <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+                <a href="../index.html"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
             </div>
-
             <div class="security-badge">
                 <i class="fas fa-lock"></i> Secure Login | Default: admin@portfolio.com / admin123
             </div>
         </div>
     </div>
-
     <script>
-        // Admin credentials
         const ADMIN_EMAIL = "admin@portfolio.com";
         const ADMIN_PASSWORD = "admin123";
-
         function togglePassword() {
             const passwordInput = document.getElementById('password');
             const icon = document.querySelector('.password-toggle i');
@@ -219,12 +218,10 @@
                 icon.classList.add('fa-eye-slash');
             }
         }
-
         document.getElementById('loginForm').addEventListener('submit', (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-
             if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
                 sessionStorage.setItem('adminLoggedIn', 'true');
                 sessionStorage.setItem('adminLoginTime', Date.now());
@@ -232,11 +229,12 @@
             } else {
                 const errorMsg = document.getElementById('errorMsg');
                 errorMsg.style.display = 'block';
-                setTimeout(() => {
-                    errorMsg.style.display = 'none';
-                }, 3000);
+                setTimeout(() => { errorMsg.style.display = 'none'; }, 3000);
             }
         });
+        if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+            window.location.href = 'admin-dashboard.html';
+        }
     </script>
 </body>
 

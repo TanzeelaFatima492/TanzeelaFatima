@@ -1,15 +1,15 @@
 // Animated Background
 const bg = document.getElementById("animated-bg");
 if (bg) {
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 15; i++) {
         let c = document.createElement("div");
-        let size = Math.random() * 100 + 30;
+        let size = Math.random() * 120 + 40;
         c.classList.add("bg-circle");
         c.style.width = size + "px";
         c.style.height = size + "px";
         c.style.left = Math.random() * window.innerWidth + "px";
-        c.style.animationDuration = Math.random() * 8 + 6 + "s";
-        c.style.animationDelay = Math.random() * 5 + "s";
+        c.style.animationDuration = Math.random() * 15 + 8 + "s";
+        c.style.animationDelay = Math.random() * 10 + "s";
         bg.appendChild(c);
     }
 }
