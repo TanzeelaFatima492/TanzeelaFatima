@@ -4,207 +4,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tanzeela Fatima</title>
+    <title>Tanzeela Fatima - Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=home" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/background.css">
 </head>
 
 <body>
-
     <div id="animated-bg"></div>
 
-<header class="sticky-nav">
-    <div class="sticky-nav-container">
-        <div class="sticky-nav-logo">
-            <i class="fa-regular fa-id-badge"></i>
-            <span class="gradient-text-animated">Tanzeela Fatima</span>
-        </div>
-        <nav class="sticky-nav-menu">
-            <ul>
-                <li><a href="#" class="active">
-                    <span class="material-symbols-outlined">home</span>
-                </a></li>
-                <li><a class="nav-link text-white" href="#about">About</a></li>
-                <li><a class="nav-link text-white" href="#Languages">Language</a></li>
-                <li><a class="nav-link text-white" href="HTML/Projects.html">Projects</a></li>
-                <li><a class="nav-link text-white" href="#education">Education</a></li>
-                <li><a class="nav-link text-white" href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-        <button class="sticky-nav-toggle">
-            <i class="fas fa-bars"></i>
-        </button>
-    </div>
-</header>
-
-<div class="container hero">
-    <div class="row align-items-center">
-        <div class="col-md-6">
-            <div class="social-icons">
-                <a href="https://www.linkedin.com/in/tanzeela-fatima-47861b2b7/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/TanzeelaFatima492" target="_blank"><i class="fa-brands fa-github"></i></a>
-                <a href="https://leetcode.com/u/TanzeelaFatima/" target="_blank" class="leetcode-icon"><img src="https://leetcode.com/static/images/LeetCode_logo_rvs.png" alt="LeetCode" /></a>
+    <header class="sticky-nav">
+        <div class="sticky-nav-container">
+            <div class="sticky-nav-logo">
+                <i class="fa-regular fa-id-badge"></i>
+                <span class="gradient-text-animated" id="siteTitle">Loading...</span>
             </div>
-            <h1>Hi, I'm <span class="gradient-text">Tanzeela</span></h1>
-            <div class="typing-container">
-                <h3 class="typing-text">Web & C++ Dev <i class="fa-solid fa-code"></i></h3>
-            </div>
-            <button onclick="downloadPDF()" class="btn btn-custom"> Download CV <i class="fa-solid fa-download"></i> </button>
+            <nav class="sticky-nav-menu">
+                <ul id="navMenu"></ul>
+            </nav>
+            <button class="sticky-nav-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-        <div class="col-md-6 text-center">
-            <div class="image-container">
-                <img src="assets/images/profile.png" alt="Profile Image" class="profile-img">
-            </div>
-        </div>
-    </div>
-</div>
+    </header>
 
-<section id="about" class="about-section">
-  <h2>About Me</h2>
-
-  <div class="card-container">
-
-    <!-- Card 1 -->
-    <div class="flip-card">
-      <div class="flip-card-inner">
-        <div class="flip-card-front">
-          <i class="fa-solid fa-user fa-3x"></i>
-          <h3 class="gradient-text-animated">Who I Am</h3>
-        </div>
-        <div class="flip-card-back">
-          <p>Hi, I'm <strong>Tanzeela Fatima</strong> ,a passionate developer turning ideas into real digital products.  
-          My journey into tech started with curiosity and hands-on projects.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 2 -->
-    <div class="flip-card">
-      <div class="flip-card-inner">
-        <div class="flip-card-front">
-          <i class="fa-solid fa-code fa-3x"></i>
-          <h3 class="gradient-text-animated">What I Build</h3>
-        </div>
-        <div class="flip-card-back">
-          <p>I build <span class="gradient-text">modern websites</span>, <span class="gradient-text">backend systems</span>, and <span class="gradient-text">Android UIs</span>.  
-          I focus on clean, scalable, and user-friendly solutions.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="flip-card">
-      <div class="flip-card-inner">
-        <div class="flip-card-front">
-          <i class="fa-solid fa-bullseye fa-3x"></i>
-          <h3 class="gradient-text-animated">My Mission</h3>
-        </div>
-        <div class="flip-card-back">
-          <p>My mission is to grow as a full-stack developer and work on meaningful projects that create a real impact.  
-          I enjoy learning new tech and solving problems every day.</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<section id="Languages" class="Languages-section">
-  <div class="Languages-wrap">
-    <h1 class="gradient-text">My Languages</h1>
-    <div class="Languages-grid">
-      <div class="Language"><div class="circle" data-percent="90"><span>0%</span></div><div class="Language-name">HTML</div></div>
-      <div class="Language"><div class="circle" data-percent="80"><span>0%</span></div><div class="Language-name">CSS</div></div>
-      <div class="Language"><div class="circle" data-percent="75"><span>0%</span></div><div class="Language-name">JavaScript</div></div>
-      <div class="Language"><div class="circle" data-percent="60"><span>0%</span></div><div class="Language-name">AngularJS</div></div>
-      <div class="Language"><div class="circle" data-percent="70"><span>0%</span></div><div class="Language-name">jQuery</div></div>
-      <div class="Language"><div class="circle" data-percent="50"><span>0%</span></div><div class="Language-name">PHP</div></div>
-      <div class="Language"><div class="circle" data-percent="70"><span>0%</span></div><div class="Language-name">SQL</div></div>
-      <div class="Language"><div class="circle" data-percent="70"><span>0%</span></div><div class="Language-name">MySQL</div></div>
-      <div class="Language"><div class="circle" data-percent="40"><span>0%</span></div><div class="Language-name">C#</div></div>
-      <div class="Language"><div class="circle" data-percent="30"><span>0%</span></div><div class="Language-name">Kotlin</div></div>
-      <div class="Language"><div class="circle" data-percent="30"><span>0%</span></div><div class="Language-name">WordPress</div></div>
-      <div class="Language"><div class="circle" data-percent="93"><span>0%</span></div><div class="Language-name">C++</div></div>
-    </div>
-  </div>
-</section>
-
-
-<section id="projects" class="section">
-    <h2 class="section-title">Projects</h2>
-    <!-- Filter Buttons and Project Cards remain the same -->
-</section>
-
-<section id="education" class="education-section">
-    <div class="education-wrap">
-        <h1>My Education</h1>
-        <div class="education-cards">
-            <div class="edu-card">
-                <h3>Bachelor in Information Technology</h3>
-                <p class="edu-institute">University of Kotli, AJK</p>
-                <p class="edu-year">2022 – Present</p>
-            </div>
-            <div class="edu-card">
-                <h3>Intermediate in Computer Science</h3>
-                <p class="edu-institute">Fatima Jinnah College, Kotli</p>
-                <p class="edu-year">2020 – 2022</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="contact">
-    <div class="contact-container">
-        <div class="contact-left">
-            <h2>CONTACT<br>ME</h2>
-            <div class="line"></div>
-            <p>Contact Info : codequeen765@gmail.com </p>
-        </div>
-        <div class="contact-right">
-            <form name="contact" method="POST" data-netlify="true" id="contactForm">
-                <input type="hidden" name="form-name" value="contact">
-                <input type="text" name="name" placeholder="NAME" required>
-                <input type="email" name="email" placeholder="EMAIL" required>
-                <input type="text" name="phone" placeholder="CONTACT NO">
-                <textarea name="message" rows="4" placeholder="MESSAGE" required></textarea>
-                <div class="form-buttons">
-                    <button type="reset">CANCEL</button>
-                    <button type="submit">SEND</button>
+    <div class="container hero">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/tanzeela-fatima-47861b2b7/" target="_blank"><i
+                            class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/TanzeelaFatima492" target="_blank"><i
+                            class="fa-brands fa-github"></i></a>
+                    <a href="https://leetcode.com/u/TanzeelaFatima/" target="_blank" class="leetcode-icon"><img
+                            src="https://leetcode.com/static/images/LeetCode_logo_rvs.png" alt="LeetCode"
+                            style="width:26px;height:26px;filter:brightness(0) invert(1);" /></a>
                 </div>
-            </form>
+                <h1 id="heroTitle">Loading...</h1>
+                <div class="typing-container">
+                    <h3 class="typing-text" id="heroTyping">Loading...</h3>
+                </div>
+                <button id="cvButton" class="btn btn-custom">Download CV <i class="fa-solid fa-download"></i></button>
+            </div>
+            <div class="col-md-6 text-center">
+                <div class="image-container">
+                    <img id="profileImage" src="assets/images/profile.png" alt="Profile Image" class="profile-img">
+                </div>
+            </div>
         </div>
     </div>
-    <div class="popup" id="popupMsg">
-        <h3> Message Sent!</h3>
-        <p>Thank you for contacting Me. We'll get back to you soon.</p>
-        <button onclick="closePopup()">OK</button>
-    </div>
-</section>
 
-<footer class="footer">
-    <div class="footer-socials">
-        <a href="https://www.linkedin.com/in/tanzeela-fatima-47861b2b7/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://github.com/Fatima-progmmer" target="_blank"><i class="fab fa-github"></i></a>
-        <a href="mailto:codequeen765@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
-        <a href="https://www.quora.com/profile/Tanzeela-Fatima-37" target="_blank"><i class="fa-brands fa-quora"></i></a>
-        <a href="https://stackoverflow.com/users/27019064/tanzeela-fatima" target="_blank"><i class="fa-brands fa-stack-overflow"></i></a>
-        <a href="https://codepen.io/Tanzeela_Fatima12" target="_blank"><i class="fa-brands fa-codepen"></i></a>
-        <a href="https://www.reddit.com/user/Tanzeela_Fatima/" target="_blank"><i class="fa-brands fa-reddit"></i></a>
-        <a href="https://www.threads.com/@tanzeela_fatima22" target="_blank"><i class="fa-brands fa-threads"></i></a>
-        <a href="https://learn.microsoft.com/en-us/users/tanzeelafatima-2379/" target="_blank"><i class="fa-brands fa-microsoft"></i></a>
-        <a href="https://developers.google.com/profile/u/108967206065950713952" target="_blank"><i class="fa-brands fa-google"></i></a>
-    </div>
-    <div class="footer-bottom">
-        <p>© 2025 Tanzeela Fatima. All Rights Reserved.</p>
-    </div>
-</footer>
+    <section id="about" class="about-section">
+        <h2>About Me</h2>
+        <div id="aboutCardsContainer" class="card-container"></div>
+    </section>
 
-<script src="assets/js/script.js" defer></script>
-    <script src="assets/js/background.js" defer></script>
+    <section id="Languages" class="Languages-section">
+        <div class="Languages-wrap">
+            <h1 class="gradient-text">My Languages</h1>
+            <div id="languagesGrid" class="Languages-grid"></div>
+        </div>
+    </section>
 
+    <section id="projects" class="section">
+        <h2 class="section-title">Featured Projects</h2>
+        <div id="projectsGrid" class="project-grid"></div>
+        <div id="exploreMoreBtn" class="text-center mt-4"></div>
+    </section>
+
+    <section id="education" class="education-section">
+        <div class="education-wrap">
+            <h1>My Education</h1>
+            <div id="educationCards" class="education-cards"></div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-container">
+            <div class="contact-left">
+                <h2>CONTACT<br>ME</h2>
+                <div class="line"></div>
+                <p id="contactEmail">Loading...</p>
+            </div>
+            <div class="contact-right">
+                <form name="contact" method="POST" data-netlify="true" id="contactForm">
+                    <input type="hidden" name="form-name" value="contact">
+                    <input type="text" name="name" placeholder="NAME" required>
+                    <input type="email" name="email" placeholder="EMAIL" required>
+                    <input type="text" name="phone" placeholder="CONTACT NO">
+                    <textarea name="message" rows="4" placeholder="MESSAGE" required></textarea>
+                    <div class="form-buttons">
+                        <button type="reset">CANCEL</button>
+                        <button type="submit">SEND</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="popup" id="popupMsg">
+            <h3>Message Sent!</h3>
+            <p>Thank you for contacting me. I'll get back to you soon.</p>
+            <button onclick="closePopup()">OK</button>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-socials">
+            <a href="https://www.linkedin.com/in/tanzeela-fatima-47861b2b7/" target="_blank"><i
+                    class="fab fa-linkedin-in"></i></a>
+            <a href="https://github.com/Fatima-progmmer" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="mailto:codequeen765@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+            <a href="https://www.quora.com/profile/Tanzeela-Fatima-37" target="_blank"><i
+                    class="fa-brands fa-quora"></i></a>
+            <a href="https://stackoverflow.com/users/27019064/tanzeela-fatima" target="_blank"><i
+                    class="fa-brands fa-stack-overflow"></i></a>
+            <a href="https://codepen.io/Tanzeela_Fatima12" target="_blank"><i class="fa-brands fa-codepen"></i></a>
+        </div>
+        <div class="footer-bottom">
+            <p id="footerText">© 2025 Tanzeela Fatima. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/background.js"></script>
+    <script src="assets/js/api-service.js"></script>
 </body>
+
 </html>

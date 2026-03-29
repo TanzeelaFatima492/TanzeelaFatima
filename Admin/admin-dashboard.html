@@ -7,8 +7,6 @@
     <title>Admin Dashboard - Portfolio Manager</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -17,10 +15,9 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
             background: #0a0a0a;
             color: #fff;
-            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         /* Sidebar */
@@ -28,9 +25,9 @@
             position: fixed;
             left: 0;
             top: 0;
-            width: 280px;
+            width: 300px;
             height: 100vh;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
             transition: all 0.3s;
             z-index: 1000;
             overflow-y: auto;
@@ -44,7 +41,7 @@
 
         .sidebar-header i {
             font-size: 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -56,6 +53,14 @@
 
         .sidebar-menu {
             padding: 20px 0;
+        }
+
+        .menu-category {
+            padding: 10px 25px;
+            font-size: 11px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .menu-item {
@@ -72,7 +77,7 @@
 
         .menu-item:hover,
         .menu-item.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             transform: translateX(5px);
         }
@@ -83,12 +88,11 @@
 
         /* Main Content */
         .main-content {
-            margin-left: 280px;
+            margin-left: 300px;
             padding: 30px;
             min-height: 100vh;
         }
 
-        /* Top Bar */
         .top-bar {
             background: rgba(255, 255, 255, 0.05);
             padding: 15px 25px;
@@ -100,18 +104,13 @@
         }
 
         .logout-btn {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #f093fb, #f5576c);
             padding: 10px 20px;
             border-radius: 10px;
             color: white;
             text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .logout-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.3);
-            color: white;
+            border: none;
+            cursor: pointer;
         }
 
         /* Cards */
@@ -120,7 +119,6 @@
             border-radius: 20px;
             padding: 25px;
             margin-bottom: 30px;
-            backdrop-filter: blur(10px);
         }
 
         .section-title {
@@ -131,7 +129,7 @@
             align-items: center;
         }
 
-        /* Form Elements */
+        /* Forms */
         .form-group {
             margin-bottom: 20px;
         }
@@ -150,13 +148,11 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             color: white;
-            transition: all 0.3s;
         }
 
         .form-control:focus {
             outline: none;
             border-color: #667eea;
-            background: rgba(255, 255, 255, 0.15);
         }
 
         textarea.form-control {
@@ -164,31 +160,71 @@
             min-height: 100px;
         }
 
+        /* Image Upload */
+        .image-upload-area {
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .image-upload-area:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .image-preview {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .image-preview img {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
         /* Buttons */
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             border: none;
             padding: 10px 20px;
             border-radius: 10px;
             color: white;
             cursor: pointer;
-            transition: all 0.3s;
         }
 
         .btn-danger {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ffd89b, #ffb347);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            color: #333;
+            cursor: pointer;
         }
 
         .btn-secondary {
             background: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
         }
 
-        .btn-sm {
-            padding: 5px 12px;
-            font-size: 12px;
-        }
-
-        /* Items List */
+        /* Lists */
         .items-list {
             margin-top: 20px;
         }
@@ -205,7 +241,6 @@
 
         .item-info h4 {
             margin-bottom: 5px;
-            font-size: 18px;
         }
 
         .item-info p {
@@ -213,20 +248,17 @@
             font-size: 14px;
         }
 
+        .project-thumbnail {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+
         .item-actions {
             display: flex;
             gap: 10px;
-        }
-
-        /* Navigation Tabs Editor */
-        .nav-tab-item {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         /* Modal */
@@ -259,10 +291,54 @@
             margin-bottom: 20px;
         }
 
+        /* Pages Tree */
+        .pages-tree {
+            margin-top: 15px;
+        }
+
+        .page-node {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .page-header {
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        .page-header:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .sections-list {
+            padding-left: 30px;
+            padding-bottom: 10px;
+            display: none;
+        }
+
+        .sections-list.show {
+            display: block;
+        }
+
+        .section-item {
+            padding: 8px 15px;
+            margin: 5px 0;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .sidebar {
-                left: -280px;
+                left: -300px;
             }
 
             .main-content {
@@ -282,44 +358,29 @@
         <div class="sidebar-header">
             <i class="fas fa-crown"></i>
             <h3>Admin Dashboard</h3>
-            <p style="font-size: 12px; color: #aaa;">Welcome, Admin</p>
+            <p style="font-size: 12px;">Content Management System</p>
         </div>
         <div class="sidebar-menu">
-            <div class="menu-item active" onclick="showSection('hero')">
-                <i class="fas fa-home"></i>
-                <span>Hero Section</span>
+            <div class="menu-category">MAIN PAGES</div>
+            <div class="menu-item active" onclick="showSection('homepage')">
+                <i class="fas fa-home"></i> Homepage (Index)
             </div>
-            <div class="menu-item" onclick="showSection('about')">
-                <i class="fas fa-user"></i>
-                <span>About Cards</span>
+            <div class="menu-item" onclick="showSection('projects-page')">
+                <i class="fas fa-project-diagram"></i> Projects Page
             </div>
-            <div class="menu-item" onclick="showSection('languages')">
-                <i class="fas fa-code"></i>
-                <span>Languages & Skills</span>
+
+            <div class="menu-category">CUSTOM PAGES</div>
+            <div id="customPagesList" class="pages-tree"></div>
+
+            <div class="menu-category">ACTIONS</div>
+            <div class="menu-item" onclick="createNewPage()">
+                <i class="fas fa-plus-circle"></i> + Create New Page
             </div>
-            <div class="menu-item" onclick="showSection('projects')">
-                <i class="fas fa-project-diagram"></i>
-                <span>Projects</span>
+            <div class="menu-item" onclick="exportData()">
+                <i class="fas fa-download"></i> Export Data
             </div>
-            <div class="menu-item" onclick="showSection('education')">
-                <i class="fas fa-graduation-cap"></i>
-                <span>Education</span>
-            </div>
-            <div class="menu-item" onclick="showSection('contact')">
-                <i class="fas fa-envelope"></i>
-                <span>Contact Info</span>
-            </div>
-            <div class="menu-item" onclick="showSection('navigation')">
-                <i class="fas fa-bars"></i>
-                <span>Navigation Menu</span>
-            </div>
-            <div class="menu-item" onclick="showSection('pages')">
-                <i class="fas fa-file"></i>
-                <span>Custom Pages</span>
-            </div>
-            <div class="menu-item" onclick="showSection('settings')">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
+            <div class="menu-item" onclick="importData()">
+                <i class="fas fa-upload"></i> Import Data
             </div>
         </div>
     </div>
@@ -327,149 +388,28 @@
     <!-- Main Content -->
     <div class="main-content">
         <div class="top-bar">
-            <button class="btn-secondary" id="menuToggle" style="background: none; border: none; font-size: 24px;">
+            <button id="menuToggle" style="background: none; border: none; color: white; font-size: 24px;">
                 <i class="fas fa-bars"></i>
             </button>
-            <a href="index.html" class="logout-btn" onclick="logout()">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </a>
+            <button class="logout-btn" onclick="logout()">Logout <i class="fas fa-sign-out-alt"></i></button>
         </div>
 
-        <!-- Hero Section -->
-        <div id="hero-section" class="section-card">
+        <!-- Homepage Sections Editor -->
+        <div id="homepage-section" class="section-card">
             <div class="section-title">
-                <h2>Hero Section</h2>
-                <button class="btn-primary" onclick="saveHero()">Save Changes</button>
+                <h2><i class="fas fa-home"></i> Homepage Sections</h2>
+                <button class="btn-primary" onclick="addNewSection()">+ Add New Section</button>
             </div>
-            <div class="form-group">
-                <label>Profile Image URL</label>
-                <input type="text" id="hero-image" class="form-control" placeholder="Image URL">
-                <small>Upload image and paste URL here</small>
-            </div>
-            <div class="form-group">
-                <label>Title (Hi, I'm [Name])</label>
-                <input type="text" id="hero-title" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Typing Text (Web & C++ Dev)</label>
-                <input type="text" id="hero-typing" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>CV Download Link</label>
-                <input type="text" id="hero-cv" class="form-control" placeholder="Path to CV file">
-            </div>
-            <div class="form-group">
-                <label>Show as Button or Nav Tab?</label>
-                <select id="hero-button-type" class="form-control">
-                    <option value="button">Button in Hero Section</option>
-                    <option value="nav">Navigation Tab</option>
-                    <option value="both">Both</option>
-                </select>
-            </div>
+            <div id="homepageSectionsList" class="items-list"></div>
         </div>
 
-        <!-- About Cards Section -->
-        <div id="about-section" class="section-card" style="display: none;">
+        <!-- Projects Page Editor -->
+        <div id="projects-page-section" class="section-card" style="display: none;">
             <div class="section-title">
-                <h2>About Cards</h2>
-                <button class="btn-primary" onclick="addAboutCard()">Add New Card</button>
+                <h2><i class="fas fa-project-diagram"></i> Projects Management</h2>
+                <button class="btn-primary" onclick="addNewProject()">+ Add New Project</button>
             </div>
-            <div id="about-cards-list" class="items-list"></div>
-        </div>
-
-        <!-- Languages Section -->
-        <div id="languages-section" class="section-card" style="display: none;">
-            <div class="section-title">
-                <h2>Languages & Skills</h2>
-                <button class="btn-primary" onclick="addLanguage()">Add Language</button>
-            </div>
-            <div id="languages-list" class="items-list"></div>
-            <button class="btn-primary" onclick="saveLanguages()" style="margin-top: 20px;">Save All Changes</button>
-        </div>
-
-        <!-- Projects Section -->
-        <div id="projects-section" class="section-card" style="display: none;">
-            <div class="section-title">
-                <h2>Projects Management</h2>
-                <button class="btn-primary" onclick="addProject()">Add New Project</button>
-            </div>
-            <div class="form-group">
-                <label>Projects to show on Homepage (Max 3)</label>
-                <input type="number" id="homepage-project-count" class="form-control" value="3" min="1" max="10">
-            </div>
-            <div id="projects-list" class="items-list"></div>
-        </div>
-
-        <!-- Education Section -->
-        <div id="education-section" class="section-card" style="display: none;">
-            <div class="section-title">
-                <h2>Education</h2>
-                <button class="btn-primary" onclick="addEducation()">Add Education</button>
-            </div>
-            <div id="education-list" class="items-list"></div>
-        </div>
-
-        <!-- Contact Section -->
-        <div id="contact-section" class="section-card" style="display: none;">
-            <div class="section-title">
-                <h2>Contact Information</h2>
-                <button class="btn-primary" onclick="saveContact()">Save Changes</button>
-            </div>
-            <div class="form-group">
-                <label>Contact Email</label>
-                <input type="email" id="contact-email" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Contact Phone (Optional)</label>
-                <input type="text" id="contact-phone" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Contact Address (Optional)</label>
-                <textarea id="contact-address" class="form-control" rows="2"></textarea>
-            </div>
-        </div>
-
-        <!-- Navigation Section -->
-        <div id="navigation-section" class="section-card" style="display: none;">
-            <div class="section-title">
-                <h2>Navigation Menu</h2>
-                <button class="btn-primary" onclick="addNavTab()">Add New Tab</button>
-            </div>
-            <div id="nav-tabs-list" class="items-list"></div>
-            <button class="btn-primary" onclick="saveNavigation()" style="margin-top: 20px;">Save Navigation</button>
-        </div>
-
-        <!-- Custom Pages Section -->
-        <div id="pages-section" class="section-card" style="display: none;">
-            <div class="section-title">
-                <h2>Custom Pages</h2>
-                <button class="btn-primary" onclick="addCustomPage()">Create New Page</button>
-            </div>
-            <div id="custom-pages-list" class="items-list"></div>
-        </div>
-
-        <!-- Settings Section -->
-        <div id="settings-section" class="section-card" style="display: none;">
-            <div class="section-title">
-                <h2>Settings</h2>
-            </div>
-            <div class="form-group">
-                <label>Site Title</label>
-                <input type="text" id="site-title" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Footer Text</label>
-                <input type="text" id="footer-text" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Admin Password (Change)</label>
-                <input type="password" id="admin-password" class="form-control" placeholder="New password">
-            </div>
-            <button class="btn-primary" onclick="saveSettings()">Save Settings</button>
-            <hr>
-            <button class="btn-danger" onclick="exportData()">Export All Data</button>
-            <button class="btn-secondary" onclick="importData()">Import Data</button>
-            <button class="btn-danger" onclick="resetToDefault()" style="margin-left: 10px;">Reset to Default</button>
+            <div id="projectsList" class="items-list"></div>
         </div>
     </div>
 
@@ -477,349 +417,343 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="modal-title">Add Item</h3>
+                <h3 id="modalTitle">Add Item</h3>
                 <button onclick="closeModal()"
                     style="background: none; border: none; color: white; font-size: 24px;">&times;</button>
             </div>
-            <div id="modal-body"></div>
+            <div id="modalBody"></div>
             <button class="btn-primary" onclick="saveModalItem()">Save</button>
         </div>
     </div>
 
     <script>
-        // Default Data Structure
+        // Check authentication
+        if (!sessionStorage.getItem('adminLoggedIn')) {
+            window.location.href = 'admin-login.html';
+        }
+
+        // Data structure
         let portfolioData = {
-            hero: {
-                image: "assets/images/profile.png",
-                title: "Tanzeela",
-                typingText: "Web & C++ Dev",
-                cvLink: "assests/Resume.pdf",
-                buttonType: "both"
-            },
-            aboutCards: [
-                {
-                    icon: "fa-user",
-                    title: "Who I Am",
-                    content: "Hi, I'm Tanzeela Fatima, a passionate developer turning ideas into real digital products."
+            pages: {
+                homepage: {
+                    name: "Homepage",
+                    url: "index.html",
+                    sections: [
+                        { id: "hero", name: "Hero Section", type: "hero", order: 0 },
+                        { id: "about", name: "About Section", type: "about", order: 1 },
+                        { id: "languages", name: "Languages Section", type: "languages", order: 2 },
+                        { id: "projects", name: "Projects Section", type: "projects", order: 3 },
+                        { id: "education", name: "Education Section", type: "education", order: 4 },
+                        { id: "contact", name: "Contact Section", type: "contact", order: 5 }
+                    ]
                 },
-                {
-                    icon: "fa-code",
-                    title: "What I Build",
-                    content: "I build modern websites, backend systems, and Android UIs."
-                },
-                {
-                    icon: "fa-bullseye",
-                    title: "My Mission",
-                    content: "To grow as a full-stack developer and work on meaningful projects."
+                projects: {
+                    name: "Projects Page",
+                    url: "projects.html",
+                    sections: [
+                        { id: "projects-list", name: "All Projects", type: "projects-list", order: 0 }
+                    ]
                 }
-            ],
-            languages: [
-                { name: "HTML", percent: 90 },
-                { name: "CSS", percent: 80 },
-                { name: "JavaScript", percent: 75 },
-                { name: "AngularJS", percent: 60 },
-                { name: "jQuery", percent: 70 },
-                { name: "PHP", percent: 50 },
-                { name: "SQL", percent: 70 },
-                { name: "MySQL", percent: 70 },
-                { name: "C#", percent: 40 },
-                { name: "Kotlin", percent: 30 },
-                { name: "WordPress", percent: 30 },
-                { name: "C++", percent: 93 }
-            ],
+            },
+            customPages: [],
             projects: [],
-            education: [
-                {
-                    degree: "Bachelor in Information Technology",
-                    institute: "University of Kotli, AJK",
-                    year: "2022 – Present"
-                },
-                {
-                    degree: "Intermediate in Computer Science",
-                    institute: "Fatima Jinnah College, Kotli",
-                    year: "2020 – 2022"
-                }
-            ],
-            contact: {
-                email: "codequeen765@gmail.com",
-                phone: "",
-                address: ""
-            },
-            navigation: [
-                { name: "Home", link: "#", type: "home" },
-                { name: "About", link: "#about", type: "section" },
-                { name: "Language", link: "#Languages", type: "section" },
-                { name: "Projects", link: "HTML/Projects.html", type: "page" },
-                { name: "Education", link: "#education", type: "section" },
+            navMenu: [
+                { name: "Home", link: "index.html", type: "page" },
+                { name: "Projects", link: "projects.html", type: "page" },
                 { name: "Contact", link: "#contact", type: "section" }
             ],
-            customPages: [],
-            settings: {
-                siteTitle: "Tanzeela Fatima",
-                footerText: "© 2025 Tanzeela Fatima. All Rights Reserved."
+            content: {
+                hero: { title: "Tanzeela Fatima", typingText: "Web Developer", image: "assets/images/profile.png" },
+                about: { text: "I'm a passionate developer..." },
+                contact: { email: "codequeen765@gmail.com" }
             }
         };
 
         let currentModalType = null;
-        let currentEditIndex = null;
+        let currentEditItem = null;
+        let tempImageData = null;
 
         // Load data from localStorage
         function loadData() {
-            const saved = localStorage.getItem('portfolioData');
+            const saved = localStorage.getItem('portfolio_admin_data');
             if (saved) {
                 portfolioData = JSON.parse(saved);
+            } else {
+                saveData();
             }
-            renderAllSections();
+            renderAll();
         }
 
-        // Save data to localStorage
         function saveData() {
-            localStorage.setItem('portfolioData', JSON.stringify(portfolioData));
-            alert('Changes saved successfully!');
+            localStorage.setItem('portfolio_admin_data', JSON.stringify(portfolioData));
         }
+
+        // Convert image to base64
+        function imageToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        // Create image upload HTML
+        function getImageUploadHTML(currentImage = '') {
+            return `
+                <div class="form-group">
+                    <label>Project Thumbnail</label>
+                    <div class="image-upload-area" onclick="document.getElementById('imageInput').click()">
+                        <i class="fas fa-cloud-upload-alt" style="font-size: 40px; margin-bottom: 10px;"></i>
+                        <p>Click to upload image</p>
+                        <p style="font-size: 12px; color: #888;">PNG, JPG, GIF up to 5MB</p>
+                        <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="previewImage(this)">
+                    </div>
+                    <div class="image-preview" id="imagePreview">
+                        ${currentImage ? `<img src="${currentImage}" alt="Preview"><br><small>Current image</small>` : ''}
+                    </div>
+                    <input type="hidden" id="projectImage" value="${currentImage}">
+                </div>
+            `;
+        }
+
+        // Preview image before upload
+        window.previewImage = async function (input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('Image size must be less than 5MB');
+                    return;
+                }
+                const base64 = await imageToBase64(file);
+                document.getElementById('projectImage').value = base64;
+                const preview = document.getElementById('imagePreview');
+                preview.innerHTML = `<img src="${base64}" alt="Preview"><br><small>New image uploaded</small>`;
+            }
+        };
 
         // Render all sections
-        function renderAllSections() {
-            renderHeroForm();
-            renderAboutCards();
-            renderLanguages();
-            renderProjects();
-            renderEducation();
-            renderContactForm();
-            renderNavigation();
+        function renderAll() {
+            renderHomepageSections();
+            renderProjectsList();
             renderCustomPages();
-            renderSettings();
         }
 
-        // Hero Section
-        function renderHeroForm() {
-            document.getElementById('hero-image').value = portfolioData.hero.image;
-            document.getElementById('hero-title').value = portfolioData.hero.title;
-            document.getElementById('hero-typing').value = portfolioData.hero.typingText;
-            document.getElementById('hero-cv').value = portfolioData.hero.cvLink;
-            document.getElementById('hero-button-type').value = portfolioData.hero.buttonType;
-        }
+        // Render homepage sections
+        function renderHomepageSections() {
+            const container = document.getElementById('homepageSectionsList');
+            const sections = portfolioData.pages.homepage.sections.sort((a, b) => a.order - b.order);
 
-        function saveHero() {
-            portfolioData.hero = {
-                image: document.getElementById('hero-image').value,
-                title: document.getElementById('hero-title').value,
-                typingText: document.getElementById('hero-typing').value,
-                cvLink: document.getElementById('hero-cv').value,
-                buttonType: document.getElementById('hero-button-type').value
-            };
-            saveData();
-            alert('Hero section updated!');
-        }
-
-        // About Cards
-        function renderAboutCards() {
-            const container = document.getElementById('about-cards-list');
-            container.innerHTML = portfolioData.aboutCards.map((card, index) => `
+            container.innerHTML = sections.map((section, index) => `
                 <div class="item-card">
                     <div class="item-info">
-                        <h4><i class="fas ${card.icon}"></i> ${card.title}</h4>
-                        <p>${card.content.substring(0, 100)}...</p>
+                        <h4><i class="fas fa-${section.type === 'hero' ? 'star' : section.type === 'about' ? 'user' : section.type === 'languages' ? 'code' : section.type === 'projects' ? 'project-diagram' : section.type === 'education' ? 'graduation-cap' : 'envelope'}"></i> ${section.name}</h4>
+                        <p>Type: ${section.type} | ID: ${section.id}</p>
                     </div>
                     <div class="item-actions">
-                        <button class="btn-secondary btn-sm" onclick="editAboutCard(${index})">Edit</button>
-                        <button class="btn-danger btn-sm" onclick="deleteAboutCard(${index})">Delete</button>
+                        <button class="btn-secondary btn-sm" onclick="editSection('homepage', ${index})">Edit</button>
+                        <button class="btn-danger btn-sm" onclick="deleteSection('homepage', ${index})">Delete</button>
+                        ${index > 0 ? `<button class="btn-secondary btn-sm" onclick="moveSection('homepage', ${index}, 'up')">↑</button>` : ''}
+                        ${index < sections.length - 1 ? `<button class="btn-secondary btn-sm" onclick="moveSection('homepage', ${index}, 'down')">↓</button>` : ''}
                     </div>
                 </div>
             `).join('');
         }
 
-        function addAboutCard() {
-            currentModalType = 'about';
-            currentEditIndex = null;
-            document.getElementById('modal-title').textContent = 'Add About Card';
-            document.getElementById('modal-body').innerHTML = `
-                <div class="form-group">
-                    <label>Icon Class (fa-user, fa-code, etc.)</label>
-                    <input type="text" id="card-icon" class="form-control" placeholder="fa-user">
-                </div>
-                <div class="form-group">
-                    <label>Title</label>
-                    <input type="text" id="card-title" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Content</label>
-                    <textarea id="card-content" class="form-control" rows="4"></textarea>
-                </div>
-            `;
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function editAboutCard(index) {
-            currentModalType = 'about';
-            currentEditIndex = index;
-            const card = portfolioData.aboutCards[index];
-            document.getElementById('modal-title').textContent = 'Edit About Card';
-            document.getElementById('modal-body').innerHTML = `
-                <div class="form-group">
-                    <label>Icon Class</label>
-                    <input type="text" id="card-icon" class="form-control" value="${card.icon}">
-                </div>
-                <div class="form-group">
-                    <label>Title</label>
-                    <input type="text" id="card-title" class="form-control" value="${card.title}">
-                </div>
-                <div class="form-group">
-                    <label>Content</label>
-                    <textarea id="card-content" class="form-control" rows="4">${card.content}</textarea>
-                </div>
-            `;
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function deleteAboutCard(index) {
-            if (confirm('Delete this card?')) {
-                portfolioData.aboutCards.splice(index, 1);
-                saveData();
-                renderAboutCards();
-            }
-        }
-
-        // Languages
-        function renderLanguages() {
-            const container = document.getElementById('languages-list');
-            container.innerHTML = portfolioData.languages.map((lang, index) => `
-                <div class="item-card">
-                    <div class="item-info">
-                        <h4>${lang.name}</h4>
-                        <p>Percentage: ${lang.percent}%</p>
-                    </div>
-                    <div class="item-actions">
-                        <input type="range" min="0" max="100" value="${lang.percent}" onchange="updateLanguagePercent(${index}, this.value)" style="width: 150px;">
-                        <button class="btn-danger btn-sm" onclick="deleteLanguage(${index})">Delete</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function addLanguage() {
-            const name = prompt('Enter language name:');
-            if (name) {
-                const percent = prompt('Enter percentage (0-100):', '50');
-                if (percent !== null) {
-                    portfolioData.languages.push({ name: name, percent: parseInt(percent) });
-                    saveData();
-                    renderLanguages();
-                }
-            }
-        }
-
-        function updateLanguagePercent(index, value) {
-            portfolioData.languages[index].percent = parseInt(value);
-            saveData();
-        }
-
-        function deleteLanguage(index) {
-            if (confirm('Delete this language?')) {
-                portfolioData.languages.splice(index, 1);
-                saveData();
-                renderLanguages();
-            }
-        }
-
-        function saveLanguages() {
-            saveData();
-            alert('Languages saved!');
-        }
-
-        // Projects
-        function renderProjects() {
-            const container = document.getElementById('projects-list');
+        // Render projects list with thumbnails
+        function renderProjectsList() {
+            const container = document.getElementById('projectsList');
             if (portfolioData.projects.length === 0) {
-                container.innerHTML = '<p>No projects yet. Click "Add New Project" to get started.</p>';
+                container.innerHTML = '<p style="text-align: center; padding: 40px;">No projects yet. Click "Add New Project" to create one.</p>';
                 return;
             }
+
             container.innerHTML = portfolioData.projects.map((project, index) => `
                 <div class="item-card">
-                    <div class="item-info">
-                        <h4>${project.title}</h4>
-                        <p>${project.description.substring(0, 100)}...</p>
-                        <small>Technologies: ${project.technologies}</small>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        ${project.image ? `<img src="${project.image}" class="project-thumbnail" alt="${project.title}">` : '<div class="project-thumbnail" style="background: #333; display: flex; align-items: center; justify-content: center;"><i class="fas fa-image"></i></div>'}
+                        <div class="item-info">
+                            <h4>${project.title}</h4>
+                            <p>${project.description.substring(0, 100)}...</p>
+                            <small>Tags: ${project.tags}</small>
+                            ${project.demoLink ? `<br><small>Demo: ${project.demoLink}</small>` : ''}
+                        </div>
                     </div>
                     <div class="item-actions">
-                        <button class="btn-secondary btn-sm" onclick="editProject(${index})">Edit</button>
+                        <button class="btn-warning btn-sm" onclick="editProject(${index})">Edit</button>
                         <button class="btn-danger btn-sm" onclick="deleteProject(${index})">Delete</button>
                     </div>
                 </div>
             `).join('');
         }
 
-        function addProject() {
-            currentModalType = 'project';
-            currentEditIndex = null;
-            document.getElementById('modal-title').textContent = 'Add Project';
-            document.getElementById('modal-body').innerHTML = `
+        // Render custom pages in sidebar
+        function renderCustomPages() {
+            const container = document.getElementById('customPagesList');
+            if (portfolioData.customPages.length === 0) {
+                container.innerHTML = '<div style="padding: 10px 25px; color: #666;">No custom pages yet</div>';
+                return;
+            }
+
+            container.innerHTML = portfolioData.customPages.map((page, idx) => `
+                <div class="page-node">
+                    <div class="page-header" onclick="toggleSections(${idx})">
+                        <div><i class="fas fa-file"></i> ${page.name}</div>
+                        <div>
+                            <button class="btn-secondary btn-sm" onclick="event.stopPropagation(); editCustomPage(${idx})">Edit</button>
+                            <button class="btn-danger btn-sm" onclick="event.stopPropagation(); deleteCustomPage(${idx})">Del</button>
+                        </div>
+                    </div>
+                    <div class="sections-list" id="sections-${idx}">
+                        ${page.sections ? page.sections.map((section, sIdx) => `
+                            <div class="section-item">
+                                <span><i class="fas fa-hashtag"></i> ${section.name}</span>
+                                <div>
+                                    <button class="btn-secondary btn-sm" onclick="event.stopPropagation(); editPageSection(${idx}, ${sIdx})">Edit</button>
+                                    <button class="btn-danger btn-sm" onclick="event.stopPropagation(); deletePageSection(${idx}, ${sIdx})">Del</button>
+                                </div>
+                            </div>
+                        `).join('') : '<div style="padding: 8px 15px; color: #666;">No sections</div>'}
+                        <button class="btn-secondary btn-sm" style="margin: 5px 0 5px 15px;" onclick="event.stopPropagation(); addPageSection(${idx})">+ Add Section</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleSections(index) {
+            const sections = document.getElementById(`sections-${index}`);
+            sections.classList.toggle('show');
+        }
+
+        // Section CRUD
+        function addNewSection() {
+            currentModalType = 'section';
+            currentEditItem = null;
+            document.getElementById('modalTitle').textContent = 'Add New Section';
+            document.getElementById('modalBody').innerHTML = `
                 <div class="form-group">
-                    <label>Project Title</label>
-                    <input type="text" id="project-title" class="form-control">
+                    <label>Section Name</label>
+                    <input type="text" id="sectionName" class="form-control" placeholder="e.g., Skills Section">
                 </div>
                 <div class="form-group">
-                    <label>Description</label>
-                    <textarea id="project-desc" class="form-control" rows="3"></textarea>
+                    <label>Section Type</label>
+                    <select id="sectionType" class="form-control">
+                        <option value="hero">Hero Section</option>
+                        <option value="about">About Section</option>
+                        <option value="skills">Skills Section</option>
+                        <option value="projects">Projects Section</option>
+                        <option value="education">Education Section</option>
+                        <option value="contact">Contact Section</option>
+                        <option value="custom">Custom Section</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label>Technologies (comma separated)</label>
-                    <input type="text" id="project-tech" class="form-control" placeholder="React, Node.js, MongoDB">
-                </div>
-                <div class="form-group">
-                    <label>Thumbnail URL</label>
-                    <input type="text" id="project-image" class="form-control" placeholder="https://example.com/image.jpg">
-                </div>
-                <div class="form-group">
-                    <label>Project Link (optional)</label>
-                    <input type="text" id="project-link" class="form-control" placeholder="https://example.com">
-                </div>
-                <div class="form-group">
-                    <label>Category (for filtering)</label>
-                    <input type="text" id="project-category" class="form-control" placeholder="web, mobile, backend">
-                </div>
-                <div class="form-group">
-                    <label>Date (YYYY-MM-DD)</label>
-                    <input type="date" id="project-date" class="form-control">
+                    <label>Section ID (for navigation)</label>
+                    <input type="text" id="sectionId" class="form-control" placeholder="skills-section">
                 </div>
             `;
             document.getElementById('modal').style.display = 'flex';
         }
 
-        function editProject(index) {
-            currentModalType = 'project';
-            currentEditIndex = index;
-            const project = portfolioData.projects[index];
-            document.getElementById('modal-title').textContent = 'Edit Project';
-            document.getElementById('modal-body').innerHTML = `
+        function editSection(pageType, index) {
+            const section = portfolioData.pages[pageType].sections[index];
+            currentModalType = 'editSection';
+            currentEditItem = { pageType, index };
+            document.getElementById('modalTitle').textContent = 'Edit Section';
+            document.getElementById('modalBody').innerHTML = `
                 <div class="form-group">
-                    <label>Project Title</label>
-                    <input type="text" id="project-title" class="form-control" value="${project.title}">
+                    <label>Section Name</label>
+                    <input type="text" id="sectionName" class="form-control" value="${section.name}">
+                </div>
+                <div class="form-group">
+                    <label>Section Type</label>
+                    <select id="sectionType" class="form-control">
+                        <option value="hero" ${section.type === 'hero' ? 'selected' : ''}>Hero</option>
+                        <option value="about" ${section.type === 'about' ? 'selected' : ''}>About</option>
+                        <option value="skills" ${section.type === 'skills' ? 'selected' : ''}>Skills</option>
+                        <option value="projects" ${section.type === 'projects' ? 'selected' : ''}>Projects</option>
+                        <option value="education" ${section.type === 'education' ? 'selected' : ''}>Education</option>
+                        <option value="contact" ${section.type === 'contact' ? 'selected' : ''}>Contact</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Section ID</label>
+                    <input type="text" id="sectionId" class="form-control" value="${section.id}">
+                </div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function deleteSection(pageType, index) {
+            if (confirm('Delete this section?')) {
+                portfolioData.pages[pageType].sections.splice(index, 1);
+                saveData();
+                renderHomepageSections();
+            }
+        }
+
+        function moveSection(pageType, index, direction) {
+            const sections = portfolioData.pages[pageType].sections;
+            if (direction === 'up' && index > 0) {
+                [sections[index], sections[index - 1]] = [sections[index - 1], sections[index]];
+            } else if (direction === 'down' && index < sections.length - 1) {
+                [sections[index], sections[index + 1]] = [sections[index + 1], sections[index]];
+            }
+            sections.forEach((s, i) => s.order = i);
+            saveData();
+            renderHomepageSections();
+        }
+
+        // Project CRUD with image upload
+        function addNewProject() {
+            currentModalType = 'project';
+            currentEditItem = null;
+            document.getElementById('modalTitle').textContent = 'Add New Project';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group">
+                    <label>Project Name</label>
+                    <input type="text" id="projectName" class="form-control" placeholder="My Awesome Project">
                 </div>
                 <div class="form-group">
                     <label>Description</label>
-                    <textarea id="project-desc" class="form-control" rows="3">${project.description}</textarea>
+                    <textarea id="projectDesc" class="form-control" placeholder="Project description..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Technologies</label>
-                    <input type="text" id="project-tech" class="form-control" value="${project.technologies}">
+                    <label>Tags (comma separated)</label>
+                    <input type="text" id="projectTags" class="form-control" placeholder="React, Node.js, MongoDB">
                 </div>
                 <div class="form-group">
-                    <label>Thumbnail URL</label>
-                    <input type="text" id="project-image" class="form-control" value="${project.image || ''}">
+                    <label>Demo Link</label>
+                    <input type="text" id="projectLink" class="form-control" placeholder="https://example.com">
+                </div>
+                ${getImageUploadHTML()}
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function editProject(index) {
+            const project = portfolioData.projects[index];
+            currentModalType = 'editProject';
+            currentEditItem = index;
+            document.getElementById('modalTitle').textContent = 'Edit Project';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group">
+                    <label>Project Name</label>
+                    <input type="text" id="projectName" class="form-control" value="${project.title}">
                 </div>
                 <div class="form-group">
-                    <label>Project Link</label>
-                    <input type="text" id="project-link" class="form-control" value="${project.link || ''}">
+                    <label>Description</label>
+                    <textarea id="projectDesc" class="form-control">${project.description}</textarea>
                 </div>
                 <div class="form-group">
-                    <label>Category</label>
-                    <input type="text" id="project-category" class="form-control" value="${project.category || ''}">
+                    <label>Tags</label>
+                    <input type="text" id="projectTags" class="form-control" value="${project.tags}">
                 </div>
                 <div class="form-group">
-                    <label>Date</label>
-                    <input type="date" id="project-date" class="form-control" value="${project.date || ''}">
+                    <label>Demo Link</label>
+                    <input type="text" id="projectLink" class="form-control" value="${project.demoLink || ''}">
                 </div>
+                ${getImageUploadHTML(project.image || '')}
             `;
             document.getElementById('modal').style.display = 'flex';
         }
@@ -828,352 +762,178 @@
             if (confirm('Delete this project?')) {
                 portfolioData.projects.splice(index, 1);
                 saveData();
-                renderProjects();
+                renderProjectsList();
             }
         }
 
-        // Education
-        function renderEducation() {
-            const container = document.getElementById('education-list');
-            container.innerHTML = portfolioData.education.map((edu, index) => `
-                <div class="item-card">
-                    <div class="item-info">
-                        <h4>${edu.degree}</h4>
-                        <p>${edu.institute}</p>
-                        <small>${edu.year}</small>
-                    </div>
-                    <div class="item-actions">
-                        <button class="btn-secondary btn-sm" onclick="editEducation(${index})">Edit</button>
-                        <button class="btn-danger btn-sm" onclick="deleteEducation(${index})">Delete</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function addEducation() {
-            currentModalType = 'education';
-            currentEditIndex = null;
-            document.getElementById('modal-title').textContent = 'Add Education';
-            document.getElementById('modal-body').innerHTML = `
+        // Custom Pages CRUD
+        function createNewPage() {
+            currentModalType = 'newPage';
+            document.getElementById('modalTitle').textContent = 'Create New Page';
+            document.getElementById('modalBody').innerHTML = `
                 <div class="form-group">
-                    <label>Degree/Certificate</label>
-                    <input type="text" id="edu-degree" class="form-control">
+                    <label>Page Name</label>
+                    <input type="text" id="pageName" class="form-control" placeholder="About Me">
                 </div>
                 <div class="form-group">
-                    <label>Institute</label>
-                    <input type="text" id="edu-institute" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Year</label>
-                    <input type="text" id="edu-year" class="form-control" placeholder="2022 - 2025">
+                    <label>Page URL</label>
+                    <input type="text" id="pageUrl" class="form-control" placeholder="about.html">
                 </div>
             `;
             document.getElementById('modal').style.display = 'flex';
         }
 
-        function editEducation(index) {
-            currentModalType = 'education';
-            currentEditIndex = index;
-            const edu = portfolioData.education[index];
-            document.getElementById('modal-title').textContent = 'Edit Education';
-            document.getElementById('modal-body').innerHTML = `
+        function editCustomPage(index) {
+            const page = portfolioData.customPages[index];
+            currentModalType = 'editPage';
+            currentEditItem = index;
+            document.getElementById('modalTitle').textContent = 'Edit Page';
+            document.getElementById('modalBody').innerHTML = `
                 <div class="form-group">
-                    <label>Degree</label>
-                    <input type="text" id="edu-degree" class="form-control" value="${edu.degree}">
+                    <label>Page Name</label>
+                    <input type="text" id="pageName" class="form-control" value="${page.name}">
                 </div>
                 <div class="form-group">
-                    <label>Institute</label>
-                    <input type="text" id="edu-institute" class="form-control" value="${edu.institute}">
-                </div>
-                <div class="form-group">
-                    <label>Year</label>
-                    <input type="text" id="edu-year" class="form-control" value="${edu.year}">
+                    <label>Page URL</label>
+                    <input type="text" id="pageUrl" class="form-control" value="${page.url}">
                 </div>
             `;
             document.getElementById('modal').style.display = 'flex';
         }
 
-        function deleteEducation(index) {
-            if (confirm('Delete this education entry?')) {
-                portfolioData.education.splice(index, 1);
-                saveData();
-                renderEducation();
-            }
-        }
-
-        // Contact
-        function renderContactForm() {
-            document.getElementById('contact-email').value = portfolioData.contact.email;
-            document.getElementById('contact-phone').value = portfolioData.contact.phone || '';
-            document.getElementById('contact-address').value = portfolioData.contact.address || '';
-        }
-
-        function saveContact() {
-            portfolioData.contact = {
-                email: document.getElementById('contact-email').value,
-                phone: document.getElementById('contact-phone').value,
-                address: document.getElementById('contact-address').value
-            };
-            saveData();
-        }
-
-        // Navigation
-        function renderNavigation() {
-            const container = document.getElementById('nav-tabs-list');
-            container.innerHTML = portfolioData.navigation.map((nav, index) => `
-                <div class="nav-tab-item">
-                    <div>
-                        <strong>${nav.name}</strong><br>
-                        <small>Link: ${nav.link} | Type: ${nav.type}</small>
-                    </div>
-                    <div class="item-actions">
-                        <button class="btn-secondary btn-sm" onclick="editNavTab(${index})">Edit</button>
-                        <button class="btn-danger btn-sm" onclick="deleteNavTab(${index})">Delete</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function addNavTab() {
-            currentModalType = 'nav';
-            currentEditIndex = null;
-            document.getElementById('modal-title').textContent = 'Add Navigation Tab';
-            document.getElementById('modal-body').innerHTML = `
-                <div class="form-group">
-                    <label>Tab Name</label>
-                    <input type="text" id="nav-name" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Link (e.g., #about, /projects.html)</label>
-                    <input type="text" id="nav-link" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Type</label>
-                    <select id="nav-type" class="form-control">
-                        <option value="home">Home</option>
-                        <option value="section">Section</option>
-                        <option value="page">Page</option>
-                    </select>
-                </div>
-            `;
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function editNavTab(index) {
-            currentModalType = 'nav';
-            currentEditIndex = index;
-            const nav = portfolioData.navigation[index];
-            document.getElementById('modal-title').textContent = 'Edit Navigation Tab';
-            document.getElementById('modal-body').innerHTML = `
-                <div class="form-group">
-                    <label>Tab Name</label>
-                    <input type="text" id="nav-name" class="form-control" value="${nav.name}">
-                </div>
-                <div class="form-group">
-                    <label>Link</label>
-                    <input type="text" id="nav-link" class="form-control" value="${nav.link}">
-                </div>
-                <div class="form-group">
-                    <label>Type</label>
-                    <select id="nav-type" class="form-control">
-                        <option value="home" ${nav.type === 'home' ? 'selected' : ''}>Home</option>
-                        <option value="section" ${nav.type === 'section' ? 'selected' : ''}>Section</option>
-                        <option value="page" ${nav.type === 'page' ? 'selected' : ''}>Page</option>
-                    </select>
-                </div>
-            `;
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function deleteNavTab(index) {
-            if (confirm('Delete this navigation tab?')) {
-                portfolioData.navigation.splice(index, 1);
-                saveData();
-                renderNavigation();
-            }
-        }
-
-        function saveNavigation() {
-            saveData();
-            alert('Navigation saved!');
-        }
-
-        // Custom Pages
-        function renderCustomPages() {
-            const container = document.getElementById('custom-pages-list');
-            if (portfolioData.customPages.length === 0) {
-                container.innerHTML = '<p>No custom pages yet. Create your first page!</p>';
-                return;
-            }
-            container.innerHTML = portfolioData.customPages.map((page, index) => `
-                <div class="item-card">
-                    <div class="item-info">
-                        <h4>${page.title}</h4>
-                        <p>URL: ${page.url}</p>
-                        <small>Created: ${page.createdAt}</small>
-                    </div>
-                    <div class="item-actions">
-                        <button class="btn-secondary btn-sm" onclick="viewPage('${page.url}')">View</button>
-                        <button class="btn-danger btn-sm" onclick="deletePage(${index})">Delete</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function addCustomPage() {
-            currentModalType = 'page';
-            currentEditIndex = null;
-            document.getElementById('modal-title').textContent = 'Create Custom Page';
-            document.getElementById('modal-body').innerHTML = `
-                <div class="form-group">
-                    <label>Page Title</label>
-                    <input type="text" id="page-title" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Page URL (e.g., about-me.html)</label>
-                    <input type="text" id="page-url" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Page Content (HTML allowed)</label>
-                    <textarea id="page-content" class="form-control" rows="10"></textarea>
-                </div>
-            `;
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        // Settings
-        function renderSettings() {
-            document.getElementById('site-title').value = portfolioData.settings.siteTitle;
-            document.getElementById('footer-text').value = portfolioData.settings.footerText;
-        }
-
-        function saveSettings() {
-            portfolioData.settings.siteTitle = document.getElementById('site-title').value;
-            portfolioData.settings.footerText = document.getElementById('footer-text').value;
-
-            const newPassword = document.getElementById('admin-password').value;
-            if (newPassword) {
-                localStorage.setItem('adminPassword', btoa(newPassword));
-                alert('Password changed! Remember to logout and login with new password.');
-            }
-
-            saveData();
-            alert('Settings saved!');
-        }
-
-        // Save modal item
-        function saveModalItem() {
-            if (currentModalType === 'about') {
-                const newCard = {
-                    icon: document.getElementById('card-icon').value,
-                    title: document.getElementById('card-title').value,
-                    content: document.getElementById('card-content').value
-                };
-                if (currentEditIndex !== null) {
-                    portfolioData.aboutCards[currentEditIndex] = newCard;
-                } else {
-                    portfolioData.aboutCards.push(newCard);
-                }
-                saveData();
-                renderAboutCards();
-            } else if (currentModalType === 'project') {
-                const newProject = {
-                    title: document.getElementById('project-title').value,
-                    description: document.getElementById('project-desc').value,
-                    technologies: document.getElementById('project-tech').value,
-                    image: document.getElementById('project-image').value,
-                    link: document.getElementById('project-link').value,
-                    category: document.getElementById('project-category').value,
-                    date: document.getElementById('project-date').value
-                };
-                if (currentEditIndex !== null) {
-                    portfolioData.projects[currentEditIndex] = newProject;
-                } else {
-                    portfolioData.projects.push(newProject);
-                }
-                saveData();
-                renderProjects();
-            } else if (currentModalType === 'education') {
-                const newEdu = {
-                    degree: document.getElementById('edu-degree').value,
-                    institute: document.getElementById('edu-institute').value,
-                    year: document.getElementById('edu-year').value
-                };
-                if (currentEditIndex !== null) {
-                    portfolioData.education[currentEditIndex] = newEdu;
-                } else {
-                    portfolioData.education.push(newEdu);
-                }
-                saveData();
-                renderEducation();
-            } else if (currentModalType === 'nav') {
-                const newNav = {
-                    name: document.getElementById('nav-name').value,
-                    link: document.getElementById('nav-link').value,
-                    type: document.getElementById('nav-type').value
-                };
-                if (currentEditIndex !== null) {
-                    portfolioData.navigation[currentEditIndex] = newNav;
-                } else {
-                    portfolioData.navigation.push(newNav);
-                }
-                saveData();
-                renderNavigation();
-            } else if (currentModalType === 'page') {
-                const newPage = {
-                    title: document.getElementById('page-title').value,
-                    url: document.getElementById('page-url').value,
-                    content: document.getElementById('page-content').value,
-                    createdAt: new Date().toISOString()
-                };
-                portfolioData.customPages.push(newPage);
-                saveData();
-                renderCustomPages();
-                createPageFile(newPage);
-            }
-            closeModal();
-        }
-
-        function createPageFile(page) {
-            const html = `<!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>${page.title} - Portfolio</title>
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-                <link rel="stylesheet" href="assets/css/style.css">
-            </head>
-            <body>
-                <div class="container py-5">
-                    <h1>${page.title}</h1>
-                    <div>${page.content}</div>
-                    <a href="index.html" class="btn btn-primary mt-4">Back to Home</a>
-                </div>
-            </body>
-            </html>`;
-
-            // Save to localStorage for now (in production, create actual file)
-            localStorage.setItem(`page_${page.url}`, html);
-            alert(`Page created! Access at ${page.url}`);
-        }
-
-        function deletePage(index) {
-            if (confirm('Delete this page?')) {
+        function deleteCustomPage(index) {
+            if (confirm('Delete this page? All sections will be lost.')) {
                 portfolioData.customPages.splice(index, 1);
                 saveData();
                 renderCustomPages();
             }
         }
 
-        function viewPage(url) {
-            const pageContent = localStorage.getItem(`page_${url}`);
-            if (pageContent) {
-                const newWindow = window.open();
-                newWindow.document.write(pageContent);
-            } else {
-                alert('Page not found');
+        function addPageSection(pageIndex) {
+            currentModalType = 'pageSection';
+            currentEditItem = pageIndex;
+            document.getElementById('modalTitle').textContent = 'Add Section to Page';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group">
+                    <label>Section Name</label>
+                    <input type="text" id="sectionName" class="form-control" placeholder="My Section">
+                </div>
+                <div class="form-group">
+                    <label>Section Content (HTML allowed)</label>
+                    <textarea id="sectionContent" class="form-control" rows="10" placeholder="<h1>My Content</h1><p>Hello world</p>"></textarea>
+                </div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function editPageSection(pageIndex, sectionIndex) {
+            const section = portfolioData.customPages[pageIndex].sections[sectionIndex];
+            currentModalType = 'editPageSection';
+            currentEditItem = { pageIndex, sectionIndex };
+            document.getElementById('modalTitle').textContent = 'Edit Section';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group">
+                    <label>Section Name</label>
+                    <input type="text" id="sectionName" class="form-control" value="${section.name}">
+                </div>
+                <div class="form-group">
+                    <label>Section Content</label>
+                    <textarea id="sectionContent" class="form-control" rows="10">${section.content || ''}</textarea>
+                </div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function deletePageSection(pageIndex, sectionIndex) {
+            if (confirm('Delete this section?')) {
+                portfolioData.customPages[pageIndex].sections.splice(sectionIndex, 1);
+                saveData();
+                renderCustomPages();
             }
+        }
+
+        // Save modal item
+        function saveModalItem() {
+            if (currentModalType === 'section') {
+                const newSection = {
+                    id: document.getElementById('sectionId').value,
+                    name: document.getElementById('sectionName').value,
+                    type: document.getElementById('sectionType').value,
+                    order: portfolioData.pages.homepage.sections.length
+                };
+                portfolioData.pages.homepage.sections.push(newSection);
+                saveData();
+                renderHomepageSections();
+            } else if (currentModalType === 'editSection') {
+                const { pageType, index } = currentEditItem;
+                portfolioData.pages[pageType].sections[index].name = document.getElementById('sectionName').value;
+                portfolioData.pages[pageType].sections[index].type = document.getElementById('sectionType').value;
+                portfolioData.pages[pageType].sections[index].id = document.getElementById('sectionId').value;
+                saveData();
+                renderHomepageSections();
+            } else if (currentModalType === 'project') {
+                const newProject = {
+                    id: Date.now(),
+                    title: document.getElementById('projectName').value,
+                    description: document.getElementById('projectDesc').value,
+                    tags: document.getElementById('projectTags').value,
+                    demoLink: document.getElementById('projectLink').value,
+                    image: document.getElementById('projectImage').value,
+                    date: new Date().toISOString()
+                };
+                portfolioData.projects.push(newProject);
+                saveData();
+                renderProjectsList();
+            } else if (currentModalType === 'editProject') {
+                const index = currentEditItem;
+                portfolioData.projects[index].title = document.getElementById('projectName').value;
+                portfolioData.projects[index].description = document.getElementById('projectDesc').value;
+                portfolioData.projects[index].tags = document.getElementById('projectTags').value;
+                portfolioData.projects[index].demoLink = document.getElementById('projectLink').value;
+                portfolioData.projects[index].image = document.getElementById('projectImage').value;
+                saveData();
+                renderProjectsList();
+            } else if (currentModalType === 'newPage') {
+                const newPage = {
+                    id: Date.now(),
+                    name: document.getElementById('pageName').value,
+                    url: document.getElementById('pageUrl').value,
+                    sections: []
+                };
+                portfolioData.customPages.push(newPage);
+                saveData();
+                renderCustomPages();
+            } else if (currentModalType === 'editPage') {
+                const index = currentEditItem;
+                portfolioData.customPages[index].name = document.getElementById('pageName').value;
+                portfolioData.customPages[index].url = document.getElementById('pageUrl').value;
+                saveData();
+                renderCustomPages();
+            } else if (currentModalType === 'pageSection') {
+                const pageIndex = currentEditItem;
+                const newSection = {
+                    id: Date.now(),
+                    name: document.getElementById('sectionName').value,
+                    content: document.getElementById('sectionContent').value
+                };
+                if (!portfolioData.customPages[pageIndex].sections) {
+                    portfolioData.customPages[pageIndex].sections = [];
+                }
+                portfolioData.customPages[pageIndex].sections.push(newSection);
+                saveData();
+                renderCustomPages();
+            } else if (currentModalType === 'editPageSection') {
+                const { pageIndex, sectionIndex } = currentEditItem;
+                portfolioData.customPages[pageIndex].sections[sectionIndex].name = document.getElementById('sectionName').value;
+                portfolioData.customPages[pageIndex].sections[sectionIndex].content = document.getElementById('sectionContent').value;
+                saveData();
+                renderCustomPages();
+            }
+            closeModal();
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
         }
 
         // Export/Import
@@ -1197,10 +957,9 @@
                 const reader = new FileReader();
                 reader.onload = (event) => {
                     try {
-                        const data = JSON.parse(event.target.result);
-                        portfolioData = data;
+                        portfolioData = JSON.parse(event.target.result);
                         saveData();
-                        renderAllSections();
+                        renderAll();
                         alert('Data imported successfully!');
                     } catch (error) {
                         alert('Invalid file format');
@@ -1211,48 +970,32 @@
             input.click();
         }
 
-        function resetToDefault() {
-            if (confirm('This will reset all data to default. Are you sure?')) {
-                location.reload();
-            }
-        }
-
-        // UI Functions
         function showSection(section) {
-            document.querySelectorAll('.section-card').forEach(card => card.style.display = 'none');
-            document.getElementById(`${section}-section`).style.display = 'block';
+            document.getElementById('homepage-section').style.display = 'none';
+            document.getElementById('projects-page-section').style.display = 'none';
+
+            if (section === 'homepage') {
+                document.getElementById('homepage-section').style.display = 'block';
+            } else if (section === 'projects-page') {
+                document.getElementById('projects-page-section').style.display = 'block';
+            }
 
             document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
             event.target.closest('.menu-item').classList.add('active');
         }
 
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
+        function logout() {
+            sessionStorage.removeItem('adminLoggedIn');
+            window.location.href = 'admin-login.html';
         }
 
-        function logout() {
-            if (confirm('Logout from admin panel?')) {
-                sessionStorage.removeItem('adminSession');
-                localStorage.removeItem('rememberSession');
-                window.location.href = 'admin-login.html';
-            }
-        }
+        // Mobile menu toggle
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
 
         // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            loadData();
-
-            // Check session
-            const session = sessionStorage.getItem('adminSession');
-            if (!session) {
-                window.location.href = 'admin-login.html';
-            }
-
-            // Mobile menu toggle
-            document.getElementById('menuToggle').addEventListener('click', () => {
-                document.getElementById('sidebar').classList.toggle('active');
-            });
-        });
+        loadData();
     </script>
 </body>
 
