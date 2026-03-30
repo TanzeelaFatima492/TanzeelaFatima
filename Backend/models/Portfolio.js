@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 
 // Hero Section Schema
 const HeroSchema = new mongoose.Schema({
-    image: { type: String, default: 'assets/images/profile.png' },
+    image: { type: String, default: 'src/images/profile.png' },
     title: { type: String, default: 'Tanzeela' },
     typingText: { type: String, default: 'Web & C++ Dev' },
-    cvLink: { type: String, default: 'assests/Resume.pdf' },
+    cvLink: { type: String, default: '#' },
     buttonType: { type: String, default: 'both' }
 });
 
@@ -27,12 +27,11 @@ const LanguageSchema = new mongoose.Schema({
 const ProjectSchema = new mongoose.Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
-    technologies: { type: String, required: true },
+    tags: { type: String },
     image: { type: String },
-    link: { type: String },
+    demoLink: { type: String },
     category: { type: String },
-    date: { type: Date, default: Date.now },
-    featured: { type: Boolean, default: false }
+    date: { type: Date, default: Date.now }
 });
 
 // Education Schema
@@ -53,17 +52,9 @@ const ContactSchema = new mongoose.Schema({
 const NavigationSchema = new mongoose.Schema({
     name: { type: String, required: true },
     link: { type: String, required: true },
-    type: { type: String, enum: ['home', 'section', 'page'], default: 'section' },
+    type: { type: String, enum: ['home', 'page', 'section', 'external'], default: 'section' },
+    target: { type: String, default: '_self' },
     order: { type: Number, default: 0 }
-});
-
-// Custom Page Schema
-const CustomPageSchema = new mongoose.Schema({
-    title: { type: String, required: true },
-    url: { type: String, required: true, unique: true },
-    content: { type: String, required: true },
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
 });
 
 // Settings Schema
@@ -83,7 +74,6 @@ const PortfolioSchema = new mongoose.Schema({
     education: [EducationSchema],
     contact: ContactSchema,
     navigation: [NavigationSchema],
-    customPages: [CustomPageSchema],
     settings: SettingsSchema,
     updatedAt: { type: Date, default: Date.now }
 });

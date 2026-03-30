@@ -156,27 +156,33 @@
         </div>
     </div>
     <script>
-        const ADMIN_EMAIL = "admin@portfolio.com";
-        const ADMIN_PASSWORD = "admin123";
+        // Replace existing login script with:
+            document.getElementById('loginForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
 
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+                try {
+                    const response = await fetch('http://localhost:5000/api/auth/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
 
-            if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-                sessionStorage.setItem('adminLoggedIn', 'true');
-                window.location.href = 'admin-dashboard.html';
-            } else {
-                const errorMsg = document.getElementById('errorMsg');
-                errorMsg.style.display = 'block';
-                setTimeout(() => { errorMsg.style.display = 'none'; }, 3000);
-            }
-        });
+                    const data = await response.json();
 
-        if (sessionStorage.getItem('adminLoggedIn') === 'true') {
-            window.location.href = 'admin-dashboard.html';
-        }
+                    if (response.ok) {
+                        localStorage.setItem('adminToken', data.token);
+                        localStorage.setItem('adminUser', JSON.stringify(data.user));
+                        sessionStorage.setItem('adminLoggedIn', 'true');
+                        window.location.href = 'admin-dashboard.html';
+                    } else {
+                        showError(data.message);
+                    }
+                } catch (error) {
+                    showError('Network error. Please check if backend is running.');
+                }
+            });
     </script>
 </body>
 

@@ -586,7 +586,6 @@ body {
 /* ===== Languages Section ===== */
 .Languages-section {
   padding: 100px 20px;
-  background: linear-gradient(135deg, rgba(13, 27, 42, 0.98), rgba(13, 27, 42, 0.95));
   position: relative;
   overflow: hidden;
 }
@@ -815,7 +814,6 @@ body {
 /* ===== Education Section ===== */
 .education-section {
   padding: 100px 20px;
-  background: linear-gradient(135deg, rgba(13, 27, 42, 0.95), rgba(13, 27, 42, 0.98));
   position: relative;
 }
 
@@ -1008,7 +1006,7 @@ body {
 /* ===== Footer ===== */
 .footer {
   background: var(--dark-navy);
-  padding: 60px 20px 30px;
+  padding: 6px 2px 3px;
   text-align: center;
   border-top: 1px solid var(--glass-border);
 }
