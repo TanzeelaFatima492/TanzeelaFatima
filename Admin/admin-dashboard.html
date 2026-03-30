@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Portfolio Manager</title>
+    <title>Admin Dashboard - Tanzeela Fatima</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -114,7 +114,6 @@
             padding: 10px 20px;
             border-radius: 10px;
             color: white;
-            text-decoration: none;
             border: none;
             cursor: pointer;
         }
@@ -132,6 +131,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .form-group {
@@ -162,6 +163,10 @@
         textarea.form-control {
             resize: vertical;
             min-height: 100px;
+        }
+
+        select.form-control {
+            cursor: pointer;
         }
 
         .image-upload-area {
@@ -229,6 +234,8 @@
 
         .items-list {
             margin-top: 20px;
+            max-height: 500px;
+            overflow-y: auto;
         }
 
         .item-card {
@@ -239,6 +246,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .project-thumbnail {
@@ -252,6 +261,7 @@
         .item-actions {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
         .modal {
@@ -300,6 +310,8 @@
             align-items: center;
             cursor: pointer;
             border-radius: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .page-header:hover {
@@ -324,6 +336,33 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav-preview {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .nav-preview h4 {
+            margin-bottom: 15px;
+            color: var(--soft-teal);
+        }
+
+        .nav-preview-items {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-preview-item {
+            padding: 5px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-size: 14px;
         }
 
         @media (max-width: 768px) {
@@ -337,6 +376,16 @@
 
             .sidebar.active {
                 left: 0;
+            }
+
+            .item-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .section-title {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
@@ -354,22 +403,28 @@
             <div class="menu-item active" onclick="showSection('homepage')"><i class="fas fa-home"></i> Homepage</div>
             <div class="menu-item" onclick="showSection('projects-page')"><i class="fas fa-project-diagram"></i>
                 Projects Page</div>
-                <div class="menu-category">NAVIGATION</div>
-                <div class="menu-item" onclick="showSection('navbar')"><i class="fas fa-bars"></i> Navigation Menu</div>
+
+            <div class="menu-category">NAVIGATION</div>
+            <div class="menu-item" onclick="showSection('navbar')"><i class="fas fa-bars"></i> Navigation Menu</div>
+
             <div class="menu-category">CUSTOM PAGES</div>
             <div id="customPagesList" class="pages-tree"></div>
+
             <div class="menu-category">ACTIONS</div>
             <div class="menu-item" onclick="createNewPage()"><i class="fas fa-plus-circle"></i> + Create New Page</div>
             <div class="menu-item" onclick="exportData()"><i class="fas fa-download"></i> Export Data</div>
             <div class="menu-item" onclick="importData()"><i class="fas fa-upload"></i> Import Data</div>
         </div>
     </div>
+
     <div class="main-content">
         <div class="top-bar">
             <button id="menuToggle" style="background: none; border: none; color: white; font-size: 24px;"><i
                     class="fas fa-bars"></i></button>
             <button class="logout-btn" onclick="logout()">Logout <i class="fas fa-sign-out-alt"></i></button>
         </div>
+
+        <!-- Homepage Sections -->
         <div id="homepage-section" class="section-card">
             <div class="section-title">
                 <h2><i class="fas fa-home"></i> Homepage Sections</h2><button class="btn-primary"
@@ -377,6 +432,8 @@
             </div>
             <div id="homepageSectionsList" class="items-list"></div>
         </div>
+
+        <!-- Projects Page -->
         <div id="projects-page-section" class="section-card" style="display: none;">
             <div class="section-title">
                 <h2><i class="fas fa-project-diagram"></i> Projects Management</h2><button class="btn-primary"
@@ -384,7 +441,38 @@
             </div>
             <div id="projectsList" class="items-list"></div>
         </div>
+
+        <!-- Navigation Bar Section -->
+        <div id="navbar-section" class="section-card" style="display: none;">
+            <div class="section-title">
+                <h2><i class="fas fa-bars"></i> Navigation Menu Manager</h2>
+                <button class="btn-primary" onclick="addNavItem()">+ Add Menu Item</button>
+            </div>
+
+            <div class="form-group">
+                <label>Menu Style</label>
+                <select id="menuStyle" class="form-control" onchange="saveNavSettings()">
+                    <option value="default">Default Style</option>
+                    <option value="gradient">Gradient Text</option>
+                    <option value="underline">Underline Effect</option>
+                    <option value="pill">Pill Background</option>
+                </select>
+            </div>
+
+            <div id="navItemsList" class="items-list"></div>
+
+            <div class="nav-preview">
+                <h4><i class="fas fa-eye"></i> Live Preview</h4>
+                <div class="nav-preview-items" id="navPreview"></div>
+            </div>
+
+            <div class="mt-3">
+                <button class="btn-primary" onclick="saveNavigationMenu()">Save All Changes</button>
+                <button class="btn-secondary" onclick="resetNavigationMenu()">Reset to Default</button>
+            </div>
+        </div>
     </div>
+
     <div id="modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -395,8 +483,14 @@
             <button class="btn-primary" onclick="saveModalItem()">Save</button>
         </div>
     </div>
+
     <script>
-        if (!sessionStorage.getItem('adminLoggedIn')) { window.location.href = 'admin-login.html'; }
+        // Check authentication
+        if (!sessionStorage.getItem('adminLoggedIn')) {
+            window.location.href = 'admin-login.html';
+        }
+
+        // Portfolio Data Structure
         let portfolioData = {
             pages: {
                 homepage: {
@@ -408,65 +502,538 @@
                         { id: "education", name: "Education Section", type: "education", order: 4 },
                         { id: "contact", name: "Contact Section", type: "contact", order: 5 }
                     ]
-                }, projects: { name: "Projects Page", url: "../assets/pages/projects.html", sections: [{ id: "projects-list", name: "All Projects", type: "projects-list", order: 0 }] }
+                },
+                projects: { name: "Projects Page", url: "../src/pages/projects.html", sections: [{ id: "projects-list", name: "All Projects", type: "projects-list", order: 0 }] }
             },
-            customPages: [], projects: [], navMenu: [{ name: "Home", link: "../index.html", type: "page" }, { name: "Projects", link: "../assets/pages/projects.html", type: "page" }],
-            content: { hero: { title: "Tanzeela Fatima", typingText: "Web Developer", image: "../assets/images/profile.png" }, about: { text: "I'm a passionate developer..." }, contact: { email: "codequeen765@gmail.com" } },
-            settings: { siteTitle: "Tanzeela Fatima", footerText: "© 2025 Tanzeela Fatima. All Rights Reserved.", homepageProjectsCount: 3 }
+            customPages: [],
+            projects: [],
+            navMenu: [
+                { name: "Home", link: "../index.html", type: "home", target: "_self" },
+                { name: "About", link: "#about", type: "section", target: "_self" },
+                { name: "Languages", link: "#languages", type: "section", target: "_self" },
+                { name: "Projects", link: "../src/pages/projects.html", type: "page", target: "_self" },
+                { name: "Education", link: "#education", type: "section", target: "_self" },
+                { name: "Contact", link: "#contact", type: "section", target: "_self" }
+            ],
+            navSettings: { menuStyle: "default" },
+            content: {
+                hero: { title: "Tanzeela Fatima", typingText: "Web Developer", image: "../src/images/profile.png" },
+                contact: { email: "codequeen765@gmail.com" }
+            },
+            settings: {
+                siteTitle: "Tanzeela Fatima",
+                footerText: "© 2025 Tanzeela Fatima. All Rights Reserved.",
+                homepageProjectsCount: 3
+            }
         };
-        let currentModalType = null, currentEditItem = null;
-        function loadData() { const saved = localStorage.getItem('portfolio_admin_data'); if (saved) { portfolioData = JSON.parse(saved); } else { saveData(); } renderAll(); }
-        function saveData() { localStorage.setItem('portfolio_admin_data', JSON.stringify(portfolioData)); }
-        function imageToBase64(file) { return new Promise((resolve, reject) => { const reader = new FileReader(); reader.readAsDataURL(file); reader.onload = () => resolve(reader.result); reader.onerror = error => reject(error); }); }
-        function getImageUploadHTML(currentImage = '') { return `<div class="form-group"><label>Project Thumbnail</label><div class="image-upload-area" onclick="document.getElementById('imageInput').click()"><i class="fas fa-cloud-upload-alt" style="font-size: 40px; margin-bottom: 10px;"></i><p>Click to upload image</p><p style="font-size: 12px; color: #888;">PNG, JPG, GIF up to 5MB</p><input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="previewImage(this)"></div><div class="image-preview" id="imagePreview">${currentImage ? `<img src="${currentImage}" alt="Preview"><br><small>Current image</small>` : ''}</div><input type="hidden" id="projectImage" value="${currentImage}"></div>`; }
-        window.previewImage = async function (input) { if (input.files && input.files[0]) { const file = input.files[0]; if (file.size > 5 * 1024 * 1024) { alert('Image size must be less than 5MB'); return; } const base64 = await imageToBase64(file); document.getElementById('projectImage').value = base64; const preview = document.getElementById('imagePreview'); preview.innerHTML = `<img src="${base64}" alt="Preview"><br><small>New image uploaded</small>`; } };
-        function renderAll() { renderHomepageSections(); renderProjectsList(); renderCustomPages(); }
+
+        let currentModalType = null;
+        let currentEditItem = null;
+
+        // Load/Save Data
+        function loadData() {
+            const saved = localStorage.getItem('portfolio_admin_data');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                portfolioData = { ...portfolioData, ...parsed };
+                if (!portfolioData.navMenu) portfolioData.navMenu = [];
+                if (!portfolioData.navSettings) portfolioData.navSettings = { menuStyle: "default" };
+            }
+            saveData();
+            renderAll();
+        }
+
+        function saveData() {
+            localStorage.setItem('portfolio_admin_data', JSON.stringify(portfolioData));
+        }
+
+        // Image Upload
+        function imageToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        function getImageUploadHTML(currentImage = '') {
+            return `<div class="form-group"><label>Project Thumbnail</label><div class="image-upload-area" onclick="document.getElementById('imageInput').click()"><i class="fas fa-cloud-upload-alt" style="font-size: 40px; margin-bottom: 10px;"></i><p>Click to upload image</p><p style="font-size: 12px; color: #888;">PNG, JPG, GIF up to 5MB</p><input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="previewImage(this)"></div><div class="image-preview" id="imagePreview">${currentImage ? `<img src="${currentImage}" alt="Preview"><br><small>Current image</small>` : ''}</div><input type="hidden" id="projectImage" value="${currentImage}"></div>`;
+        }
+
+        window.previewImage = async function (input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('Image size must be less than 5MB');
+                    return;
+                }
+                const base64 = await imageToBase64(file);
+                document.getElementById('projectImage').value = base64;
+                const preview = document.getElementById('imagePreview');
+                preview.innerHTML = `<img src="${base64}" alt="Preview"><br><small>New image uploaded</small>`;
+            }
+        };
+
+        // Render Functions
+        function renderAll() {
+            renderHomepageSections();
+            renderProjectsList();
+            renderCustomPages();
+            renderNavItems();
+            loadNavSettings();
+        }
+
         function renderHomepageSections() {
             const container = document.getElementById('homepageSectionsList');
             const sections = portfolioData.pages.homepage.sections.sort((a, b) => a.order - b.order);
-            container.innerHTML = sections.map((section, index) => `<div class="item-card"><div class="item-info"><h4><i class="fas fa-${section.type === 'hero' ? 'star' : section.type === 'about' ? 'user' : section.type === 'languages' ? 'code' : section.type === 'projects' ? 'project-diagram' : section.type === 'education' ? 'graduation-cap' : 'envelope'}"></i> ${section.name}</h4><p>Type: ${section.type} | ID: ${section.id}</p></div><div class="item-actions"><button class="btn-secondary btn-sm" onclick="editSection('homepage', ${index})">Edit</button><button class="btn-danger btn-sm" onclick="deleteSection('homepage', ${index})">Delete</button>${index > 0 ? `<button class="btn-secondary btn-sm" onclick="moveSection('homepage', ${index}, 'up')">↑</button>` : ''}${index < sections.length - 1 ? `<button class="btn-secondary btn-sm" onclick="moveSection('homepage', ${index}, 'down')">↓</button>` : ''}</div></div>`).join('');
+            container.innerHTML = sections.map((section, index) => `
+                <div class="item-card">
+                    <div><h4><i class="fas fa-${section.type === 'hero' ? 'star' : section.type === 'about' ? 'user' : section.type === 'languages' ? 'code' : section.type === 'projects' ? 'project-diagram' : section.type === 'education' ? 'graduation-cap' : 'envelope'}"></i> ${section.name}</h4><small>Type: ${section.type} | ID: ${section.id}</small></div>
+                    <div class="item-actions">
+                        <button class="btn-warning btn-sm" onclick="editSection('homepage', ${index})">Edit</button>
+                        <button class="btn-danger btn-sm" onclick="deleteSection('homepage', ${index})">Delete</button>
+                        ${index > 0 ? `<button class="btn-secondary btn-sm" onclick="moveSection('homepage', ${index}, 'up')">↑</button>` : ''}
+                        ${index < sections.length - 1 ? `<button class="btn-secondary btn-sm" onclick="moveSection('homepage', ${index}, 'down')">↓</button>` : ''}
+                    </div>
+                </div>
+            `).join('');
         }
+
         function renderProjectsList() {
             const container = document.getElementById('projectsList');
-            if (portfolioData.projects.length === 0) { container.innerHTML = '<p style="text-align: center; padding: 40px;">No projects yet. Click "Add New Project" to create one.</p>'; return; }
-            container.innerHTML = portfolioData.projects.map((project, index) => `<div class="item-card"><div style="display: flex; align-items: center; gap: 15px;">${project.image ? `<img src="${project.image}" class="project-thumbnail" alt="${project.title}">` : '<div class="project-thumbnail" style="background: #333; display: flex; align-items: center; justify-content: center;"><i class="fas fa-image"></i></div>'}<div class="item-info"><h4>${project.title}</h4><p>${project.description.substring(0, 100)}...</p><small>Tags: ${project.tags}</small>${project.demoLink ? `<br><small>Demo: ${project.demoLink}</small>` : ''}</div></div><div class="item-actions"><button class="btn-warning btn-sm" onclick="editProject(${index})">Edit</button><button class="btn-danger btn-sm" onclick="deleteProject(${index})">Delete</button></div></div>`).join('');
+            if (portfolioData.projects.length === 0) {
+                container.innerHTML = '<p style="text-align: center; padding: 40px;">No projects yet. Click "Add New Project" to create one.</p>';
+                return;
+            }
+            container.innerHTML = portfolioData.projects.map((project, index) => `
+                <div class="item-card">
+                    <div style="display: flex; align-items: center; gap: 15px; flex:1;">
+                        ${project.image ? `<img src="${project.image}" class="project-thumbnail">` : '<div style="width:60px;height:60px;background:#333;border-radius:8px;display:flex;align-items:center;justify-content:center;"><i class="fas fa-image"></i></div>'}
+                        <div><h4>${project.title}</h4><p>${project.description.substring(0, 80)}...</p><small>Tags: ${project.tags}</small></div>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn-warning btn-sm" onclick="editProject(${index})">Edit</button>
+                        <button class="btn-danger btn-sm" onclick="deleteProject(${index})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
         }
+
         function renderCustomPages() {
             const container = document.getElementById('customPagesList');
-            if (portfolioData.customPages.length === 0) { container.innerHTML = '<div style="padding: 10px 25px; color: #666;">No custom pages yet</div>'; return; }
-            container.innerHTML = portfolioData.customPages.map((page, idx) => `<div class="page-node"><div class="page-header" onclick="toggleSections(${idx})"><div><i class="fas fa-file"></i> ${page.name}</div><div><button class="btn-secondary btn-sm" onclick="event.stopPropagation(); editCustomPage(${idx})">Edit</button><button class="btn-danger btn-sm" onclick="event.stopPropagation(); deleteCustomPage(${idx})">Del</button></div></div><div class="sections-list" id="sections-${idx}">${page.sections ? page.sections.map((section, sIdx) => `<div class="section-item"><span><i class="fas fa-hashtag"></i> ${section.name}</span><div><button class="btn-secondary btn-sm" onclick="event.stopPropagation(); editPageSection(${idx}, ${sIdx})">Edit</button><button class="btn-danger btn-sm" onclick="event.stopPropagation(); deletePageSection(${idx}, ${sIdx})">Del</button></div></div>`).join('') : '<div style="padding: 8px 15px; color: #666;">No sections</div>'}<button class="btn-secondary btn-sm" style="margin: 5px 0 5px 15px;" onclick="event.stopPropagation(); addPageSection(${idx})">+ Add Section</button></div></div>`).join('');
+            if (portfolioData.customPages.length === 0) {
+                container.innerHTML = '<div style="padding: 10px 25px; color: #666;">No custom pages yet</div>';
+                return;
+            }
+            container.innerHTML = portfolioData.customPages.map((page, idx) => `
+                <div class="page-node">
+                    <div class="page-header" onclick="toggleSections(${idx})">
+                        <div><i class="fas fa-file"></i> ${page.name}</div>
+                        <div><button class="btn-secondary btn-sm" onclick="event.stopPropagation(); editCustomPage(${idx})">Edit</button><button class="btn-danger btn-sm" onclick="event.stopPropagation(); deleteCustomPage(${idx})">Del</button></div>
+                    </div>
+                    <div class="sections-list" id="sections-${idx}">
+                        ${page.sections ? page.sections.map((section, sIdx) => `<div class="section-item"><span>${section.name}</span><div><button class="btn-warning btn-sm" onclick="event.stopPropagation(); editPageSection(${idx}, ${sIdx})">Edit</button><button class="btn-danger btn-sm" onclick="event.stopPropagation(); deletePageSection(${idx}, ${sIdx})">Del</button></div></div>`).join('') : '<div style="padding: 8px 15px;">No sections</div>'}
+                        <button class="btn-secondary btn-sm" style="margin: 5px 0 5px 15px;" onclick="event.stopPropagation(); addPageSection(${idx})">+ Add Section</button>
+                    </div>
+                </div>
+            `).join('');
         }
-        function toggleSections(index) { document.getElementById(`sections-${index}`).classList.toggle('show'); }
-        function addNewSection() { currentModalType = 'section'; currentEditItem = null; document.getElementById('modalTitle').textContent = 'Add New Section'; document.getElementById('modalBody').innerHTML = `<div class="form-group"><label>Section Name</label><input type="text" id="sectionName" class="form-control" placeholder="e.g., Skills Section"></div><div class="form-group"><label>Section Type</label><select id="sectionType" class="form-control"><option value="hero">Hero Section</option><option value="about">About Section</option><option value="skills">Skills Section</option><option value="projects">Projects Section</option><option value="education">Education Section</option><option value="contact">Contact Section</option><option value="custom">Custom Section</option></select></div><div class="form-group"><label>Section ID (for navigation)</label><input type="text" id="sectionId" class="form-control" placeholder="skills-section"></div>`; document.getElementById('modal').style.display = 'flex'; }
-        function editSection(pageType, index) { const section = portfolioData.pages[pageType].sections[index]; currentModalType = 'editSection'; currentEditItem = { pageType, index }; document.getElementById('modalTitle').textContent = 'Edit Section'; document.getElementById('modalBody').innerHTML = `<div class="form-group"><label>Section Name</label><input type="text" id="sectionName" class="form-control" value="${section.name}"></div><div class="form-group"><label>Section Type</label><select id="sectionType" class="form-control"><option value="hero" ${section.type === 'hero' ? 'selected' : ''}>Hero</option><option value="about" ${section.type === 'about' ? 'selected' : ''}>About</option><option value="skills" ${section.type === 'skills' ? 'selected' : ''}>Skills</option><option value="projects" ${section.type === 'projects' ? 'selected' : ''}>Projects</option><option value="education" ${section.type === 'education' ? 'selected' : ''}>Education</option><option value="contact" ${section.type === 'contact' ? 'selected' : ''}>Contact</option></select></div><div class="form-group"><label>Section ID</label><input type="text" id="sectionId" class="form-control" value="${section.id}"></div>`; document.getElementById('modal').style.display = 'flex'; }
-        function deleteSection(pageType, index) { if (confirm('Delete this section?')) { portfolioData.pages[pageType].sections.splice(index, 1); saveData(); renderHomepageSections(); } }
-        function moveSection(pageType, index, direction) { const sections = portfolioData.pages[pageType].sections; if (direction === 'up' && index > 0) { [sections[index], sections[index - 1]] = [sections[index - 1], sections[index]]; } else if (direction === 'down' && index < sections.length - 1) { [sections[index], sections[index + 1]] = [sections[index + 1], sections[index]]; } sections.forEach((s, i) => s.order = i); saveData(); renderHomepageSections(); }
-        function addNewProject() { currentModalType = 'project'; currentEditItem = null; document.getElementById('modalTitle').textContent = 'Add New Project'; document.getElementById('modalBody').innerHTML = `<div class="form-group"><label>Project Name</label><input type="text" id="projectName" class="form-control" placeholder="My Awesome Project"></div><div class="form-group"><label>Description</label><textarea id="projectDesc" class="form-control" placeholder="Project description..."></textarea></div><div class="form-group"><label>Tags (comma separated)</label><input type="text" id="projectTags" class="form-control" placeholder="React, Node.js, MongoDB"></div><div class="form-group"><label>Demo Link</label><input type="text" id="projectLink" class="form-control" placeholder="https://example.com"></div>${getImageUploadHTML()}`; document.getElementById('modal').style.display = 'flex'; }
-        function editProject(index) { const project = portfolioData.projects[index]; currentModalType = 'editProject'; currentEditItem = index; document.getElementById('modalTitle').textContent = 'Edit Project'; document.getElementById('modalBody').innerHTML = `<div class="form-group"><label>Project Name</label><input type="text" id="projectName" class="form-control" value="${project.title}"></div><div class="form-group"><label>Description</label><textarea id="projectDesc" class="form-control">${project.description}</textarea></div><div class="form-group"><label>Tags</label><input type="text" id="projectTags" class="form-control" value="${project.tags}"></div><div class="form-group"><label>Demo Link</label><input type="text" id="projectLink" class="form-control" value="${project.demoLink || ''}"></div>${getImageUploadHTML(project.image || '')}`; document.getElementById('modal').style.display = 'flex'; }
-        function deleteProject(index) { if (confirm('Delete this project?')) { portfolioData.projects.splice(index, 1); saveData(); renderProjectsList(); } }
-        function createNewPage() { currentModalType = 'newPage'; document.getElementById('modalTitle').textContent = 'Create New Page'; document.getElementById('modalBody').innerHTML = `<div class="form-group"><label>Page Name</label><input type="text" id="pageName" class="form-control" placeholder="About Me"></div><div class="form-group"><label>Page URL</label><input type="text" id="pageUrl" class="form-control" placeholder="about.html"></div>`; document.getElementById('modal').style.display = 'flex'; }
-        function editCustomPage(index) { const page = portfolioData.customPages[index]; currentModalType = 'editPage'; currentEditItem = index; document.getElementById('modalTitle').textContent = 'Edit Page'; document.getElementById('modalBody').innerHTML = `<div class="form-group"><label>Page Name</label><input type="text" id="pageName" class="form-control" value="${page.name}"></div><div class="form-group"><label>Page URL</label><input type="text" id="pageUrl" class="form-control" value="${page.url}"></div>`; document.getElementById('modal').style.display = 'flex'; }
-        function deleteCustomPage(index) { if (confirm('Delete this page? All sections will be lost.')) { portfolioData.customPages.splice(index, 1); saveData(); renderCustomPages(); } }
-        function addPageSection(pageIndex) { currentModalType = 'pageSection'; currentEditItem = pageIndex; document.getElementById('modalTitle').textContent = 'Add Section to Page'; document.getElementById('modalBody').innerHTML = `<div class="form-group"><label>Section Name</label><input type="text" id="sectionName" class="form-control" placeholder="My Section"></div><div class="form-group"><label>Section Content (HTML allowed)</label><textarea id="sectionContent" class="form-control" rows="10" placeholder="<h1>My Content</h1><p>Hello world</p>"></textarea></div>`; document.getElementById('modal').style.display = 'flex'; }
-        function editPageSection(pageIndex, sectionIndex) { const section = portfolioData.customPages[pageIndex].sections[sectionIndex]; currentModalType = 'editPageSection'; currentEditItem = { pageIndex, sectionIndex }; document.getElementById('modalTitle').textContent = 'Edit Section'; document.getElementById('modalBody').innerHTML = `<div class="form-group"><label>Section Name</label><input type="text" id="sectionName" class="form-control" value="${section.name}"></div><div class="form-group"><label>Section Content</label><textarea id="sectionContent" class="form-control" rows="10">${section.content || ''}</textarea></div>`; document.getElementById('modal').style.display = 'flex'; }
-        function deletePageSection(pageIndex, sectionIndex) { if (confirm('Delete this section?')) { portfolioData.customPages[pageIndex].sections.splice(sectionIndex, 1); saveData(); renderCustomPages(); } }
+
+        function toggleSections(index) {
+            document.getElementById(`sections-${index}`).classList.toggle('show');
+        }
+
+        // Navigation Functions
+        function renderNavItems() {
+            const container = document.getElementById('navItemsList');
+            if (!portfolioData.navMenu || portfolioData.navMenu.length === 0) {
+                container.innerHTML = '<p style="text-align: center; padding: 40px;">No menu items. Click "Add Menu Item" to create one.</p>';
+                return;
+            }
+            container.innerHTML = portfolioData.navMenu.map((item, index) => `
+                <div class="item-card">
+                    <div style="flex:1"><h4><i class="fas ${item.type === 'home' ? 'fa-home' : item.type === 'page' ? 'fa-file' : item.type === 'section' ? 'fa-link' : 'fa-external-link-alt'}"></i> ${item.name}</h4><small>Link: ${item.link} | Type: ${item.type} | Target: ${item.target === '_blank' ? 'New Tab' : 'Same Tab'}</small></div>
+                    <div class="item-actions">
+                        <button class="btn-warning btn-sm" onclick="editNavItem(${index})">Edit</button>
+                        <button class="btn-danger btn-sm" onclick="deleteNavItem(${index})">Delete</button>
+                        ${index > 0 ? `<button class="btn-secondary btn-sm" onclick="moveNavItem(${index}, 'up')">↑</button>` : ''}
+                        ${index < portfolioData.navMenu.length - 1 ? `<button class="btn-secondary btn-sm" onclick="moveNavItem(${index}, 'down')">↓</button>` : ''}
+                    </div>
+                </div>
+            `).join('');
+            updateNavPreview();
+        }
+
+        function updateNavPreview() {
+            const preview = document.getElementById('navPreview');
+            if (!preview) return;
+            const style = portfolioData.navSettings?.menuStyle || 'default';
+            preview.innerHTML = portfolioData.navMenu.map(item => `<span class="nav-preview-item" style="${style === 'gradient' ? 'background:linear-gradient(135deg,#9FC9C7,#8EB1D3);color:#0D1B2A;' : style === 'pill' ? 'background:#2EC4B6;color:#0D1B2A;' : ''}">${item.name}</span>`).join('');
+        }
+
+        function addNavItem() {
+            currentModalType = 'navItem';
+            currentEditItem = null;
+            document.getElementById('modalTitle').textContent = 'Add Menu Item';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group"><label>Menu Name</label><input type="text" id="navName" class="form-control" placeholder="e.g., Home"></div>
+                <div class="form-group"><label>Link URL</label><input type="text" id="navLink" class="form-control" placeholder="../index.html or #about"></div>
+                <div class="form-group"><label>Link Type</label><select id="navType" class="form-control"><option value="home">Home</option><option value="page">Page</option><option value="section">Section</option><option value="external">External</option></select></div>
+                <div class="form-group"><label>Open in</label><select id="navTarget" class="form-control"><option value="_self">Same Tab</option><option value="_blank">New Tab</option></select></div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function editNavItem(index) {
+            const item = portfolioData.navMenu[index];
+            currentModalType = 'editNavItem';
+            currentEditItem = index;
+            document.getElementById('modalTitle').textContent = 'Edit Menu Item';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group"><label>Menu Name</label><input type="text" id="navName" class="form-control" value="${item.name}"></div>
+                <div class="form-group"><label>Link URL</label><input type="text" id="navLink" class="form-control" value="${item.link}"></div>
+                <div class="form-group"><label>Link Type</label><select id="navType" class="form-control"><option value="home" ${item.type === 'home' ? 'selected' : ''}>Home</option><option value="page" ${item.type === 'page' ? 'selected' : ''}>Page</option><option value="section" ${item.type === 'section' ? 'selected' : ''}>Section</option><option value="external" ${item.type === 'external' ? 'selected' : ''}>External</option></select></div>
+                <div class="form-group"><label>Open in</label><select id="navTarget" class="form-control"><option value="_self" ${item.target === '_self' ? 'selected' : ''}>Same Tab</option><option value="_blank" ${item.target === '_blank' ? 'selected' : ''}>New Tab</option></select></div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function deleteNavItem(index) {
+            if (confirm('Delete this menu item?')) {
+                portfolioData.navMenu.splice(index, 1);
+                saveData();
+                renderNavItems();
+            }
+        }
+
+        function moveNavItem(index, direction) {
+            if (direction === 'up' && index > 0) {
+                [portfolioData.navMenu[index], portfolioData.navMenu[index - 1]] = [portfolioData.navMenu[index - 1], portfolioData.navMenu[index]];
+            } else if (direction === 'down' && index < portfolioData.navMenu.length - 1) {
+                [portfolioData.navMenu[index], portfolioData.navMenu[index + 1]] = [portfolioData.navMenu[index + 1], portfolioData.navMenu[index]];
+            }
+            saveData();
+            renderNavItems();
+        }
+
+        function saveNavSettings() {
+            const menuStyle = document.getElementById('menuStyle').value;
+            portfolioData.navSettings = { menuStyle };
+            saveData();
+            updateNavPreview();
+        }
+
+        function saveNavigationMenu() {
+            saveData();
+            alert('Navigation menu saved successfully!');
+        }
+
+        function resetNavigationMenu() {
+            if (confirm('Reset navigation menu to default?')) {
+                portfolioData.navMenu = [
+                    { name: "Home", link: "../index.html", type: "home", target: "_self" },
+                    { name: "About", link: "#about", type: "section", target: "_self" },
+                    { name: "Languages", link: "#languages", type: "section", target: "_self" },
+                    { name: "Projects", link: "../src/pages/projects.html", type: "page", target: "_self" },
+                    { name: "Education", link: "#education", type: "section", target: "_self" },
+                    { name: "Contact", link: "#contact", type: "section", target: "_self" }
+                ];
+                portfolioData.navSettings = { menuStyle: "default" };
+                saveData();
+                document.getElementById('menuStyle').value = 'default';
+                renderNavItems();
+                alert('Navigation reset to default!');
+            }
+        }
+
+        function loadNavSettings() {
+            if (portfolioData.navSettings) {
+                document.getElementById('menuStyle').value = portfolioData.navSettings.menuStyle || 'default';
+            }
+            renderNavItems();
+        }
+
+        // Section Functions
+        function addNewSection() {
+            currentModalType = 'section';
+            currentEditItem = null;
+            document.getElementById('modalTitle').textContent = 'Add New Section';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group"><label>Section Name</label><input type="text" id="sectionName" class="form-control"></div>
+                <div class="form-group"><label>Section Type</label><select id="sectionType" class="form-control"><option value="hero">Hero</option><option value="about">About</option><option value="skills">Skills</option><option value="projects">Projects</option><option value="education">Education</option><option value="contact">Contact</option></select></div>
+                <div class="form-group"><label>Section ID</label><input type="text" id="sectionId" class="form-control"></div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function editSection(pageType, index) {
+            const section = portfolioData.pages[pageType].sections[index];
+            currentModalType = 'editSection';
+            currentEditItem = { pageType, index };
+            document.getElementById('modalTitle').textContent = 'Edit Section';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group"><label>Section Name</label><input type="text" id="sectionName" class="form-control" value="${section.name}"></div>
+                <div class="form-group"><label>Section Type</label><select id="sectionType" class="form-control"><option value="hero" ${section.type === 'hero' ? 'selected' : ''}>Hero</option><option value="about" ${section.type === 'about' ? 'selected' : ''}>About</option><option value="skills" ${section.type === 'skills' ? 'selected' : ''}>Skills</option><option value="projects" ${section.type === 'projects' ? 'selected' : ''}>Projects</option><option value="education" ${section.type === 'education' ? 'selected' : ''}>Education</option><option value="contact" ${section.type === 'contact' ? 'selected' : ''}>Contact</option></select></div>
+                <div class="form-group"><label>Section ID</label><input type="text" id="sectionId" class="form-control" value="${section.id}"></div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function deleteSection(pageType, index) {
+            if (confirm('Delete this section?')) {
+                portfolioData.pages[pageType].sections.splice(index, 1);
+                saveData();
+                renderHomepageSections();
+            }
+        }
+
+        function moveSection(pageType, index, direction) {
+            const sections = portfolioData.pages[pageType].sections;
+            if (direction === 'up' && index > 0) {
+                [sections[index], sections[index - 1]] = [sections[index - 1], sections[index]];
+            } else if (direction === 'down' && index < sections.length - 1) {
+                [sections[index], sections[index + 1]] = [sections[index + 1], sections[index]];
+            }
+            sections.forEach((s, i) => s.order = i);
+            saveData();
+            renderHomepageSections();
+        }
+
+        // Project Functions
+        function addNewProject() {
+            currentModalType = 'project';
+            currentEditItem = null;
+            document.getElementById('modalTitle').textContent = 'Add New Project';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group"><label>Project Name</label><input type="text" id="projectName" class="form-control"></div>
+                <div class="form-group"><label>Description</label><textarea id="projectDesc" class="form-control"></textarea></div>
+                <div class="form-group"><label>Tags (comma separated)</label><input type="text" id="projectTags" class="form-control"></div>
+                <div class="form-group"><label>Demo Link</label><input type="text" id="projectLink" class="form-control"></div>
+                ${getImageUploadHTML()}
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function editProject(index) {
+            const project = portfolioData.projects[index];
+            currentModalType = 'editProject';
+            currentEditItem = index;
+            document.getElementById('modalTitle').textContent = 'Edit Project';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group"><label>Project Name</label><input type="text" id="projectName" class="form-control" value="${project.title}"></div>
+                <div class="form-group"><label>Description</label><textarea id="projectDesc" class="form-control">${project.description}</textarea></div>
+                <div class="form-group"><label>Tags</label><input type="text" id="projectTags" class="form-control" value="${project.tags}"></div>
+                <div class="form-group"><label>Demo Link</label><input type="text" id="projectLink" class="form-control" value="${project.demoLink || ''}"></div>
+                ${getImageUploadHTML(project.image || '')}
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function deleteProject(index) {
+            if (confirm('Delete this project?')) {
+                portfolioData.projects.splice(index, 1);
+                saveData();
+                renderProjectsList();
+            }
+        }
+
+        // Custom Pages Functions
+        function createNewPage() {
+            currentModalType = 'newPage';
+            document.getElementById('modalTitle').textContent = 'Create New Page';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group"><label>Page Name</label><input type="text" id="pageName" class="form-control"></div>
+                <div class="form-group"><label>Page URL</label><input type="text" id="pageUrl" class="form-control" placeholder="about.html"></div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function editCustomPage(index) {
+            const page = portfolioData.customPages[index];
+            currentModalType = 'editPage';
+            currentEditItem = index;
+            document.getElementById('modalTitle').textContent = 'Edit Page';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group"><label>Page Name</label><input type="text" id="pageName" class="form-control" value="${page.name}"></div>
+                <div class="form-group"><label>Page URL</label><input type="text" id="pageUrl" class="form-control" value="${page.url}"></div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function deleteCustomPage(index) {
+            if (confirm('Delete this page?')) {
+                portfolioData.customPages.splice(index, 1);
+                saveData();
+                renderCustomPages();
+            }
+        }
+
+        function addPageSection(pageIndex) {
+            currentModalType = 'pageSection';
+            currentEditItem = pageIndex;
+            document.getElementById('modalTitle').textContent = 'Add Section';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group"><label>Section Name</label><input type="text" id="sectionName" class="form-control"></div>
+                <div class="form-group"><label>Content (HTML allowed)</label><textarea id="sectionContent" class="form-control" rows="8"></textarea></div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function editPageSection(pageIndex, sectionIndex) {
+            const section = portfolioData.customPages[pageIndex].sections[sectionIndex];
+            currentModalType = 'editPageSection';
+            currentEditItem = { pageIndex, sectionIndex };
+            document.getElementById('modalTitle').textContent = 'Edit Section';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group"><label>Section Name</label><input type="text" id="sectionName" class="form-control" value="${section.name}"></div>
+                <div class="form-group"><label>Content</label><textarea id="sectionContent" class="form-control" rows="8">${section.content || ''}</textarea></div>
+            `;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function deletePageSection(pageIndex, sectionIndex) {
+            if (confirm('Delete this section?')) {
+                portfolioData.customPages[pageIndex].sections.splice(sectionIndex, 1);
+                saveData();
+                renderCustomPages();
+            }
+        }
+
+        // Save Modal Item
         function saveModalItem() {
-            if (currentModalType === 'section') { const newSection = { id: document.getElementById('sectionId').value, name: document.getElementById('sectionName').value, type: document.getElementById('sectionType').value, order: portfolioData.pages.homepage.sections.length }; portfolioData.pages.homepage.sections.push(newSection); saveData(); renderHomepageSections(); }
-            else if (currentModalType === 'editSection') { const { pageType, index } = currentEditItem; portfolioData.pages[pageType].sections[index].name = document.getElementById('sectionName').value; portfolioData.pages[pageType].sections[index].type = document.getElementById('sectionType').value; portfolioData.pages[pageType].sections[index].id = document.getElementById('sectionId').value; saveData(); renderHomepageSections(); }
-            else if (currentModalType === 'project') { const newProject = { id: Date.now(), title: document.getElementById('projectName').value, description: document.getElementById('projectDesc').value, tags: document.getElementById('projectTags').value, demoLink: document.getElementById('projectLink').value, image: document.getElementById('projectImage').value, date: new Date().toISOString() }; portfolioData.projects.push(newProject); saveData(); renderProjectsList(); }
-            else if (currentModalType === 'editProject') { const index = currentEditItem; portfolioData.projects[index].title = document.getElementById('projectName').value; portfolioData.projects[index].description = document.getElementById('projectDesc').value; portfolioData.projects[index].tags = document.getElementById('projectTags').value; portfolioData.projects[index].demoLink = document.getElementById('projectLink').value; portfolioData.projects[index].image = document.getElementById('projectImage').value; saveData(); renderProjectsList(); }
-            else if (currentModalType === 'newPage') { const newPage = { id: Date.now(), name: document.getElementById('pageName').value, url: document.getElementById('pageUrl').value, sections: [] }; portfolioData.customPages.push(newPage); saveData(); renderCustomPages(); }
-            else if (currentModalType === 'editPage') { const index = currentEditItem; portfolioData.customPages[index].name = document.getElementById('pageName').value; portfolioData.customPages[index].url = document.getElementById('pageUrl').value; saveData(); renderCustomPages(); }
-            else if (currentModalType === 'pageSection') { const pageIndex = currentEditItem; const newSection = { id: Date.now(), name: document.getElementById('sectionName').value, content: document.getElementById('sectionContent').value }; if (!portfolioData.customPages[pageIndex].sections) { portfolioData.customPages[pageIndex].sections = []; } portfolioData.customPages[pageIndex].sections.push(newSection); saveData(); renderCustomPages(); }
-            else if (currentModalType === 'editPageSection') { const { pageIndex, sectionIndex } = currentEditItem; portfolioData.customPages[pageIndex].sections[sectionIndex].name = document.getElementById('sectionName').value; portfolioData.customPages[pageIndex].sections[sectionIndex].content = document.getElementById('sectionContent').value; saveData(); renderCustomPages(); }
+            if (currentModalType === 'section') {
+                const newSection = { id: document.getElementById('sectionId').value, name: document.getElementById('sectionName').value, type: document.getElementById('sectionType').value, order: portfolioData.pages.homepage.sections.length };
+                portfolioData.pages.homepage.sections.push(newSection);
+                saveData();
+                renderHomepageSections();
+            } else if (currentModalType === 'editSection') {
+                const { pageType, index } = currentEditItem;
+                portfolioData.pages[pageType].sections[index].name = document.getElementById('sectionName').value;
+                portfolioData.pages[pageType].sections[index].type = document.getElementById('sectionType').value;
+                portfolioData.pages[pageType].sections[index].id = document.getElementById('sectionId').value;
+                saveData();
+                renderHomepageSections();
+            } else if (currentModalType === 'project') {
+                const newProject = { id: Date.now(), title: document.getElementById('projectName').value, description: document.getElementById('projectDesc').value, tags: document.getElementById('projectTags').value, demoLink: document.getElementById('projectLink').value, image: document.getElementById('projectImage').value, date: new Date().toISOString() };
+                portfolioData.projects.push(newProject);
+                saveData();
+                renderProjectsList();
+            } else if (currentModalType === 'editProject') {
+                const index = currentEditItem;
+                portfolioData.projects[index].title = document.getElementById('projectName').value;
+                portfolioData.projects[index].description = document.getElementById('projectDesc').value;
+                portfolioData.projects[index].tags = document.getElementById('projectTags').value;
+                portfolioData.projects[index].demoLink = document.getElementById('projectLink').value;
+                portfolioData.projects[index].image = document.getElementById('projectImage').value;
+                saveData();
+                renderProjectsList();
+            } else if (currentModalType === 'newPage') {
+                const newPage = { id: Date.now(), name: document.getElementById('pageName').value, url: document.getElementById('pageUrl').value, sections: [] };
+                portfolioData.customPages.push(newPage);
+                saveData();
+                renderCustomPages();
+            } else if (currentModalType === 'editPage') {
+                const index = currentEditItem;
+                portfolioData.customPages[index].name = document.getElementById('pageName').value;
+                portfolioData.customPages[index].url = document.getElementById('pageUrl').value;
+                saveData();
+                renderCustomPages();
+            } else if (currentModalType === 'pageSection') {
+                const pageIndex = currentEditItem;
+                const newSection = { id: Date.now(), name: document.getElementById('sectionName').value, content: document.getElementById('sectionContent').value };
+                if (!portfolioData.customPages[pageIndex].sections) portfolioData.customPages[pageIndex].sections = [];
+                portfolioData.customPages[pageIndex].sections.push(newSection);
+                saveData();
+                renderCustomPages();
+            } else if (currentModalType === 'editPageSection') {
+                const { pageIndex, sectionIndex } = currentEditItem;
+                portfolioData.customPages[pageIndex].sections[sectionIndex].name = document.getElementById('sectionName').value;
+                portfolioData.customPages[pageIndex].sections[sectionIndex].content = document.getElementById('sectionContent').value;
+                saveData();
+                renderCustomPages();
+            } else if (currentModalType === 'navItem') {
+                const newNavItem = { name: document.getElementById('navName').value, link: document.getElementById('navLink').value, type: document.getElementById('navType').value, target: document.getElementById('navTarget').value };
+                portfolioData.navMenu.push(newNavItem);
+                saveData();
+                renderNavItems();
+            } else if (currentModalType === 'editNavItem') {
+                const index = currentEditItem;
+                portfolioData.navMenu[index].name = document.getElementById('navName').value;
+                portfolioData.navMenu[index].link = document.getElementById('navLink').value;
+                portfolioData.navMenu[index].type = document.getElementById('navType').value;
+                portfolioData.navMenu[index].target = document.getElementById('navTarget').value;
+                saveData();
+                renderNavItems();
+            }
             closeModal();
         }
-        function closeModal() { document.getElementById('modal').style.display = 'none'; }
-        function exportData() { const dataStr = JSON.stringify(portfolioData, null, 2); const blob = new Blob([dataStr], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'portfolio-backup.json'; a.click(); URL.revokeObjectURL(url); }
-        function importData() { const input = document.createElement('input'); input.type = 'file'; input.accept = 'application/json'; input.onchange = (e) => { const file = e.target.files[0]; const reader = new FileReader(); reader.onload = (event) => { try { portfolioData = JSON.parse(event.target.result); saveData(); renderAll(); alert('Data imported successfully!'); } catch (error) { alert('Invalid file format'); } }; reader.readAsText(file); }; input.click(); }
-        function showSection(section) { document.getElementById('homepage-section').style.display = 'none'; document.getElementById('projects-page-section').style.display = 'none'; if (section === 'homepage') { document.getElementById('homepage-section').style.display = 'block'; } else if (section === 'projects-page') { document.getElementById('projects-page-section').style.display = 'block'; } document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active')); event.target.closest('.menu-item').classList.add('active'); }
-        function logout() { sessionStorage.removeItem('adminLoggedIn'); window.location.href = 'admin-login.html'; }
-        document.getElementById('menuToggle').addEventListener('click', () => { document.getElementById('sidebar').classList.toggle('active'); });
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // Export/Import
+        function exportData() {
+            const dataStr = JSON.stringify(portfolioData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'portfolio-backup.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'application/json';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        portfolioData = JSON.parse(event.target.result);
+                        saveData();
+                        renderAll();
+                        alert('Data imported successfully!');
+                    } catch (error) {
+                        alert('Invalid file format');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        function showSection(section) {
+            document.getElementById('homepage-section').style.display = 'none';
+            document.getElementById('projects-page-section').style.display = 'none';
+            document.getElementById('navbar-section').style.display = 'none';
+
+            if (section === 'homepage') {
+                document.getElementById('homepage-section').style.display = 'block';
+            } else if (section === 'projects-page') {
+                document.getElementById('projects-page-section').style.display = 'block';
+            } else if (section === 'navbar') {
+                document.getElementById('navbar-section').style.display = 'block';
+                loadNavSettings();
+            }
+
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            event.target.closest('.menu-item').classList.add('active');
+        }
+
+        function logout() {
+            sessionStorage.removeItem('adminLoggedIn');
+            window.location.href = 'admin-login.html';
+        }
+
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
+
         loadData();
     </script>
 </body>
