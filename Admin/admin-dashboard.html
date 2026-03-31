@@ -28,11 +28,12 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        /* Sidebar Accordion Styles */
         .sidebar {
             position: fixed;
             left: 0;
             top: 0;
-            width: 280px;
+            width: 320px;
             height: 100vh;
             background: linear-gradient(180deg, var(--dark-navy) 0%, #1a2a3a 100%);
             transition: all 0.3s;
@@ -58,43 +59,76 @@
             font-size: 18px;
         }
 
-        .sidebar-menu {
-            padding: 20px 0;
+        /* Accordion Menu */
+        .accordion-item {
+            background: transparent;
+            border: none;
+            margin: 5px 10px;
         }
 
-        .menu-category {
-            padding: 10px 25px;
-            font-size: 11px;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .menu-item {
-            padding: 12px 25px;
-            margin: 5px 15px;
+        .accordion-header {
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #aaa;
+            margin-bottom: 2px;
         }
 
-        .menu-item:hover,
-        .menu-item.active {
+        .accordion-button {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border-radius: 10px !important;
+            padding: 12px 20px;
+            font-weight: 600;
+        }
+
+        .accordion-button:not(.collapsed) {
             background: linear-gradient(135deg, var(--soft-teal), var(--light-blue));
             color: var(--dark-navy);
+        }
+
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: transparent;
+        }
+
+        .accordion-body {
+            padding: 10px 0 10px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 0 0 10px 10px;
+        }
+
+        .section-item {
+            padding: 10px 15px;
+            margin: 5px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-item:hover {
+            background: rgba(255, 255, 255, 0.1);
             transform: translateX(5px);
         }
 
-        .menu-item i {
-            width: 24px;
+        .section-item.active {
+            background: linear-gradient(135deg, var(--soft-teal), var(--light-blue));
+            color: var(--dark-navy);
         }
 
+        .section-badge {
+            background: var(--code-teal);
+            color: var(--dark-navy);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+        }
+
+        /* Main Content */
         .main-content {
-            margin-left: 280px;
+            margin-left: 320px;
             padding: 30px;
             min-height: 100vh;
         }
@@ -118,11 +152,25 @@
             cursor: pointer;
         }
 
-        .section-card {
+        /* Section Editor Card */
+        .section-editor-card {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
             padding: 25px;
             margin-bottom: 30px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .section-title {
@@ -165,10 +213,6 @@
             min-height: 100px;
         }
 
-        select.form-control {
-            cursor: pointer;
-        }
-
         .image-upload-area {
             border: 2px dashed rgba(255, 255, 255, 0.2);
             border-radius: 10px;
@@ -192,7 +236,6 @@
             max-width: 200px;
             max-height: 150px;
             border-radius: 10px;
-            margin-top: 10px;
         }
 
         .btn-primary {
@@ -234,7 +277,7 @@
 
         .items-list {
             margin-top: 20px;
-            max-height: 500px;
+            max-height: 400px;
             overflow-y: auto;
         }
 
@@ -248,20 +291,6 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 15px;
-        }
-
-        .project-thumbnail {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-right: 15px;
-        }
-
-        .item-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
         }
 
         .modal {
@@ -293,81 +322,9 @@
             margin-bottom: 20px;
         }
 
-        .pages-tree {
-            margin-top: 15px;
-        }
-
-        .page-node {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-
-        .page-header {
-            padding: 12px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            border-radius: 10px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .page-header:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .sections-list {
-            padding-left: 30px;
-            padding-bottom: 10px;
-            display: none;
-        }
-
-        .sections-list.show {
-            display: block;
-        }
-
-        .section-item {
-            padding: 8px 15px;
-            margin: 5px 0;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .nav-preview {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-        }
-
-        .nav-preview h4 {
-            margin-bottom: 15px;
-            color: var(--soft-teal);
-        }
-
-        .nav-preview-items {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .nav-preview-item {
-            padding: 5px 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            font-size: 14px;
-        }
-
         @media (max-width: 768px) {
             .sidebar {
-                left: -280px;
+                left: -320px;
             }
 
             .main-content {
@@ -376,16 +333,6 @@
 
             .sidebar.active {
                 left: 0;
-            }
-
-            .item-card {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .section-title {
-                flex-direction: column;
-                align-items: flex-start;
             }
         }
     </style>
@@ -398,22 +345,80 @@
             <h3>Admin Dashboard</h3>
             <p style="font-size: 12px;">Content Management System</p>
         </div>
-        <div class="sidebar-menu">
-            <div class="menu-category">MAIN PAGES</div>
-            <div class="menu-item active" onclick="showSection('homepage')"><i class="fas fa-home"></i> Homepage</div>
-            <div class="menu-item" onclick="showSection('projects-page')"><i class="fas fa-project-diagram"></i>
-                Projects Page</div>
 
-            <div class="menu-category">NAVIGATION</div>
-            <div class="menu-item" onclick="showSection('navbar')"><i class="fas fa-bars"></i> Navigation Menu</div>
+        <!-- Accordion Sidebar -->
+        <div class="accordion" id="sidebarAccordion">
+            <!-- Homepage Accordion -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#homepageSections">
+                        <i class="fas fa-home me-2"></i> Homepage
+                    </button>
+                </h2>
+                <div id="homepageSections" class="accordion-collapse collapse show" data-bs-parent="#sidebarAccordion">
+                    <div class="accordion-body" id="homepageSectionsList"></div>
+                </div>
+            </div>
 
-            <div class="menu-category">CUSTOM PAGES</div>
-            <div id="customPagesList" class="pages-tree"></div>
+            <!-- Projects Page Accordion -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#projectsSections">
+                        <i class="fas fa-project-diagram me-2"></i> Projects Page
+                    </button>
+                </h2>
+                <div id="projectsSections" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+                    <div class="accordion-body" id="projectsSectionsList"></div>
+                </div>
+            </div>
 
-            <div class="menu-category">ACTIONS</div>
-            <div class="menu-item" onclick="createNewPage()"><i class="fas fa-plus-circle"></i> + Create New Page</div>
-            <div class="menu-item" onclick="exportData()"><i class="fas fa-download"></i> Export Data</div>
-            <div class="menu-item" onclick="importData()"><i class="fas fa-upload"></i> Import Data</div>
+            <!-- Footer Accordion -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#footerSections">
+                        <i class="fas fa-copyright me-2"></i> Footer
+                    </button>
+                </h2>
+                <div id="footerSections" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+                    <div class="accordion-body" id="footerSectionsList"></div>
+                </div>
+            </div>
+
+            <!-- Navigation Accordion -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navigationSections">
+                        <i class="fas fa-bars me-2"></i> Navigation Menu
+                    </button>
+                </h2>
+                <div id="navigationSections" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+                    <div class="accordion-body" id="navigationSectionsList"></div>
+                </div>
+            </div>
+
+            <!-- Custom Pages Accordion -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#customPages">
+                        <i class="fas fa-file-alt me-2"></i> Custom Pages
+                    </button>
+                </h2>
+                <div id="customPages" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+                    <div class="accordion-body" id="customPagesList"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-3 mt-3">
+            <button class="btn-secondary w-100 mb-2" onclick="exportData()"><i class="fas fa-download"></i> Export
+                Data</button>
+            <button class="btn-secondary w-100" onclick="importData()"><i class="fas fa-upload"></i> Import
+                Data</button>
         </div>
     </div>
 
@@ -424,51 +429,13 @@
             <button class="logout-btn" onclick="logout()">Logout <i class="fas fa-sign-out-alt"></i></button>
         </div>
 
-        <!-- Homepage Sections -->
-        <div id="homepage-section" class="section-card">
+        <!-- Dynamic Section Editor -->
+        <div id="sectionEditor" class="section-editor-card">
             <div class="section-title">
-                <h2><i class="fas fa-home"></i> Homepage Sections</h2><button class="btn-primary"
-                    onclick="addNewSection()">+ Add New Section</button>
+                <h2 id="editorTitle">Select a section to edit</h2>
             </div>
-            <div id="homepageSectionsList" class="items-list"></div>
-        </div>
-
-        <!-- Projects Page -->
-        <div id="projects-page-section" class="section-card" style="display: none;">
-            <div class="section-title">
-                <h2><i class="fas fa-project-diagram"></i> Projects Management</h2><button class="btn-primary"
-                    onclick="addNewProject()">+ Add New Project</button>
-            </div>
-            <div id="projectsList" class="items-list"></div>
-        </div>
-
-        <!-- Navigation Bar Section -->
-        <div id="navbar-section" class="section-card" style="display: none;">
-            <div class="section-title">
-                <h2><i class="fas fa-bars"></i> Navigation Menu Manager</h2>
-                <button class="btn-primary" onclick="addNavItem()">+ Add Menu Item</button>
-            </div>
-
-            <div class="form-group">
-                <label>Menu Style</label>
-                <select id="menuStyle" class="form-control" onchange="saveNavSettings()">
-                    <option value="default">Default Style</option>
-                    <option value="gradient">Gradient Text</option>
-                    <option value="underline">Underline Effect</option>
-                    <option value="pill">Pill Background</option>
-                </select>
-            </div>
-
-            <div id="navItemsList" class="items-list"></div>
-
-            <div class="nav-preview">
-                <h4><i class="fas fa-eye"></i> Live Preview</h4>
-                <div class="nav-preview-items" id="navPreview"></div>
-            </div>
-
-            <div class="mt-3">
-                <button class="btn-primary" onclick="saveNavigationMenu()">Save All Changes</button>
-                <button class="btn-secondary" onclick="resetNavigationMenu()">Reset to Default</button>
+            <div id="editorContent">
+                <p class="text-center text-muted">Click on any section from the sidebar to start editing</p>
             </div>
         </div>
     </div>
@@ -476,530 +443,751 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="modalTitle">Add Item</h3><button onclick="closeModal()"
+                <h3 id="modalTitle">Edit Item</h3><button onclick="closeModal()"
                     style="background: none; border: none; color: white; font-size: 24px;">&times;</button>
             </div>
             <div id="modalBody"></div>
-            <button class="btn-primary" onclick="saveModalItem()">Save</button>
+            <button class="btn-primary mt-3" onclick="saveModalItem()">Save</button>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Check authentication
+        // Authentication
         if (!sessionStorage.getItem('adminLoggedIn')) {
             window.location.href = 'admin-login.html';
         }
 
-        // Portfolio Data Structure
+        const API_URL = 'http://localhost:5000/api';
+        const token = localStorage.getItem('adminToken');
+
+        // Data Storage
         let portfolioData = {
-            pages: {
-                homepage: {
-                    name: "Homepage", url: "../index.html", sections: [
-                        { id: "hero", name: "Hero Section", type: "hero", order: 0 },
-                        { id: "about", name: "About Section", type: "about", order: 1 },
-                        { id: "languages", name: "Languages Section", type: "languages", order: 2 },
-                        { id: "projects", name: "Projects Section", type: "projects", order: 3 },
-                        { id: "education", name: "Education Section", type: "education", order: 4 },
-                        { id: "contact", name: "Contact Section", type: "contact", order: 5 }
-                    ]
-                },
-                projects: { name: "Projects Page", url: "../src/pages/projects.html", sections: [{ id: "projects-list", name: "All Projects", type: "projects-list", order: 0 }] }
-            },
-            customPages: [],
+            hero: {},
+            aboutCards: [],
+            languages: [],
             projects: [],
-            navMenu: [
-                { name: "Home", link: "../index.html", type: "home", target: "_self" },
-                { name: "About", link: "#about", type: "section", target: "_self" },
-                { name: "Languages", link: "#languages", type: "section", target: "_self" },
-                { name: "Projects", link: "../src/pages/projects.html", type: "page", target: "_self" },
-                { name: "Education", link: "#education", type: "section", target: "_self" },
-                { name: "Contact", link: "#contact", type: "section", target: "_self" }
-            ],
-            navSettings: { menuStyle: "default" },
-            content: {
-                hero: { title: "Tanzeela Fatima", typingText: "Web Developer", image: "../src/images/profile.png" },
-                contact: { email: "codequeen765@gmail.com" }
-            },
-            settings: {
-                siteTitle: "Tanzeela Fatima",
-                footerText: "© 2025 Tanzeela Fatima. All Rights Reserved.",
-                homepageProjectsCount: 3
-            }
+            education: [],
+            contact: {},
+            footer: {},
+            navigation: [],
+            settings: {},
+            categories: ['Web', 'App', 'C++', 'Mini']
         };
 
-        let currentModalType = null;
-        let currentEditItem = null;
+        let currentSection = null;
+        let currentPage = null;
 
-        // Load/Save Data
-        function loadData() {
-            const saved = localStorage.getItem('portfolio_admin_data');
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                portfolioData = { ...portfolioData, ...parsed };
-                if (!portfolioData.navMenu) portfolioData.navMenu = [];
-                if (!portfolioData.navSettings) portfolioData.navSettings = { menuStyle: "default" };
+        // Load all data from backend
+        async function loadAllData() {
+            try {
+                const response = await fetch(`${API_URL}/portfolio`);
+                portfolioData = await response.json();
+                console.log('Data loaded:', portfolioData);
+                renderSidebar();
+            } catch (error) {
+                console.error('Error loading data:', error);
+                showError('Failed to load data. Make sure backend is running.');
             }
-            saveData();
-            renderAll();
         }
 
-        function saveData() {
-            localStorage.setItem('portfolio_admin_data', JSON.stringify(portfolioData));
-        }
+        // Render Sidebar with Sections
+        function renderSidebar() {
+            // Homepage Sections
+            const homepageContainer = document.getElementById('homepageSectionsList');
+            const homepageSections = [
+                { id: 'hero', name: 'Hero Section', icon: 'fa-star', type: 'hero' },
+                { id: 'about', name: 'About Section', icon: 'fa-user', type: 'about' },
+                { id: 'languages', name: 'Languages Section', icon: 'fa-code', type: 'languages' },
+                { id: 'projects', name: 'Projects Section', icon: 'fa-project-diagram', type: 'projects' },
+                { id: 'education', name: 'Education Section', icon: 'fa-graduation-cap', type: 'education' },
+                { id: 'contact', name: 'Contact Section', icon: 'fa-envelope', type: 'contact' }
+            ];
+            homepageContainer.innerHTML = homepageSections.map(section => `
+                <div class="section-item" onclick="loadSectionEditor('homepage', '${section.id}', '${section.name}', '${section.type}')">
+                    <span><i class="fas ${section.icon} me-2"></i> ${section.name}</span>
+                    <span class="section-badge">${section.type}</span>
+                </div>
+            `).join('');
 
-        // Image Upload
-        function imageToBase64(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
-            });
-        }
+            // Projects Page Sections
+            const projectsContainer = document.getElementById('projectsSectionsList');
+            projectsContainer.innerHTML = `
+                <div class="section-item" onclick="loadProjectsManager()">
+                    <span><i class="fas fa-list me-2"></i> All Projects Manager</span>
+                    <span class="section-badge">CRUD</span>
+                </div>
+                <div class="section-item" onclick="loadCategoriesManager()">
+                    <span><i class="fas fa-tags me-2"></i> Categories Manager</span>
+                    <span class="section-badge">Settings</span>
+                </div>
+            `;
 
-        function getImageUploadHTML(currentImage = '') {
-            return `<div class="form-group"><label>Project Thumbnail</label><div class="image-upload-area" onclick="document.getElementById('imageInput').click()"><i class="fas fa-cloud-upload-alt" style="font-size: 40px; margin-bottom: 10px;"></i><p>Click to upload image</p><p style="font-size: 12px; color: #888;">PNG, JPG, GIF up to 5MB</p><input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="previewImage(this)"></div><div class="image-preview" id="imagePreview">${currentImage ? `<img src="${currentImage}" alt="Preview"><br><small>Current image</small>` : ''}</div><input type="hidden" id="projectImage" value="${currentImage}"></div>`;
-        }
+            // Footer Sections
+            const footerContainer = document.getElementById('footerSectionsList');
+            footerContainer.innerHTML = `
+                <div class="section-item" onclick="loadSectionEditor('footer', 'footer', 'Footer Settings', 'footer')">
+                    <span><i class="fas fa-copyright me-2"></i> Footer Settings</span>
+                    <span class="section-badge">Edit</span>
+                </div>
+                <div class="section-item" onclick="loadSocialLinksEditor()">
+                    <span><i class="fas fa-share-alt me-2"></i> Social Links</span>
+                    <span class="section-badge">Manage</span>
+                </div>
+            `;
 
-        window.previewImage = async function (input) {
-            if (input.files && input.files[0]) {
-                const file = input.files[0];
-                if (file.size > 5 * 1024 * 1024) {
-                    alert('Image size must be less than 5MB');
-                    return;
-                }
-                const base64 = await imageToBase64(file);
-                document.getElementById('projectImage').value = base64;
-                const preview = document.getElementById('imagePreview');
-                preview.innerHTML = `<img src="${base64}" alt="Preview"><br><small>New image uploaded</small>`;
-            }
-        };
+            // Navigation Sections
+            const navContainer = document.getElementById('navigationSectionsList');
+            navContainer.innerHTML = `
+                <div class="section-item" onclick="loadNavigationEditor()">
+                    <span><i class="fas fa-bars me-2"></i> Navigation Menu Items</span>
+                    <span class="section-badge">CRUD</span>
+                </div>
+            `;
 
-        // Render Functions
-        function renderAll() {
-            renderHomepageSections();
-            renderProjectsList();
-            renderCustomPages();
-            renderNavItems();
-            loadNavSettings();
-        }
-
-        function renderHomepageSections() {
-            const container = document.getElementById('homepageSectionsList');
-            const sections = portfolioData.pages.homepage.sections.sort((a, b) => a.order - b.order);
-            container.innerHTML = sections.map((section, index) => `
-                <div class="item-card">
-                    <div><h4><i class="fas fa-${section.type === 'hero' ? 'star' : section.type === 'about' ? 'user' : section.type === 'languages' ? 'code' : section.type === 'projects' ? 'project-diagram' : section.type === 'education' ? 'graduation-cap' : 'envelope'}"></i> ${section.name}</h4><small>Type: ${section.type} | ID: ${section.id}</small></div>
-                    <div class="item-actions">
-                        <button class="btn-warning btn-sm" onclick="editSection('homepage', ${index})">Edit</button>
-                        <button class="btn-danger btn-sm" onclick="deleteSection('homepage', ${index})">Delete</button>
-                        ${index > 0 ? `<button class="btn-secondary btn-sm" onclick="moveSection('homepage', ${index}, 'up')">↑</button>` : ''}
-                        ${index < sections.length - 1 ? `<button class="btn-secondary btn-sm" onclick="moveSection('homepage', ${index}, 'down')">↓</button>` : ''}
+            // Custom Pages
+            const customContainer = document.getElementById('customPagesList');
+            if (portfolioData.customPages && portfolioData.customPages.length > 0) {
+                customContainer.innerHTML = portfolioData.customPages.map((page, i) => `
+                    <div class="section-item" onclick="loadCustomPageEditor(${i})">
+                        <span><i class="fas fa-file me-2"></i> ${page.name}</span>
+                        <span class="section-badge">Page</span>
                     </div>
+                `).join('');
+            } else {
+                customContainer.innerHTML = `<div class="section-item" onclick="createNewPage()"><span><i class="fas fa-plus me-2"></i> Create New Page</span></div>`;
+            }
+        }
+
+        // Load Section Editor
+        function loadSectionEditor(page, sectionId, sectionName, sectionType) {
+            currentPage = page;
+            currentSection = sectionId;
+
+            document.getElementById('editorTitle').innerHTML = `<i class="fas ${getSectionIcon(sectionType)} me-2"></i> ${sectionName}`;
+
+            let html = '';
+
+            if (sectionType === 'hero') {
+                html = `
+                    <div class="form-group">
+                        <label>Profile Image</label>
+                        <div class="image-upload-area" onclick="document.getElementById('heroImageInput').click()">
+                            <i class="fas fa-cloud-upload-alt" style="font-size: 40px;"></i>
+                            <p>Click to upload profile image</p>
+                            <input type="file" id="heroImageInput" accept="image/*" style="display:none;" onchange="uploadImage(this, 'heroImage')">
+                        </div>
+                        <div id="heroImagePreview" class="image-preview">${portfolioData.hero?.image ? `<img src="${portfolioData.hero.image}">` : ''}</div>
+                        <input type="hidden" id="heroImage" value="${portfolioData.hero?.image || ''}">
+                    </div>
+                    <div class="form-group"><label>Hero Title</label><input type="text" id="heroTitle" class="form-control" value="${portfolioData.hero?.title || 'Tanzeela'}"></div>
+                    <div class="form-group"><label>Typing Text</label><input type="text" id="heroTypingText" class="form-control" value="${portfolioData.hero?.typingText || 'Web & C++ Dev'}"></div>
+                    <div class="form-group"><label>CV Link</label><input type="text" id="heroCvLink" class="form-control" value="${portfolioData.hero?.cvLink || '#'}"></div>
+                    <button class="btn-primary" onclick="saveHeroSection()">Save Changes</button>
+                `;
+            }
+            else if (sectionType === 'about') {
+                html = `
+                    <div class="form-group"><label>Section Title</label><input type="text" id="aboutTitle" class="form-control" value="${portfolioData.aboutTitle || 'About Me'}"></div>
+                    <div id="aboutCardsList" class="items-list"></div>
+                    <button class="btn-primary mt-3" onclick="addAboutCard()">+ Add New Card</button>
+                    <button class="btn-primary mt-3 ms-2" onclick="saveAboutSection()">Save All Changes</button>
+                `;
+                renderAboutCards();
+            }
+            else if (sectionType === 'languages') {
+                html = `
+                    <div id="languagesList" class="items-list"></div>
+                    <div class="form-group mt-3"><label>Add New Language</label><div class="d-flex gap-2"><input type="text" id="newLangName" class="form-control" placeholder="Language name"><input type="number" id="newLangPercent" class="form-control" style="width:100px;" placeholder="%"><button class="btn-primary" onclick="addLanguage()">Add</button></div></div>
+                    <button class="btn-primary mt-3" onclick="saveLanguagesSection()">Save All Changes</button>
+                `;
+                renderLanguages();
+            }
+            else if (sectionType === 'projects') {
+                html = `
+                    <div class="form-group"><label>Projects to show on Homepage</label><input type="number" id="homepageProjectCount" class="form-control" value="${portfolioData.settings?.homepageProjectsCount || 3}"><button class="btn-secondary mt-2" onclick="updateHomepageCount()">Update</button></div>
+                    <div id="projectsList" class="items-list"></div>
+                    <button class="btn-primary mt-3" onclick="addNewProject()">+ Add New Project</button>
+                `;
+                renderProjects();
+            }
+            else if (sectionType === 'education') {
+                html = `
+                    <div class="form-group"><label>Section Title</label><input type="text" id="educationTitle" class="form-control" value="${portfolioData.educationTitle || 'My Education'}"></div>
+                    <div id="educationList" class="items-list"></div>
+                    <button class="btn-primary mt-3" onclick="addEducationItem()">+ Add Education</button>
+                    <button class="btn-primary mt-3 ms-2" onclick="saveEducationSection()">Save All Changes</button>
+                `;
+                renderEducation();
+            }
+            else if (sectionType === 'contact') {
+                html = `
+                    <div class="form-group"><label>Section Title</label><input type="text" id="contactTitle" class="form-control" value="${portfolioData.contact?.title || 'CONTACT ME'}"></div>
+                    <div class="form-group"><label>Email Address</label><input type="email" id="contactEmail" class="form-control" value="${portfolioData.contact?.email || 'codequeen765@gmail.com'}"></div>
+                    <div class="form-group"><label>Phone Number</label><input type="text" id="contactPhone" class="form-control" value="${portfolioData.contact?.phone || ''}"></div>
+                    <div class="form-group"><label>Address</label><textarea id="contactAddress" class="form-control" rows="2">${portfolioData.contact?.address || ''}</textarea></div>
+                    <div class="form-group"><label>Form Success Message</label><textarea id="contactMessage" class="form-control" rows="2">${portfolioData.contact?.formMessage || 'Thank you for contacting me!'}</textarea></div>
+                    <button class="btn-primary" onclick="saveContactSection()">Save Changes</button>
+                `;
+            }
+            else if (sectionType === 'footer') {
+                html = `
+                    <div class="form-group"><label>Footer Text</label><input type="text" id="footerText" class="form-control" value="${portfolioData.footer?.text || '© 2025 Tanzeela Fatima. All Rights Reserved.'}"></div>
+                    <div class="form-group"><label>Background Color</label><input type="color" id="footerBgColor" class="form-control" style="width:80px; height:40px;" value="${portfolioData.footer?.bgColor || '#0D1B2A'}"></div>
+                    <div class="form-group"><label>Text Color</label><input type="color" id="footerTextColor" class="form-control" style="width:80px; height:40px;" value="${portfolioData.footer?.textColor || '#FFFFFF'}"></div>
+                    <div class="form-group"><label>Show Copyright</label><select id="footerShowCopyright" class="form-control"><option value="true" ${portfolioData.footer?.showCopyright !== false ? 'selected' : ''}>Yes</option><option value="false" ${portfolioData.footer?.showCopyright === false ? 'selected' : ''}>No</option></select></div>
+                    <button class="btn-primary" onclick="saveFooterSection()">Save Changes</button>
+                `;
+            }
+
+            document.getElementById('editorContent').innerHTML = html;
+        }
+
+        // Render About Cards
+        function renderAboutCards() {
+            const container = document.getElementById('aboutCardsList');
+            if (!portfolioData.aboutCards || portfolioData.aboutCards.length === 0) {
+                container.innerHTML = '<p class="text-center">No about cards. Click "Add New Card" to create one.</p>';
+                return;
+            }
+            container.innerHTML = portfolioData.aboutCards.map((card, i) => `
+                <div class="item-card">
+                    <div><i class="fas ${card.icon} me-2"></i><strong>${card.title}</strong><br><small>${card.content.substring(0, 80)}...</small></div>
+                    <div><button class="btn-warning btn-sm" onclick="editAboutCardModal(${i})">Edit</button><button class="btn-danger btn-sm" onclick="deleteAboutCard(${i})">Delete</button></div>
                 </div>
             `).join('');
         }
 
-        function renderProjectsList() {
+        // Render Languages
+        function renderLanguages() {
+            const container = document.getElementById('languagesList');
+            if (!portfolioData.languages || portfolioData.languages.length === 0) {
+                container.innerHTML = '<p class="text-center">No languages. Add your first language.</p>';
+                return;
+            }
+            container.innerHTML = portfolioData.languages.map((lang, i) => `
+                <div class="item-card">
+                    <div><strong>${lang.name}</strong> - ${lang.percent}%</div>
+                    <div><input type="range" min="0" max="100" value="${lang.percent}" onchange="updateLanguagePercent(${i}, this.value)" style="width:150px;"><button class="btn-danger btn-sm ms-2" onclick="deleteLanguage(${i})">Delete</button></div>
+                </div>
+            `).join('');
+        }
+
+        // Render Projects
+        function renderProjects() {
             const container = document.getElementById('projectsList');
-            if (portfolioData.projects.length === 0) {
-                container.innerHTML = '<p style="text-align: center; padding: 40px;">No projects yet. Click "Add New Project" to create one.</p>';
+            if (!portfolioData.projects || portfolioData.projects.length === 0) {
+                container.innerHTML = '<p class="text-center">No projects. Click "Add New Project" to create one.</p>';
                 return;
             }
-            container.innerHTML = portfolioData.projects.map((project, index) => `
+            container.innerHTML = portfolioData.projects.map((p, i) => `
                 <div class="item-card">
-                    <div style="display: flex; align-items: center; gap: 15px; flex:1;">
-                        ${project.image ? `<img src="${project.image}" class="project-thumbnail">` : '<div style="width:60px;height:60px;background:#333;border-radius:8px;display:flex;align-items:center;justify-content:center;"><i class="fas fa-image"></i></div>'}
-                        <div><h4>${project.title}</h4><p>${project.description.substring(0, 80)}...</p><small>Tags: ${project.tags}</small></div>
-                    </div>
-                    <div class="item-actions">
-                        <button class="btn-warning btn-sm" onclick="editProject(${index})">Edit</button>
-                        <button class="btn-danger btn-sm" onclick="deleteProject(${index})">Delete</button>
-                    </div>
+                    <div><strong>${p.title}</strong><br><small>${p.category || 'Uncategorized'} | ${p.tags || ''}</small></div>
+                    <div><button class="btn-warning btn-sm" onclick="editProjectModal(${p.id})">Edit</button><button class="btn-danger btn-sm" onclick="deleteProject(${p.id})">Delete</button></div>
                 </div>
             `).join('');
         }
 
-        function renderCustomPages() {
-            const container = document.getElementById('customPagesList');
-            if (portfolioData.customPages.length === 0) {
-                container.innerHTML = '<div style="padding: 10px 25px; color: #666;">No custom pages yet</div>';
+        // Render Education
+        function renderEducation() {
+            const container = document.getElementById('educationList');
+            if (!portfolioData.education || portfolioData.education.length === 0) {
+                container.innerHTML = '<p class="text-center">No education entries.</p>';
                 return;
             }
-            container.innerHTML = portfolioData.customPages.map((page, idx) => `
-                <div class="page-node">
-                    <div class="page-header" onclick="toggleSections(${idx})">
-                        <div><i class="fas fa-file"></i> ${page.name}</div>
-                        <div><button class="btn-secondary btn-sm" onclick="event.stopPropagation(); editCustomPage(${idx})">Edit</button><button class="btn-danger btn-sm" onclick="event.stopPropagation(); deleteCustomPage(${idx})">Del</button></div>
-                    </div>
-                    <div class="sections-list" id="sections-${idx}">
-                        ${page.sections ? page.sections.map((section, sIdx) => `<div class="section-item"><span>${section.name}</span><div><button class="btn-warning btn-sm" onclick="event.stopPropagation(); editPageSection(${idx}, ${sIdx})">Edit</button><button class="btn-danger btn-sm" onclick="event.stopPropagation(); deletePageSection(${idx}, ${sIdx})">Del</button></div></div>`).join('') : '<div style="padding: 8px 15px;">No sections</div>'}
-                        <button class="btn-secondary btn-sm" style="margin: 5px 0 5px 15px;" onclick="event.stopPropagation(); addPageSection(${idx})">+ Add Section</button>
-                    </div>
+            container.innerHTML = portfolioData.education.map((edu, i) => `
+                <div class="item-card">
+                    <div><strong>${edu.degree}</strong><br><small>${edu.institute} | ${edu.year}</small></div>
+                    <div><button class="btn-warning btn-sm" onclick="editEducationModal(${i})">Edit</button><button class="btn-danger btn-sm" onclick="deleteEducation(${i})">Delete</button></div>
                 </div>
             `).join('');
         }
 
-        function toggleSections(index) {
-            document.getElementById(`sections-${index}`).classList.toggle('show');
+        // Projects Manager
+        function loadProjectsManager() {
+            document.getElementById('editorTitle').innerHTML = '<i class="fas fa-project-diagram me-2"></i> All Projects Manager';
+            document.getElementById('editorContent').innerHTML = `
+                <div class="form-group"><label>Projects to show on Homepage</label><input type="number" id="hpCount" class="form-control" value="${portfolioData.settings?.homepageProjectsCount || 3}"><button class="btn-secondary mt-2" onclick="updateHomepageCount()">Update</button></div>
+                <div id="allProjectsList" class="items-list"></div>
+                <button class="btn-primary mt-3" onclick="addNewProject()">+ Add New Project</button>
+            `;
+            renderAllProjects();
         }
 
-        // Navigation Functions
+        function renderAllProjects() {
+            const container = document.getElementById('allProjectsList');
+            if (!portfolioData.projects || portfolioData.projects.length === 0) {
+                container.innerHTML = '<p class="text-center">No projects.</p>';
+                return;
+            }
+            container.innerHTML = portfolioData.projects.map(p => `
+                <div class="item-card">
+                    <div><strong>${p.title}</strong><br><small>${p.category || 'Uncategorized'} | ${p.tags || ''}</small><br><small>${p.description?.substring(0, 80)}...</small></div>
+                    <div><button class="btn-warning btn-sm" onclick="editProjectModal(${p.id})">Edit</button><button class="btn-danger btn-sm" onclick="deleteProject(${p.id})">Delete</button></div>
+                </div>
+            `).join('');
+        }
+
+        // Categories Manager
+        function loadCategoriesManager() {
+            document.getElementById('editorTitle').innerHTML = '<i class="fas fa-tags me-2"></i> Categories Manager';
+            document.getElementById('editorContent').innerHTML = `
+                <div id="categoriesList" class="items-list"></div>
+                <div class="form-group mt-3"><label>Add New Category</label><div class="d-flex gap-2"><input type="text" id="newCategory" class="form-control" placeholder="Category name"><button class="btn-primary" onclick="addCategory()">Add</button></div></div>
+                <button class="btn-primary mt-3" onclick="saveCategories()">Save All Changes</button>
+            `;
+            renderCategories();
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('categoriesList');
+            const cats = portfolioData.categories || ['Web', 'App', 'C++', 'Mini'];
+            container.innerHTML = cats.map((cat, i) => `
+                <div class="item-card"><span>${cat}</span><button class="btn-danger btn-sm" onclick="deleteCategory(${i})">Delete</button></div>
+            `).join('');
+        }
+
+        // Navigation Editor
+        function loadNavigationEditor() {
+            document.getElementById('editorTitle').innerHTML = '<i class="fas fa-bars me-2"></i> Navigation Menu Editor';
+            document.getElementById('editorContent').innerHTML = `
+                <div id="navItemsList" class="items-list"></div>
+                <button class="btn-primary mt-3" onclick="addNavItem()">+ Add Menu Item</button>
+                <button class="btn-primary mt-3 ms-2" onclick="saveNavigation()">Save Changes</button>
+            `;
+            renderNavItems();
+        }
+
         function renderNavItems() {
             const container = document.getElementById('navItemsList');
-            if (!portfolioData.navMenu || portfolioData.navMenu.length === 0) {
-                container.innerHTML = '<p style="text-align: center; padding: 40px;">No menu items. Click "Add Menu Item" to create one.</p>';
+            const nav = portfolioData.navigation || [];
+            if (nav.length === 0) {
+                container.innerHTML = '<p class="text-center">No navigation items.</p>';
                 return;
             }
-            container.innerHTML = portfolioData.navMenu.map((item, index) => `
+            container.innerHTML = nav.map((item, i) => `
                 <div class="item-card">
-                    <div style="flex:1"><h4><i class="fas ${item.type === 'home' ? 'fa-home' : item.type === 'page' ? 'fa-file' : item.type === 'section' ? 'fa-link' : 'fa-external-link-alt'}"></i> ${item.name}</h4><small>Link: ${item.link} | Type: ${item.type} | Target: ${item.target === '_blank' ? 'New Tab' : 'Same Tab'}</small></div>
-                    <div class="item-actions">
-                        <button class="btn-warning btn-sm" onclick="editNavItem(${index})">Edit</button>
-                        <button class="btn-danger btn-sm" onclick="deleteNavItem(${index})">Delete</button>
-                        ${index > 0 ? `<button class="btn-secondary btn-sm" onclick="moveNavItem(${index}, 'up')">↑</button>` : ''}
-                        ${index < portfolioData.navMenu.length - 1 ? `<button class="btn-secondary btn-sm" onclick="moveNavItem(${index}, 'down')">↓</button>` : ''}
-                    </div>
+                    <div><strong>${item.name}</strong><br><small>${item.link} | ${item.type}</small></div>
+                    <div><button class="btn-warning btn-sm" onclick="editNavItemModal(${i})">Edit</button><button class="btn-danger btn-sm" onclick="deleteNavItem(${i})">Delete</button>${i > 0 ? `<button class="btn-secondary btn-sm" onclick="moveNavItem(${i}, 'up')">↑</button>` : ''}${i < nav.length - 1 ? `<button class="btn-secondary btn-sm" onclick="moveNavItem(${i}, 'down')">↓</button>` : ''}</div>
                 </div>
             `).join('');
-            updateNavPreview();
         }
 
-        function updateNavPreview() {
-            const preview = document.getElementById('navPreview');
-            if (!preview) return;
-            const style = portfolioData.navSettings?.menuStyle || 'default';
-            preview.innerHTML = portfolioData.navMenu.map(item => `<span class="nav-preview-item" style="${style === 'gradient' ? 'background:linear-gradient(135deg,#9FC9C7,#8EB1D3);color:#0D1B2A;' : style === 'pill' ? 'background:#2EC4B6;color:#0D1B2A;' : ''}">${item.name}</span>`).join('');
-        }
-
-        function addNavItem() {
-            currentModalType = 'navItem';
-            currentEditItem = null;
-            document.getElementById('modalTitle').textContent = 'Add Menu Item';
-            document.getElementById('modalBody').innerHTML = `
-                <div class="form-group"><label>Menu Name</label><input type="text" id="navName" class="form-control" placeholder="e.g., Home"></div>
-                <div class="form-group"><label>Link URL</label><input type="text" id="navLink" class="form-control" placeholder="../index.html or #about"></div>
-                <div class="form-group"><label>Link Type</label><select id="navType" class="form-control"><option value="home">Home</option><option value="page">Page</option><option value="section">Section</option><option value="external">External</option></select></div>
-                <div class="form-group"><label>Open in</label><select id="navTarget" class="form-control"><option value="_self">Same Tab</option><option value="_blank">New Tab</option></select></div>
+        // Social Links Editor
+        function loadSocialLinksEditor() {
+            document.getElementById('editorTitle').innerHTML = '<i class="fas fa-share-alt me-2"></i> Social Links Manager';
+            document.getElementById('editorContent').innerHTML = `
+                <div id="socialLinksList" class="items-list"></div>
+                <button class="btn-primary mt-3" onclick="addSocialLink()">+ Add Social Link</button>
+                <button class="btn-primary mt-3 ms-2" onclick="saveSocialLinks()">Save Changes</button>
             `;
+            renderSocialLinks();
+        }
+
+        function renderSocialLinks() {
+            const container = document.getElementById('socialLinksList');
+            const links = portfolioData.socialLinks || [];
+            if (links.length === 0) {
+                container.innerHTML = '<p class="text-center">No social links.</p>';
+                return;
+            }
+            container.innerHTML = links.map((link, i) => `
+                <div class="item-card">
+                    <div><select id="platform_${i}" class="form-control" style="width:150px;"><option value="linkedin" ${link.platform === 'linkedin' ? 'selected' : ''}>LinkedIn</option><option value="github" ${link.platform === 'github' ? 'selected' : ''}>GitHub</option><option value="twitter" ${link.platform === 'twitter' ? 'selected' : ''}>Twitter</option><option value="leetcode" ${link.platform === 'leetcode' ? 'selected' : ''}>LeetCode</option></select><input type="text" id="url_${i}" class="form-control mt-2" value="${link.url}"></div>
+                    <div><button class="btn-danger btn-sm" onclick="deleteSocialLink(${i})">Delete</button></div>
+                </div>
+            `).join('');
+        }
+
+        // Custom Page Editor
+        function loadCustomPageEditor(index) {
+            const page = portfolioData.customPages[index];
+            document.getElementById('editorTitle').innerHTML = `<i class="fas fa-file me-2"></i> ${page.name}`;
+            document.getElementById('editorContent').innerHTML = `
+                <div class="form-group"><label>Page Name</label><input type="text" id="pageName" class="form-control" value="${page.name}"></div>
+                <div class="form-group"><label>Page URL</label><input type="text" id="pageUrl" class="form-control" value="${page.url}"></div>
+                <div id="pageSectionsList" class="items-list"></div>
+                <button class="btn-primary mt-3" onclick="addPageSection()">+ Add Section</button>
+                <button class="btn-primary mt-3 ms-2" onclick="saveCustomPage(${index})">Save Page</button>
+            `;
+            renderPageSections(index);
+        }
+
+        // Image Upload Helper
+        async function uploadImage(input, targetId) {
+            if (input.files && input.files[0]) {
+                const formData = new FormData();
+                formData.append('image', input.files[0]);
+                const response = await fetch(`${API_URL}/portfolio/upload`, { method: 'POST', headers: { 'x-auth-token': token }, body: formData });
+                const data = await response.json();
+                if (response.ok) {
+                    document.getElementById(targetId).value = data.imageUrl;
+                    document.getElementById(`${targetId}Preview`).innerHTML = `<img src="${data.imageUrl}" style="max-width:150px;">`;
+                }
+            }
+        }
+
+        // Save Functions
+        async function saveHeroSection() {
+            const heroData = {
+                title: document.getElementById('heroTitle').value,
+                typingText: document.getElementById('heroTypingText').value,
+                cvLink: document.getElementById('heroCvLink').value,
+                image: document.getElementById('heroImage').value
+            };
+            await fetch(`${API_URL}/portfolio/hero`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'x-auth-token': token }, body: JSON.stringify(heroData) });
+            showSuccess('Hero section saved!');
+            loadAllData();
+        }
+
+        async function saveAboutSection() {
+            await fetch(`${API_URL}/portfolio/about-title`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'x-auth-token': token }, body: JSON.stringify({ title: document.getElementById('aboutTitle').value }) });
+            await fetch(`${API_URL}/portfolio/about-cards`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'x-auth-token': token }, body: JSON.stringify(portfolioData.aboutCards) });
+            showSuccess('About section saved!');
+        }
+
+        async function saveLanguagesSection() {
+            await fetch(`${API_URL}/portfolio/languages`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'x-auth-token': token }, body: JSON.stringify(portfolioData.languages) });
+            showSuccess('Languages saved!');
+        }
+
+        async function saveEducationSection() {
+            await fetch(`${API_URL}/portfolio/education-title`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'x-auth-token': token }, body: JSON.stringify({ title: document.getElementById('educationTitle').value }) });
+            await fetch(`${API_URL}/portfolio/education`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'x-auth-token': token }, body: JSON.stringify(portfolioData.education) });
+            showSuccess('Education saved!');
+        }
+
+        async function saveContactSection() {
+            const contactData = {
+                title: document.getElementById('contactTitle').value,
+                email: document.getElementById('contactEmail').value,
+                phone: document.getElementById('contactPhone').value,
+                address: document.getElementById('contactAddress').value,
+                formMessage: document.getElementById('contactMessage').value
+            };
+            await fetch(`${API_URL}/portfolio/contact`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'x-auth-token': token }, body: JSON.stringify(contactData) });
+            showSuccess('Contact saved!');
+        }
+
+        async function saveFooterSection() {
+            const footerData = {
+                text: document.getElementById('footerText').value,
+                bgColor: document.getElementById('footerBgColor').value,
+                textColor: document.getElementById('footerTextColor').value,
+                showCopyright: document.getElementById('footerShowCopyright').value === 'true'
+            };
+            await fetch(`${API_URL}/portfolio/footer`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'x-auth-token': token }, body: JSON.stringify(footerData) });
+            showSuccess('Footer saved!');
+        }
+
+        async function saveNavigation() {
+            await fetch(`${API_URL}/portfolio/navigation`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'x-auth-token': token }, body: JSON.stringify(portfolioData.navigation) });
+            showSuccess('Navigation saved!');
+        }
+
+        async function saveSocialLinks() {
+            await fetch(`${API_URL}/portfolio/social-links`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'x-auth-token': token }, body: JSON.stringify(portfolioData.socialLinks) });
+            showSuccess('Social links saved!');
+        }
+
+        async function updateHomepageCount() {
+            const count = parseInt(document.getElementById('hpCount')?.value || document.getElementById('homepageProjectCount')?.value);
+            await fetch(`${API_URL}/portfolio/settings`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'x-auth-token': token }, body: JSON.stringify({ homepageProjectsCount: count }) });
+            showSuccess(`Homepage will show latest ${count} projects`);
+        }
+
+        // CRUD Operations
+        let modalCallback = null;
+
+        function addAboutCard() {
+            portfolioData.aboutCards.push({ icon: 'fa-star', title: 'New Card', content: 'Description here' });
+            renderAboutCards();
+        }
+
+        function editAboutCardModal(index) {
+            const card = portfolioData.aboutCards[index];
+            document.getElementById('modalTitle').textContent = 'Edit About Card';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group"><label>Icon</label><input type="text" id="editIcon" class="form-control" value="${card.icon}"></div>
+                <div class="form-group"><label>Title</label><input type="text" id="editTitle" class="form-control" value="${card.title}"></div>
+                <div class="form-group"><label>Content</label><textarea id="editContent" class="form-control" rows="4">${card.content}</textarea></div>
+            `;
+            modalCallback = () => {
+                portfolioData.aboutCards[index] = {
+                    ...card,
+                    icon: document.getElementById('editIcon').value,
+                    title: document.getElementById('editTitle').value,
+                    content: document.getElementById('editContent').value
+                };
+                renderAboutCards();
+            };
             document.getElementById('modal').style.display = 'flex';
         }
 
-        function editNavItem(index) {
-            const item = portfolioData.navMenu[index];
-            currentModalType = 'editNavItem';
-            currentEditItem = index;
+        function deleteAboutCard(index) {
+            if (confirm('Delete this card?')) {
+                portfolioData.aboutCards.splice(index, 1);
+                renderAboutCards();
+            }
+        }
+
+        function addLanguage() {
+            const name = document.getElementById('newLangName')?.value;
+            const percent = parseInt(document.getElementById('newLangPercent')?.value);
+            if (name && percent) {
+                portfolioData.languages.push({ name, percent });
+                renderLanguages();
+                document.getElementById('newLangName').value = '';
+                document.getElementById('newLangPercent').value = '';
+            }
+        }
+
+        function updateLanguagePercent(index, value) {
+            portfolioData.languages[index].percent = parseInt(value);
+            renderLanguages();
+        }
+
+        function deleteLanguage(index) {
+            if (confirm('Delete this language?')) {
+                portfolioData.languages.splice(index, 1);
+                renderLanguages();
+            }
+        }
+
+        function addNewProject() {
+            document.getElementById('modalTitle').textContent = 'Add New Project';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group"><label>Title</label><input type="text" id="projTitle" class="form-control"></div>
+                <div class="form-group"><label>Description</label><textarea id="projDesc" class="form-control" rows="3"></textarea></div>
+                <div class="form-group"><label>Category</label><select id="projCategory" class="form-control">${(portfolioData.categories || ['Web', 'App', 'C++', 'Mini']).map(c => `<option value="${c}">${c}</option>`).join('')}<option value="">Uncategorized</option></select></div>
+                <div class="form-group"><label>Tags</label><input type="text" id="projTags" class="form-control" placeholder="React, Node.js"></div>
+                <div class="form-group"><label>Demo Link</label><input type="text" id="projLink" class="form-control"></div>
+                <div class="form-group"><label>Thumbnail</label><div class="image-upload-area" onclick="document.getElementById('projImageFile').click()"><i class="fas fa-cloud-upload-alt"></i><p>Upload image</p><input type="file" id="projImageFile" accept="image/*" style="display:none;" onchange="uploadProjectImage(this)"></div><div id="projImagePreview"></div><input type="hidden" id="projImage"></div>
+            `;
+            modalCallback = async () => {
+                const newProject = {
+                    id: Date.now(),
+                    title: document.getElementById('projTitle').value,
+                    description: document.getElementById('projDesc').value,
+                    category: document.getElementById('projCategory').value,
+                    tags: document.getElementById('projTags').value,
+                    demoLink: document.getElementById('projLink').value,
+                    image: document.getElementById('projImage').value,
+                    date: new Date().toISOString()
+                };
+                await fetch(`${API_URL}/portfolio/projects`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-auth-token': token }, body: JSON.stringify(newProject) });
+                portfolioData.projects.unshift(newProject);
+                renderProjects();
+                if (document.getElementById('allProjectsList')) renderAllProjects();
+            };
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        async function uploadProjectImage(input) {
+            if (input.files && input.files[0]) {
+                const formData = new FormData();
+                formData.append('image', input.files[0]);
+                const response = await fetch(`${API_URL}/portfolio/upload`, { method: 'POST', headers: { 'x-auth-token': token }, body: formData });
+                const data = await response.json();
+                if (response.ok) {
+                    document.getElementById('projImage').value = data.imageUrl;
+                    document.getElementById('projImagePreview').innerHTML = `<img src="${data.imageUrl}" style="max-width:150px;">`;
+                }
+            }
+        }
+
+        function editProjectModal(projectId) {
+            const p = portfolioData.projects.find(p => p.id === projectId);
+            document.getElementById('modalTitle').textContent = 'Edit Project';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group"><label>Title</label><input type="text" id="projTitle" class="form-control" value="${p.title}"></div>
+                <div class="form-group"><label>Description</label><textarea id="projDesc" class="form-control" rows="3">${p.description}</textarea></div>
+                <div class="form-group"><label>Category</label><select id="projCategory" class="form-control">${(portfolioData.categories || ['Web', 'App', 'C++', 'Mini']).map(c => `<option value="${c}" ${p.category === c ? 'selected' : ''}>${c}</option>`).join('')}<option value="">Uncategorized</option></select></div>
+                <div class="form-group"><label>Tags</label><input type="text" id="projTags" class="form-control" value="${p.tags || ''}"></div>
+                <div class="form-group"><label>Demo Link</label><input type="text" id="projLink" class="form-control" value="${p.demoLink || ''}"></div>
+                <div class="form-group"><label>Thumbnail</label><div class="image-upload-area" onclick="document.getElementById('projImageFile').click()"><i class="fas fa-cloud-upload-alt"></i><p>Upload new image</p><input type="file" id="projImageFile" accept="image/*" style="display:none;" onchange="uploadProjectImage(this)"></div><div id="projImagePreview">${p.image ? `<img src="${p.image}" style="max-width:150px;">` : ''}</div><input type="hidden" id="projImage" value="${p.image || ''}"></div>
+            `;
+            modalCallback = async () => {
+                const updated = {
+                    title: document.getElementById('projTitle').value,
+                    description: document.getElementById('projDesc').value,
+                    category: document.getElementById('projCategory').value,
+                    tags: document.getElementById('projTags').value,
+                    demoLink: document.getElementById('projLink').value,
+                    image: document.getElementById('projImage').value
+                };
+                await fetch(`${API_URL}/portfolio/projects/${projectId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'x-auth-token': token }, body: JSON.stringify(updated) });
+                const index = portfolioData.projects.findIndex(p => p.id === projectId);
+                if (index !== -1) portfolioData.projects[index] = { ...portfolioData.projects[index], ...updated };
+                renderProjects();
+                if (document.getElementById('allProjectsList')) renderAllProjects();
+            };
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        async function deleteProject(projectId) {
+            if (confirm('Delete this project?')) {
+                await fetch(`${API_URL}/portfolio/projects/${projectId}`, { method: 'DELETE', headers: { 'x-auth-token': token } });
+                portfolioData.projects = portfolioData.projects.filter(p => p.id !== projectId);
+                renderProjects();
+                if (document.getElementById('allProjectsList')) renderAllProjects();
+                showSuccess('Project deleted');
+            }
+        }
+
+        function addEducationItem() {
+            portfolioData.education.push({ degree: 'New Degree', institute: 'Institute Name', year: '2024' });
+            renderEducation();
+        }
+
+        function editEducationModal(index) {
+            const edu = portfolioData.education[index];
+            document.getElementById('modalTitle').textContent = 'Edit Education';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group"><label>Degree</label><input type="text" id="editDegree" class="form-control" value="${edu.degree}"></div>
+                <div class="form-group"><label>Institute</label><input type="text" id="editInstitute" class="form-control" value="${edu.institute}"></div>
+                <div class="form-group"><label>Year</label><input type="text" id="editYear" class="form-control" value="${edu.year}"></div>
+            `;
+            modalCallback = () => {
+                portfolioData.education[index] = {
+                    degree: document.getElementById('editDegree').value,
+                    institute: document.getElementById('editInstitute').value,
+                    year: document.getElementById('editYear').value
+                };
+                renderEducation();
+            };
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function deleteEducation(index) {
+            if (confirm('Delete this education entry?')) {
+                portfolioData.education.splice(index, 1);
+                renderEducation();
+            }
+        }
+
+        function addCategory() {
+            const newCat = document.getElementById('newCategory')?.value;
+            if (newCat && !portfolioData.categories.includes(newCat)) {
+                portfolioData.categories.push(newCat);
+                renderCategories();
+                document.getElementById('newCategory').value = '';
+            }
+        }
+
+        function deleteCategory(index) {
+            if (confirm('Delete this category?')) {
+                portfolioData.categories.splice(index, 1);
+                renderCategories();
+            }
+        }
+
+        async function saveCategories() {
+            await fetch(`${API_URL}/portfolio/categories`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'x-auth-token': token }, body: JSON.stringify(portfolioData.categories) });
+            showSuccess('Categories saved!');
+        }
+
+        function addNavItem() {
+            document.getElementById('modalTitle').textContent = 'Add Menu Item';
+            document.getElementById('modalBody').innerHTML = `
+                <div class="form-group"><label>Name</label><input type="text" id="navName" class="form-control"></div>
+                <div class="form-group"><label>Link</label><input type="text" id="navLink" class="form-control"></div>
+                <div class="form-group"><label>Type</label><select id="navType" class="form-control"><option value="home">Home</option><option value="page">Page</option><option value="section">Section</option><option value="external">External</option></select></div>
+            `;
+            modalCallback = () => {
+                if (!portfolioData.navigation) portfolioData.navigation = [];
+                portfolioData.navigation.push({
+                    name: document.getElementById('navName').value,
+                    link: document.getElementById('navLink').value,
+                    type: document.getElementById('navType').value,
+                    target: '_self'
+                });
+                renderNavItems();
+            };
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function editNavItemModal(index) {
+            const item = portfolioData.navigation[index];
             document.getElementById('modalTitle').textContent = 'Edit Menu Item';
             document.getElementById('modalBody').innerHTML = `
-                <div class="form-group"><label>Menu Name</label><input type="text" id="navName" class="form-control" value="${item.name}"></div>
-                <div class="form-group"><label>Link URL</label><input type="text" id="navLink" class="form-control" value="${item.link}"></div>
-                <div class="form-group"><label>Link Type</label><select id="navType" class="form-control"><option value="home" ${item.type === 'home' ? 'selected' : ''}>Home</option><option value="page" ${item.type === 'page' ? 'selected' : ''}>Page</option><option value="section" ${item.type === 'section' ? 'selected' : ''}>Section</option><option value="external" ${item.type === 'external' ? 'selected' : ''}>External</option></select></div>
-                <div class="form-group"><label>Open in</label><select id="navTarget" class="form-control"><option value="_self" ${item.target === '_self' ? 'selected' : ''}>Same Tab</option><option value="_blank" ${item.target === '_blank' ? 'selected' : ''}>New Tab</option></select></div>
+                <div class="form-group"><label>Name</label><input type="text" id="navName" class="form-control" value="${item.name}"></div>
+                <div class="form-group"><label>Link</label><input type="text" id="navLink" class="form-control" value="${item.link}"></div>
+                <div class="form-group"><label>Type</label><select id="navType" class="form-control"><option value="home" ${item.type === 'home' ? 'selected' : ''}>Home</option><option value="page" ${item.type === 'page' ? 'selected' : ''}>Page</option><option value="section" ${item.type === 'section' ? 'selected' : ''}>Section</option><option value="external" ${item.type === 'external' ? 'selected' : ''}>External</option></select></div>
             `;
+            modalCallback = () => {
+                portfolioData.navigation[index] = {
+                    ...item,
+                    name: document.getElementById('navName').value,
+                    link: document.getElementById('navLink').value,
+                    type: document.getElementById('navType').value
+                };
+                renderNavItems();
+            };
             document.getElementById('modal').style.display = 'flex';
         }
 
         function deleteNavItem(index) {
             if (confirm('Delete this menu item?')) {
-                portfolioData.navMenu.splice(index, 1);
-                saveData();
+                portfolioData.navigation.splice(index, 1);
                 renderNavItems();
             }
         }
 
         function moveNavItem(index, direction) {
             if (direction === 'up' && index > 0) {
-                [portfolioData.navMenu[index], portfolioData.navMenu[index - 1]] = [portfolioData.navMenu[index - 1], portfolioData.navMenu[index]];
-            } else if (direction === 'down' && index < portfolioData.navMenu.length - 1) {
-                [portfolioData.navMenu[index], portfolioData.navMenu[index + 1]] = [portfolioData.navMenu[index + 1], portfolioData.navMenu[index]];
-            }
-            saveData();
-            renderNavItems();
-        }
-
-        function saveNavSettings() {
-            const menuStyle = document.getElementById('menuStyle').value;
-            portfolioData.navSettings = { menuStyle };
-            saveData();
-            updateNavPreview();
-        }
-
-        function saveNavigationMenu() {
-            saveData();
-            alert('Navigation menu saved successfully!');
-        }
-
-        function resetNavigationMenu() {
-            if (confirm('Reset navigation menu to default?')) {
-                portfolioData.navMenu = [
-                    { name: "Home", link: "../index.html", type: "home", target: "_self" },
-                    { name: "About", link: "#about", type: "section", target: "_self" },
-                    { name: "Languages", link: "#languages", type: "section", target: "_self" },
-                    { name: "Projects", link: "../src/pages/projects.html", type: "page", target: "_self" },
-                    { name: "Education", link: "#education", type: "section", target: "_self" },
-                    { name: "Contact", link: "#contact", type: "section", target: "_self" }
-                ];
-                portfolioData.navSettings = { menuStyle: "default" };
-                saveData();
-                document.getElementById('menuStyle').value = 'default';
-                renderNavItems();
-                alert('Navigation reset to default!');
-            }
-        }
-
-        function loadNavSettings() {
-            if (portfolioData.navSettings) {
-                document.getElementById('menuStyle').value = portfolioData.navSettings.menuStyle || 'default';
+                [portfolioData.navigation[index], portfolioData.navigation[index - 1]] = [portfolioData.navigation[index - 1], portfolioData.navigation[index]];
+            } else if (direction === 'down' && index < portfolioData.navigation.length - 1) {
+                [portfolioData.navigation[index], portfolioData.navigation[index + 1]] = [portfolioData.navigation[index + 1], portfolioData.navigation[index]];
             }
             renderNavItems();
         }
 
-        // Section Functions
-        function addNewSection() {
-            currentModalType = 'section';
-            currentEditItem = null;
-            document.getElementById('modalTitle').textContent = 'Add New Section';
-            document.getElementById('modalBody').innerHTML = `
-                <div class="form-group"><label>Section Name</label><input type="text" id="sectionName" class="form-control"></div>
-                <div class="form-group"><label>Section Type</label><select id="sectionType" class="form-control"><option value="hero">Hero</option><option value="about">About</option><option value="skills">Skills</option><option value="projects">Projects</option><option value="education">Education</option><option value="contact">Contact</option></select></div>
-                <div class="form-group"><label>Section ID</label><input type="text" id="sectionId" class="form-control"></div>
-            `;
-            document.getElementById('modal').style.display = 'flex';
+        function addSocialLink() {
+            if (!portfolioData.socialLinks) portfolioData.socialLinks = [];
+            portfolioData.socialLinks.push({ platform: 'github', url: '' });
+            renderSocialLinks();
         }
 
-        function editSection(pageType, index) {
-            const section = portfolioData.pages[pageType].sections[index];
-            currentModalType = 'editSection';
-            currentEditItem = { pageType, index };
-            document.getElementById('modalTitle').textContent = 'Edit Section';
-            document.getElementById('modalBody').innerHTML = `
-                <div class="form-group"><label>Section Name</label><input type="text" id="sectionName" class="form-control" value="${section.name}"></div>
-                <div class="form-group"><label>Section Type</label><select id="sectionType" class="form-control"><option value="hero" ${section.type === 'hero' ? 'selected' : ''}>Hero</option><option value="about" ${section.type === 'about' ? 'selected' : ''}>About</option><option value="skills" ${section.type === 'skills' ? 'selected' : ''}>Skills</option><option value="projects" ${section.type === 'projects' ? 'selected' : ''}>Projects</option><option value="education" ${section.type === 'education' ? 'selected' : ''}>Education</option><option value="contact" ${section.type === 'contact' ? 'selected' : ''}>Contact</option></select></div>
-                <div class="form-group"><label>Section ID</label><input type="text" id="sectionId" class="form-control" value="${section.id}"></div>
-            `;
-            document.getElementById('modal').style.display = 'flex';
+        function deleteSocialLink(index) {
+            portfolioData.socialLinks.splice(index, 1);
+            renderSocialLinks();
         }
 
-        function deleteSection(pageType, index) {
-            if (confirm('Delete this section?')) {
-                portfolioData.pages[pageType].sections.splice(index, 1);
-                saveData();
-                renderHomepageSections();
-            }
-        }
-
-        function moveSection(pageType, index, direction) {
-            const sections = portfolioData.pages[pageType].sections;
-            if (direction === 'up' && index > 0) {
-                [sections[index], sections[index - 1]] = [sections[index - 1], sections[index]];
-            } else if (direction === 'down' && index < sections.length - 1) {
-                [sections[index], sections[index + 1]] = [sections[index + 1], sections[index]];
-            }
-            sections.forEach((s, i) => s.order = i);
-            saveData();
-            renderHomepageSections();
-        }
-
-        // Project Functions
-        function addNewProject() {
-            currentModalType = 'project';
-            currentEditItem = null;
-            document.getElementById('modalTitle').textContent = 'Add New Project';
-            document.getElementById('modalBody').innerHTML = `
-                <div class="form-group"><label>Project Name</label><input type="text" id="projectName" class="form-control"></div>
-                <div class="form-group"><label>Description</label><textarea id="projectDesc" class="form-control"></textarea></div>
-                <div class="form-group"><label>Tags (comma separated)</label><input type="text" id="projectTags" class="form-control"></div>
-                <div class="form-group"><label>Demo Link</label><input type="text" id="projectLink" class="form-control"></div>
-                ${getImageUploadHTML()}
-            `;
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function editProject(index) {
-            const project = portfolioData.projects[index];
-            currentModalType = 'editProject';
-            currentEditItem = index;
-            document.getElementById('modalTitle').textContent = 'Edit Project';
-            document.getElementById('modalBody').innerHTML = `
-                <div class="form-group"><label>Project Name</label><input type="text" id="projectName" class="form-control" value="${project.title}"></div>
-                <div class="form-group"><label>Description</label><textarea id="projectDesc" class="form-control">${project.description}</textarea></div>
-                <div class="form-group"><label>Tags</label><input type="text" id="projectTags" class="form-control" value="${project.tags}"></div>
-                <div class="form-group"><label>Demo Link</label><input type="text" id="projectLink" class="form-control" value="${project.demoLink || ''}"></div>
-                ${getImageUploadHTML(project.image || '')}
-            `;
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function deleteProject(index) {
-            if (confirm('Delete this project?')) {
-                portfolioData.projects.splice(index, 1);
-                saveData();
-                renderProjectsList();
-            }
-        }
-
-        // Custom Pages Functions
-        function createNewPage() {
-            currentModalType = 'newPage';
-            document.getElementById('modalTitle').textContent = 'Create New Page';
-            document.getElementById('modalBody').innerHTML = `
-                <div class="form-group"><label>Page Name</label><input type="text" id="pageName" class="form-control"></div>
-                <div class="form-group"><label>Page URL</label><input type="text" id="pageUrl" class="form-control" placeholder="about.html"></div>
-            `;
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function editCustomPage(index) {
-            const page = portfolioData.customPages[index];
-            currentModalType = 'editPage';
-            currentEditItem = index;
-            document.getElementById('modalTitle').textContent = 'Edit Page';
-            document.getElementById('modalBody').innerHTML = `
-                <div class="form-group"><label>Page Name</label><input type="text" id="pageName" class="form-control" value="${page.name}"></div>
-                <div class="form-group"><label>Page URL</label><input type="text" id="pageUrl" class="form-control" value="${page.url}"></div>
-            `;
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function deleteCustomPage(index) {
-            if (confirm('Delete this page?')) {
-                portfolioData.customPages.splice(index, 1);
-                saveData();
-                renderCustomPages();
-            }
-        }
-
-        function addPageSection(pageIndex) {
-            currentModalType = 'pageSection';
-            currentEditItem = pageIndex;
-            document.getElementById('modalTitle').textContent = 'Add Section';
-            document.getElementById('modalBody').innerHTML = `
-                <div class="form-group"><label>Section Name</label><input type="text" id="sectionName" class="form-control"></div>
-                <div class="form-group"><label>Content (HTML allowed)</label><textarea id="sectionContent" class="form-control" rows="8"></textarea></div>
-            `;
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function editPageSection(pageIndex, sectionIndex) {
-            const section = portfolioData.customPages[pageIndex].sections[sectionIndex];
-            currentModalType = 'editPageSection';
-            currentEditItem = { pageIndex, sectionIndex };
-            document.getElementById('modalTitle').textContent = 'Edit Section';
-            document.getElementById('modalBody').innerHTML = `
-                <div class="form-group"><label>Section Name</label><input type="text" id="sectionName" class="form-control" value="${section.name}"></div>
-                <div class="form-group"><label>Content</label><textarea id="sectionContent" class="form-control" rows="8">${section.content || ''}</textarea></div>
-            `;
-            document.getElementById('modal').style.display = 'flex';
-        }
-
-        function deletePageSection(pageIndex, sectionIndex) {
-            if (confirm('Delete this section?')) {
-                portfolioData.customPages[pageIndex].sections.splice(sectionIndex, 1);
-                saveData();
-                renderCustomPages();
-            }
-        }
-
-        // Save Modal Item
         function saveModalItem() {
-            if (currentModalType === 'section') {
-                const newSection = { id: document.getElementById('sectionId').value, name: document.getElementById('sectionName').value, type: document.getElementById('sectionType').value, order: portfolioData.pages.homepage.sections.length };
-                portfolioData.pages.homepage.sections.push(newSection);
-                saveData();
-                renderHomepageSections();
-            } else if (currentModalType === 'editSection') {
-                const { pageType, index } = currentEditItem;
-                portfolioData.pages[pageType].sections[index].name = document.getElementById('sectionName').value;
-                portfolioData.pages[pageType].sections[index].type = document.getElementById('sectionType').value;
-                portfolioData.pages[pageType].sections[index].id = document.getElementById('sectionId').value;
-                saveData();
-                renderHomepageSections();
-            } else if (currentModalType === 'project') {
-                const newProject = { id: Date.now(), title: document.getElementById('projectName').value, description: document.getElementById('projectDesc').value, tags: document.getElementById('projectTags').value, demoLink: document.getElementById('projectLink').value, image: document.getElementById('projectImage').value, date: new Date().toISOString() };
-                portfolioData.projects.push(newProject);
-                saveData();
-                renderProjectsList();
-            } else if (currentModalType === 'editProject') {
-                const index = currentEditItem;
-                portfolioData.projects[index].title = document.getElementById('projectName').value;
-                portfolioData.projects[index].description = document.getElementById('projectDesc').value;
-                portfolioData.projects[index].tags = document.getElementById('projectTags').value;
-                portfolioData.projects[index].demoLink = document.getElementById('projectLink').value;
-                portfolioData.projects[index].image = document.getElementById('projectImage').value;
-                saveData();
-                renderProjectsList();
-            } else if (currentModalType === 'newPage') {
-                const newPage = { id: Date.now(), name: document.getElementById('pageName').value, url: document.getElementById('pageUrl').value, sections: [] };
-                portfolioData.customPages.push(newPage);
-                saveData();
-                renderCustomPages();
-            } else if (currentModalType === 'editPage') {
-                const index = currentEditItem;
-                portfolioData.customPages[index].name = document.getElementById('pageName').value;
-                portfolioData.customPages[index].url = document.getElementById('pageUrl').value;
-                saveData();
-                renderCustomPages();
-            } else if (currentModalType === 'pageSection') {
-                const pageIndex = currentEditItem;
-                const newSection = { id: Date.now(), name: document.getElementById('sectionName').value, content: document.getElementById('sectionContent').value };
-                if (!portfolioData.customPages[pageIndex].sections) portfolioData.customPages[pageIndex].sections = [];
-                portfolioData.customPages[pageIndex].sections.push(newSection);
-                saveData();
-                renderCustomPages();
-            } else if (currentModalType === 'editPageSection') {
-                const { pageIndex, sectionIndex } = currentEditItem;
-                portfolioData.customPages[pageIndex].sections[sectionIndex].name = document.getElementById('sectionName').value;
-                portfolioData.customPages[pageIndex].sections[sectionIndex].content = document.getElementById('sectionContent').value;
-                saveData();
-                renderCustomPages();
-            } else if (currentModalType === 'navItem') {
-                const newNavItem = { name: document.getElementById('navName').value, link: document.getElementById('navLink').value, type: document.getElementById('navType').value, target: document.getElementById('navTarget').value };
-                portfolioData.navMenu.push(newNavItem);
-                saveData();
-                renderNavItems();
-            } else if (currentModalType === 'editNavItem') {
-                const index = currentEditItem;
-                portfolioData.navMenu[index].name = document.getElementById('navName').value;
-                portfolioData.navMenu[index].link = document.getElementById('navLink').value;
-                portfolioData.navMenu[index].type = document.getElementById('navType').value;
-                portfolioData.navMenu[index].target = document.getElementById('navTarget').value;
-                saveData();
-                renderNavItems();
-            }
+            if (modalCallback) modalCallback();
             closeModal();
         }
 
         function closeModal() {
             document.getElementById('modal').style.display = 'none';
+            modalCallback = null;
         }
 
-        // Export/Import
         function exportData() {
             const dataStr = JSON.stringify(portfolioData, null, 2);
             const blob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
-            a.href = url;
+            a.href = URL.createObjectURL(blob);
             a.download = 'portfolio-backup.json';
             a.click();
-            URL.revokeObjectURL(url);
         }
 
         function importData() {
             const input = document.createElement('input');
             input.type = 'file';
             input.accept = 'application/json';
-            input.onchange = (e) => {
+            input.onchange = async (e) => {
                 const file = e.target.files[0];
                 const reader = new FileReader();
-                reader.onload = (event) => {
+                reader.onload = async (event) => {
                     try {
-                        portfolioData = JSON.parse(event.target.result);
-                        saveData();
-                        renderAll();
-                        alert('Data imported successfully!');
+                        const data = JSON.parse(event.target.result);
+                        await fetch(`${API_URL}/portfolio`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'x-auth-token': token }, body: JSON.stringify(data) });
+                        showSuccess('Data imported!');
+                        loadAllData();
                     } catch (error) {
-                        alert('Invalid file format');
+                        showError('Invalid file');
                     }
                 };
                 reader.readAsText(file);
@@ -1007,22 +1195,30 @@
             input.click();
         }
 
-        function showSection(section) {
-            document.getElementById('homepage-section').style.display = 'none';
-            document.getElementById('projects-page-section').style.display = 'none';
-            document.getElementById('navbar-section').style.display = 'none';
+        function showSuccess(msg) {
+            const div = document.createElement('div');
+            div.className = 'alert alert-success';
+            div.style.cssText = 'position:fixed;top:20px;right:20px;z-index:9999;padding:12px 20px;background:#d4edda;color:#155724;border-radius:8px;';
+            div.innerHTML = `<i class="fas fa-check-circle"></i> ${msg}`;
+            document.body.appendChild(div);
+            setTimeout(() => div.remove(), 3000);
+        }
 
-            if (section === 'homepage') {
-                document.getElementById('homepage-section').style.display = 'block';
-            } else if (section === 'projects-page') {
-                document.getElementById('projects-page-section').style.display = 'block';
-            } else if (section === 'navbar') {
-                document.getElementById('navbar-section').style.display = 'block';
-                loadNavSettings();
-            }
+        function showError(msg) {
+            const div = document.createElement('div');
+            div.className = 'alert alert-danger';
+            div.style.cssText = 'position:fixed;top:20px;right:20px;z-index:9999;padding:12px 20px;background:#f8d7da;color:#721c24;border-radius:8px;';
+            div.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${msg}`;
+            document.body.appendChild(div);
+            setTimeout(() => div.remove(), 3000);
+        }
 
-            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
-            event.target.closest('.menu-item').classList.add('active');
+        function getSectionIcon(type) {
+            const icons = {
+                hero: 'fa-star', about: 'fa-user', languages: 'fa-code', projects: 'fa-project-diagram',
+                education: 'fa-graduation-cap', contact: 'fa-envelope', footer: 'fa-copyright'
+            };
+            return icons[type] || 'fa-edit';
         }
 
         function logout() {
@@ -1034,7 +1230,7 @@
             document.getElementById('sidebar').classList.toggle('active');
         });
 
-        loadData();
+        loadAllData();
     </script>
 </body>
 
