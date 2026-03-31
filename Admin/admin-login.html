@@ -106,11 +106,32 @@
             border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(159, 201, 199, 0.3);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
         .error-message {
             background: #f8d7da;
             color: #721c24;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
             padding: 12px;
             border-radius: 10px;
             margin-bottom: 20px;
@@ -127,6 +148,23 @@
             color: var(--soft-teal);
             text-decoration: none;
         }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--dark-navy);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.6s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 
@@ -138,8 +176,8 @@
                 <h2>Admin Login</h2>
                 <p>Enter your credentials to continue</p>
             </div>
-            <div id="errorMsg" class="error-message"><i class="fas fa-exclamation-triangle"></i> Invalid email or
-                password!</div>
+            <div id="errorMsg" class="error-message"></div>
+            <div id="successMsg" class="success-message"></div>
             <form id="loginForm">
                 <div class="input-group">
                     <i class="fas fa-envelope"></i>
@@ -148,20 +186,93 @@
                 </div>
                 <div class="input-group">
                     <i class="fas fa-lock"></i>
-                    <input type="password" id="password" placeholder="Enter password" required>
+                    <input type="password" id="password" placeholder="Enter password" value="admin123" required>
                 </div>
-                <button type="submit" class="login-btn"><i class="fas fa-sign-in-alt"></i> Login</button>
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
             </form>
             <div class="back-link"><a href="../index.html"><i class="fas fa-arrow-left"></i> Back to Portfolio</a></div>
         </div>
     </div>
-    <script>
-        // Replace existing login script with:
-            document.getElementById('loginForm').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
 
+    <script>
+        // Default credentials (for localStorage fallback)
+        const DEFAULT_EMAIL = "admin@portfolio.com";
+        const DEFAULT_PASSWORD = "admin123";
+
+        // Get elements
+        const loginForm = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const errorMsg = document.getElementById('errorMsg');
+        const successMsg = document.getElementById('successMsg');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+
+        // Show error function
+        function showError(message) {
+            errorMsg.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + message;
+            errorMsg.style.display = 'block';
+            setTimeout(() => {
+                errorMsg.style.display = 'none';
+            }, 4000);
+        }
+
+        // Show success function
+        function showSuccess(message) {
+            successMsg.innerHTML = '<i class="fas fa-check-circle"></i> ' + message;
+            successMsg.style.display = 'block';
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 3000);
+        }
+
+        // Set loading state
+        function setLoading(isLoading) {
+            if (isLoading) {
+                loginBtn.disabled = true;
+                loginBtn.innerHTML = '<span class="loading-spinner"></span> Logging in...';
+            } else {
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+            }
+        }
+
+        // Check if backend is available
+        async function isBackendAvailable() {
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 3000);
+                const response = await fetch('http://localhost:5000/api/portfolio', {
+                    method: 'GET',
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+                return response.ok;
+            } catch (error) {
+                return false;
+            }
+        }
+
+        // Login handler
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            if (!email || !password) {
+                showError('Please enter both email and password');
+                return;
+            }
+
+            setLoading(true);
+
+            // Check if backend is available
+            const backendAvailable = await isBackendAvailable();
+
+            if (backendAvailable) {
+                // Use Backend Authentication
                 try {
                     const response = await fetch('http://localhost:5000/api/auth/login', {
                         method: 'POST',
@@ -175,14 +286,63 @@
                         localStorage.setItem('adminToken', data.token);
                         localStorage.setItem('adminUser', JSON.stringify(data.user));
                         sessionStorage.setItem('adminLoggedIn', 'true');
-                        window.location.href = 'admin-dashboard.html';
+                        sessionStorage.setItem('adminLoginTime', Date.now());
+                        showSuccess('Login successful! Redirecting...');
+                        setTimeout(() => {
+                            window.location.href = 'admin-dashboard.html';
+                        }, 1000);
                     } else {
-                        showError(data.message);
+                        showError(data.message || 'Invalid credentials');
+                        setLoading(false);
                     }
                 } catch (error) {
-                    showError('Network error. Please check if backend is running.');
+                    console.error('Backend error:', error);
+                    showError('Backend connection failed. Using localStorage mode.');
+                    // Fallback to localStorage
+                    authenticateWithLocalStorage(email, password);
                 }
-            });
+            } else {
+                // Use localStorage Authentication (Fallback)
+                console.log('Backend not available, using localStorage mode');
+                authenticateWithLocalStorage(email, password);
+            }
+        });
+
+        // LocalStorage authentication (fallback)
+        function authenticateWithLocalStorage(email, password) {
+            if (email === DEFAULT_EMAIL && password === DEFAULT_PASSWORD) {
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                sessionStorage.setItem('adminLoginTime', Date.now());
+                localStorage.setItem('useLocalStorage', 'true');
+                showSuccess('Login successful (Offline Mode)! Redirecting...');
+                setTimeout(() => {
+                    window.location.href = 'admin-dashboard.html';
+                }, 1000);
+            } else {
+                showError('Invalid email or password!');
+                setLoading(false);
+            }
+        }
+
+        // Check if already logged in
+        if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+            const loginTime = parseInt(sessionStorage.getItem('adminLoginTime'));
+            const sessionDuration = 30 * 60 * 1000; // 30 minutes
+
+            if (Date.now() - loginTime < sessionDuration) {
+                window.location.href = 'admin-dashboard.html';
+            } else {
+                sessionStorage.removeItem('adminLoggedIn');
+                sessionStorage.removeItem('adminLoginTime');
+            }
+        }
+
+        // Add Enter key support
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                loginForm.dispatchEvent(new Event('submit'));
+            }
+        });
     </script>
 </body>
 
